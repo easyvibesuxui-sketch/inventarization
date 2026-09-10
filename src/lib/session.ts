@@ -1,5 +1,6 @@
 import { redirect } from 'next/navigation';
 import { createClient } from '@/lib/supabase/server';
+import { isSupabaseConfigured } from '@/lib/env';
 import type { Company, UserProfile } from '@/types/database';
 
 export type Session = {
@@ -14,6 +15,8 @@ export type Session = {
  * Sends users without a session to /login and users without a company to /onboarding.
  */
 export async function requireSession(): Promise<Session> {
+  if (!isSupabaseConfigured()) redirect('/login');
+
   const supabase = await createClient();
   const {
     data: { user },

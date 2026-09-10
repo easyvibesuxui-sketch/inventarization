@@ -1,6 +1,8 @@
 import { Suspense } from 'react';
 import Link from 'next/link';
 import LoginForm from './login-form';
+import { isSupabaseConfigured } from '@/lib/env';
+import { Alert } from '@/components/ui';
 
 export const metadata = { title: 'Sign in' };
 
@@ -14,6 +16,14 @@ export default function LoginPage() {
             Beta
           </span>
         </Link>
+        {!isSupabaseConfigured() && (
+          <div className="mb-4">
+            <Alert tone="info">
+              This is a preview with no Supabase project attached, so accounts are
+              unavailable. The landing page and the pricing calculator are fully live.
+            </Alert>
+          </div>
+        )}
         <Suspense fallback={null}>
           <LoginForm />
         </Suspense>

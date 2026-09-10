@@ -1,6 +1,6 @@
 import { NextResponse, type NextRequest } from 'next/server';
 import { createServerClient } from '@supabase/ssr';
-import { supabaseAnonKey, supabaseUrl } from '@/lib/env';
+import { isSupabaseConfigured, supabaseAnonKey, supabaseUrl } from '@/lib/env';
 
 const PUBLIC_PATHS = ['/', '/login', '/pricing', '/auth'];
 
@@ -12,6 +12,16 @@ function isPublic(pathname: string) {
 
 /** Refreshes the auth cookie and gates the app routes behind a session. */
 export async function updateSession(request: NextRequest) {
+  // A deployment without Supabase still serves its public pages; the signed-in
+  // routes send visitors to /login, which explains what is missing.
+  if (!isSupabaseConfigured()) {
+    if (isPublic(request.nextUrl.pathname)) return NextResponse.next({ request });
+    const redirect = request.nextUrl.clone();
+    redirect.pathname = '/login';
+    redirect.search = '';
+    return NextResponse.redirect(redirect);
+  }
+
   let response = NextResponse.next({ request });
 
   const supabase = createServerClient(supabaseUrl(), supabaseAnonKey(), {
