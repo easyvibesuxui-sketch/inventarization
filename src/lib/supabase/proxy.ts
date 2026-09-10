@@ -1,8 +1,10 @@
 import { NextResponse, type NextRequest } from 'next/server';
 import { createServerClient } from '@supabase/ssr';
 import { isSupabaseConfigured, supabaseAnonKey, supabaseUrl } from '@/lib/env';
+import { LOCALES } from '@/lib/i18n/config';
 
-const PUBLIC_PATHS = ['/', '/login', '/pricing', '/auth'];
+// The marketing site, the auth screens, and the locale-prefixed pages under them.
+const PUBLIC_PATHS = ['/', '/login', '/pricing', '/auth', ...LOCALES.map((l) => `/${l}`)];
 
 function isPublic(pathname: string) {
   return PUBLIC_PATHS.some(

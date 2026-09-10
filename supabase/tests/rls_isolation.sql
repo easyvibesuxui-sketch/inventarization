@@ -130,5 +130,36 @@ begin
 end;
 $$;
 
+-- The public landing form writes leads, and only writes them.
+do $$
+declare
+  n integer;
+begin
+  set local role anon;
+  insert into public.leads (email, company, locale) values ('anon@novora.ge', 'Novora', 'ka');
+  begin
+    select count(*) into n from public.leads;
+    raise exception 'FAILED: anon read % lead rows', n;
+  exception
+    when insufficient_privilege then
+      raise notice 'ok: anon can submit a lead but cannot read leads back';
+  end;
+end;
+$$;
+
+-- Anonymous visitors reach nothing else.
+do $$
+begin
+  set local role anon;
+  begin
+    perform 1 from public.products limit 1;
+    raise exception 'FAILED: anon reached the products table';
+  exception
+    when insufficient_privilege then
+      raise notice 'ok: anon cannot reach tenant tables';
+  end;
+end;
+$$;
+
 reset role;
 rollback;

@@ -24,8 +24,10 @@
   --color-partial-500: #fbbf24;
   --color-mismatch-500: #fb7185;
 
-  --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
-    "Helvetica Neue", Arial, "Noto Sans Georgian", sans-serif;
+  /* The loaded face comes first; the stack behind it keeps Georgian readable
+     if the webfont never arrives. */
+  --font-sans: var(--font-sans-loaded), ui-sans-serif, system-ui, -apple-system,
+    "Segoe UI", Roboto, "Noto Sans Georgian", "BPG Nino Mtavruli", Arial, sans-serif;
   --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
 }
 

@@ -10,10 +10,34 @@ test('a tiny workspace lands on the free plan', () => {
   assert.equal(result.monthlyTotal, 0);
 });
 
-test('exceeding a structural limit moves up a tier', () => {
+test('exceeding a structural limit moves up a tier, and says which one', () => {
   const result = quote({ skus: 40, locations: 2, users: 2, checks: 10 });
   assert.equal(result.plan.id, 'starter');
-  assert.match(result.reasons.join(' '), /locations/);
+  assert.deepEqual(
+    result.reasons.filter((r) => r.kind === 'exceeds'),
+    [{ kind: 'exceeds', field: 'locations', value: 2 }],
+  );
+});
+
+test('a comfortable fit reports no blocking limit', () => {
+  const result = quote({ skus: 40, locations: 1, users: 2, checks: 10 });
+  assert.deepEqual(result.reasons, [{ kind: 'fits' }]);
+});
+
+test('overage is reported as data the view can translate', () => {
+  const result = quote({ skus: 500, locations: 2, users: 3, checks: 210 });
+  const overage = result.reasons.find((r) => r.kind === 'overage');
+  assert.deepEqual(overage, {
+    kind: 'overage',
+    count: 10,
+    rate: OVERAGE_PER_CHECK,
+    included: 200,
+  });
+});
+
+test('past the self-serve tiers the only reason given is enterprise', () => {
+  const result = quote({ skus: 500_000, locations: 400, users: 900, checks: 90_000 });
+  assert.deepEqual(result.reasons, [{ kind: 'enterprise' }]);
 });
 
 test('the free plan never carries overage', () => {

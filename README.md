@@ -96,20 +96,42 @@ fed to the model precisely so it knows which items are easy to confuse.
 Counts are never written back automatically — **Apply counts to stock** on a check is an
 explicit human action, and it skips anything flagged for a barcode.
 
+### Languages
+
+The marketing site is Georgian and English, served from `/ka` and `/en`; `/`
+redirects to Georgian, the launch market. All copy lives in
+`src/lib/i18n/dictionaries.ts`, where `en` is the shape of record and `ka` is
+typed against it — a missing key fails the build rather than rendering blank.
+
+Two consequences worth knowing when editing:
+
+- **Plan prose is dictionary content, plan figures are not.** `src/lib/pricing.ts`
+  holds ids, prices and limits; names, blurbs and feature lists are per locale.
+  Both languages therefore quote the same numbers by construction.
+- **The pricing rule returns reason codes, not sentences.** `quote()` explains
+  its choice as data (`{kind: 'overage', count, rate}`), and the calculator turns
+  that into words in the reader's language.
+
+The signed-in app is English for now.
+
 ### Layout
 
 ```
 src/
   app/
+    [locale]/         marketing site: landing, pricing calculator (ka + en)
     (app)/            signed-in shell: dashboard, products, locations, verify, checks, settings
     api/verify/       upload → analyze → persist, the one server route
-    login/ onboarding/ pricing/
+    login/ onboarding/
   lib/
+    i18n/             locales and the two dictionaries
     supabase/         browser, server and proxy clients
     verification/     prompt, schema, analysis call, grading
-    pricing.ts        plan definitions and the calculator's logic
+    pricing.ts        plan figures and the calculator's rule
+  components/
+    marketing/        header, footer, language switcher, mockups, FAQ, lead form
 supabase/
-  migrations/         schema, integrity, RLS, storage, RPCs, views, grants
+  migrations/         schema, integrity, RLS, storage, RPCs, views, grants, leads
   tests/              tenant isolation
 ```
 
@@ -122,6 +144,7 @@ Done:
   `inventory_checks` / `inventory_check_items`, no `localStorage`
 - Dashboard: stock table, low-stock alerts, location filter, verification status
 - Pricing calculator page
+- Bilingual marketing site (Georgian and English) with an early-access form
 
 Deliberately unfinished:
 

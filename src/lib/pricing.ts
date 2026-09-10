@@ -4,18 +4,22 @@
  * (one file, no other changes needed) once pricing is decided.
  */
 
+export type PlanId = 'free' | 'starter' | 'growth' | 'enterprise';
+
+/**
+ * A plan's numbers only. Its name, one-line description and feature list are
+ * marketing copy and live in the dictionary, so both locales read the same
+ * figures without the prose being duplicated per language.
+ */
 export type Plan = {
-  id: 'free' | 'starter' | 'growth' | 'enterprise';
-  name: string;
+  id: PlanId;
   monthly: number | null; // null = talk to sales
-  blurb: string;
   limits: {
     skus: number;
     locations: number;
     users: number;
     checks: number;
   };
-  features: string[];
 };
 
 export const CURRENCY = 'GEL';
@@ -32,50 +36,23 @@ const UNLIMITED = Number.POSITIVE_INFINITY;
 export const PLANS: Plan[] = [
   {
     id: 'free',
-    name: 'Free',
     monthly: 0,
-    blurb: 'One shelf, one person, no card.',
     limits: { skus: 100, locations: 1, users: 2, checks: 20 },
-    features: ['AI shelf verification', 'Low-stock alerts', 'Community support'],
   },
   {
     id: 'starter',
-    name: 'Starter',
     monthly: 79,
-    blurb: 'A single shop or small warehouse.',
     limits: { skus: 1_000, locations: 3, users: 5, checks: 200 },
-    features: [
-      'Everything in Free',
-      'Product folders and categories',
-      'Verification history and export',
-      'Email support',
-    ],
   },
   {
     id: 'growth',
-    name: 'Growth',
     monthly: 249,
-    blurb: 'Multiple sites and a real counting routine.',
     limits: { skus: 10_000, locations: 15, users: 25, checks: 1_500 },
-    features: [
-      'Everything in Starter',
-      'Barcode confirmation workflow',
-      'Role-based access',
-      'Priority support',
-    ],
   },
   {
     id: 'enterprise',
-    name: 'Enterprise',
     monthly: null,
-    blurb: 'Distribution-scale inventory.',
     limits: { skus: UNLIMITED, locations: UNLIMITED, users: UNLIMITED, checks: UNLIMITED },
-    features: [
-      'Everything in Growth',
-      'SSO and audit logs',
-      'Custom integrations',
-      'Onboarding and SLA',
-    ],
   },
 ];
 
@@ -86,10 +63,22 @@ export type Usage = {
   checks: number;
 };
 
+/**
+ * Why a plan was chosen, as data rather than prose.
+ *
+ * The calculator is rendered in two languages, so the rule cannot hand back a
+ * finished English sentence — the view turns these into words.
+ */
+export type Reason =
+  | { kind: 'exceeds'; field: 'skus' | 'locations' | 'users'; value: number }
+  | { kind: 'overage'; count: number; rate: number; included: number }
+  | { kind: 'fits' }
+  | { kind: 'enterprise' };
+
 export type Quote = {
   plan: Plan;
   /** Why this plan and not the cheaper one below it. */
-  reasons: string[];
+  reasons: Reason[];
   basePrice: number;
   overageChecks: number;
   overageCost: number;
@@ -98,17 +87,11 @@ export type Quote = {
   annualSaving: number;
 };
 
-const LIMIT_LABELS: Record<keyof Usage, string> = {
-  skus: 'products',
-  locations: 'locations',
-  users: 'users',
-  checks: 'AI checks per month',
-};
+/** The limit keys, kept as a list so `fits` cannot silently miss one. */
+const LIMIT_KEYS: (keyof Usage)[] = ['skus', 'locations', 'users', 'checks'];
 
 function fits(plan: Plan, usage: Usage): boolean {
-  return (Object.keys(LIMIT_LABELS) as (keyof Usage)[]).every(
-    (key) => usage[key] <= plan.limits[key],
-  );
+  return LIMIT_KEYS.every((key) => usage[key] <= plan.limits[key]);
 }
 
 /**
@@ -147,7 +130,7 @@ export function quote(usage: Usage): Quote {
   if (candidates.length === 0) {
     return {
       plan: enterprise,
-      reasons: ['Your volume is past the self-serve tiers.'],
+      reasons: [{ kind: 'enterprise' }],
       basePrice: 0,
       overageChecks: 0,
       overageCost: 0,
@@ -161,24 +144,25 @@ export function quote(usage: Usage): Quote {
     candidate.monthlyTotal < cheapest.monthlyTotal ? candidate : cheapest,
   );
 
-  const reasons: string[] = [];
+  const reasons: Reason[] = [];
   const cheaper = paid.filter(
     (plan) => (plan.monthly ?? 0) < (best.plan.monthly ?? 0),
   );
-  for (const key of ['skus', 'locations', 'users'] as const) {
-    if (cheaper.some((plan) => usage[key] > plan.limits[key])) {
-      reasons.push(
-        `${usage[key].toLocaleString()} ${LIMIT_LABELS[key]} exceeds the tier below.`,
-      );
+  for (const field of ['skus', 'locations', 'users'] as const) {
+    if (cheaper.some((plan) => usage[field] > plan.limits[field])) {
+      reasons.push({ kind: 'exceeds', field, value: usage[field] });
     }
   }
   if (best.overageChecks > 0) {
-    reasons.push(
-      `${best.overageChecks.toLocaleString()} checks over the ${best.plan.limits.checks.toLocaleString()} included, billed at ${CURRENCY_SYMBOL}${OVERAGE_PER_CHECK.toFixed(2)} each.`,
-    );
+    reasons.push({
+      kind: 'overage',
+      count: best.overageChecks,
+      rate: OVERAGE_PER_CHECK,
+      included: best.plan.limits.checks,
+    });
   }
   if (reasons.length === 0) {
-    reasons.push('Your usage fits inside this plan with room to spare.');
+    reasons.push({ kind: 'fits' });
   }
 
   const annualBeforeDiscount = best.monthlyTotal * 12;
