@@ -1,0 +1,54 @@
+@import "tailwindcss";
+
+/*
+  Inverse uses one dark surface everywhere. The palette is deliberately narrow:
+  three greys for depth, one accent, and three status colours that map directly
+  to the verification verdicts (match / partial / mismatch).
+*/
+@theme {
+  --color-ink-950: #070b12;
+  --color-ink-900: #0b1120;
+  --color-ink-850: #0f172a;
+  --color-ink-800: #131c31;
+  --color-ink-700: #1e293b;
+  --color-ink-600: #334155;
+  --color-ink-400: #94a3b8;
+  --color-ink-300: #cbd5e1;
+  --color-ink-100: #e2e8f0;
+
+  --color-accent-500: #22d3ee;
+  --color-accent-600: #06b6d4;
+  --color-accent-700: #0e7490;
+
+  --color-match-500: #34d399;
+  --color-partial-500: #fbbf24;
+  --color-mismatch-500: #fb7185;
+
+  --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, "Noto Sans Georgian", sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+}
+
+html {
+  color-scheme: dark;
+}
+
+body {
+  background-color: var(--color-ink-950);
+  color: var(--color-ink-100);
+  font-family: var(--font-sans);
+}
+
+/* Subtle grid wash behind the marketing pages. */
+.grid-wash {
+  background-image:
+    radial-gradient(60rem 40rem at 50% -10%, rgba(34, 211, 238, 0.12), transparent 70%),
+    linear-gradient(to right, rgba(148, 163, 184, 0.06) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(148, 163, 184, 0.06) 1px, transparent 1px);
+  background-size: 100% 100%, 3rem 3rem, 3rem 3rem;
+}
+
+::selection {
+  background-color: var(--color-accent-700);
+  color: #fff;
+}
