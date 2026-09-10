@@ -114,6 +114,24 @@ Two consequences worth knowing when editing:
 
 The signed-in app is English for now.
 
+### Look and motion
+
+- **Two typefaces.** BPG Paata Cond Caps (`src/app/fonts/`, self-hosted woff2) sets
+  headings, nav and buttons; Noto Sans Georgian sets body text. The display face
+  has **no lari sign**, so any element containing a price carries `font-body`
+  rather than falling back mid-number.
+- **Grain** is one fixed SVG turbulence tile at `mix-blend-mode: overlay`. It is
+  deliberately static: an animated version forced a full-page re-composite every
+  frame and measurably starved the scroll transitions.
+- **Motion splits in two.** Above the fold uses `Rise` — a pure CSS animation
+  that runs on first paint, so the hero never waits for hydration to become
+  visible. Below the fold uses `Reveal`, an IntersectionObserver that toggles one
+  class and then disconnects; it never re-renders React as you scroll. Both are
+  disabled under `prefers-reduced-motion`, and a `<noscript>` rule unhides
+  everything when scripting is off.
+- **Photography** in `src/images/` was generated with Kling AI and is served
+  through `next/image` with blur placeholders (~60 KB each).
+
 ### Layout
 
 ```
@@ -129,7 +147,10 @@ src/
     verification/     prompt, schema, analysis call, grading
     pricing.ts        plan figures and the calculator's rule
   components/
-    marketing/        header, footer, language switcher, mockups, FAQ, lead form
+    marketing/        header, footer, language switcher, mockups, FAQ, lead form,
+                      grain, scroll progress, Rise/Reveal/Parallax motion
+  images/             generated photography (webp)
+  app/fonts/          self-hosted display face
 supabase/
   migrations/         schema, integrity, RLS, storage, RPCs, views, grants, leads
   tests/              tenant isolation

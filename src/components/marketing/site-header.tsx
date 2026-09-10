@@ -2,6 +2,7 @@ import Link from 'next/link';
 import type { Locale } from '@/lib/i18n/config';
 import type { Dictionary } from '@/lib/i18n/dictionaries';
 import LangSwitcher from './lang-switcher';
+import ScrollProgress from './scroll-progress';
 
 export default function SiteHeader({
   locale,
@@ -18,9 +19,9 @@ export default function SiteHeader({
   ];
 
   return (
-    <header className="sticky top-0 z-20 border-b border-ink-700/60 bg-ink-950/80 backdrop-blur">
+    <header className="sticky top-0 z-50 border-b border-ink-700/60 bg-ink-950/80 backdrop-blur">
       <div className="mx-auto flex max-w-6xl items-center gap-4 px-6 py-3.5">
-        <Link href={`/${locale}`} className="text-lg font-semibold tracking-tight">
+        <Link href={`/${locale}`} className="font-display text-xl tracking-[0.06em]">
           Inverse
         </Link>
 
@@ -29,7 +30,7 @@ export default function SiteHeader({
             <Link
               key={link.href}
               href={link.href}
-              className="rounded-lg px-3 py-1.5 text-sm text-ink-400 transition hover:text-ink-100"
+              className="font-display rounded-lg px-3 py-1.5 text-sm tracking-[0.05em] text-ink-400 transition hover:text-ink-100"
             >
               {link.label}
             </Link>
@@ -40,18 +41,19 @@ export default function SiteHeader({
           <LangSwitcher locale={locale} />
           <Link
             href="/login"
-            className="rounded-lg px-3 py-1.5 text-sm text-ink-300 transition hover:text-ink-100"
+            className="font-display rounded-lg px-3 py-1.5 text-sm tracking-[0.05em] text-ink-300 transition hover:text-ink-100"
           >
             {dict.nav.signIn}
           </Link>
           <Link
             href="/login"
-            className="rounded-lg bg-accent-600 px-3 py-1.5 text-sm font-medium text-ink-950 transition hover:bg-accent-500"
+            className="font-display rounded-lg bg-accent-600 px-3 py-1.5 text-sm tracking-[0.05em] text-ink-950 transition hover:bg-accent-500"
           >
             {dict.nav.start}
           </Link>
         </div>
       </div>
+      <ScrollProgress />
     </header>
   );
 }

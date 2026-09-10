@@ -3,6 +3,7 @@ import { HTML_LANG, isLocale, LOCALES } from '@/lib/i18n/config';
 import { getDictionary } from '@/lib/i18n/dictionaries';
 import SiteHeader from '@/components/marketing/site-header';
 import SiteFooter from '@/components/marketing/site-footer';
+import Grain from '@/components/marketing/grain';
 
 export function generateStaticParams() {
   return LOCALES.map((locale) => ({ locale }));
@@ -22,6 +23,13 @@ export default async function LocaleLayout({
     // segment and cannot see the locale, so the language is declared here.
     // Nested lang is valid HTML and assistive tech honours the nearest one.
     <div lang={HTML_LANG[locale]} className="flex min-h-full flex-1 flex-col">
+      {/* Scroll reveals start hidden and are unhidden by JavaScript. Without it
+          the page would render blank, so opt every reveal into its finished
+          state when scripting is off. */}
+      <noscript>
+        <style>{'.reveal{opacity:1!important;transform:none!important;filter:none!important}.rule-draw{transform:none!important}.rise{animation:none!important}'}</style>
+      </noscript>
+      <Grain />
       <SiteHeader locale={locale} dict={dict} />
       <main className="flex-1">{children}</main>
       <SiteFooter locale={locale} dict={dict} />
