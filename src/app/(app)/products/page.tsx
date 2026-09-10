@@ -67,7 +67,7 @@ export default async function ProductsPage({ searchParams }: PageProps<'/product
       <div className="flex flex-wrap items-end justify-between gap-4">
         <div>
           <h1 className="text-2xl font-semibold tracking-tight">Products</h1>
-          <p className="mt-1 text-sm text-ink-400">
+          <p className="mt-1 text-sm text-ink-faint">
             {products.length} shown{locationFilter ? ' at this location' : ''}
           </p>
         </div>
@@ -97,7 +97,7 @@ export default async function ProductsPage({ searchParams }: PageProps<'/product
           <div className="overflow-x-auto">
             <table className="w-full min-w-[52rem] text-sm">
               <thead>
-                <tr className="border-b border-ink-700/70 text-left text-xs uppercase tracking-wider text-ink-400">
+                <tr className="border-b border-rule/70 text-left text-xs uppercase tracking-wider text-ink-faint">
                   <th className="pb-2 pr-4 font-medium">SKU</th>
                   <th className="pb-2 pr-4 font-medium">Product</th>
                   <th className="pb-2 pr-4 font-medium">Category</th>
@@ -106,10 +106,10 @@ export default async function ProductsPage({ searchParams }: PageProps<'/product
                   <th className="pb-2 font-medium">Stock by location</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-ink-700/50">
+              <tbody className="divide-y divide-rule/50">
                 {products.map((product) => (
                   <tr key={product.product_id} className="align-top">
-                    <td className="py-3 pr-4 font-mono text-xs text-ink-300">
+                    <td className="py-3 pr-4 font-mono text-xs text-ink-soft">
                       {product.sku}
                     </td>
                     <td className="py-3 pr-4">
@@ -117,25 +117,25 @@ export default async function ProductsPage({ searchParams }: PageProps<'/product
                         {[product.brand, product.name].filter(Boolean).join(' ')}
                       </p>
                       {product.variant && (
-                        <p className="text-xs text-ink-400">{product.variant}</p>
+                        <p className="text-xs text-ink-faint">{product.variant}</p>
                       )}
                       {product.barcode && (
-                        <p className="font-mono text-xs text-ink-400">
+                        <p className="font-mono text-xs text-ink-faint">
                           {product.barcode}
                         </p>
                       )}
                     </td>
-                    <td className="py-3 pr-4 text-ink-300">
+                    <td className="py-3 pr-4 text-ink-soft">
                       {product.category_name ?? '—'}
                     </td>
                     <td
                       className={`py-3 pr-4 text-right font-semibold tabular-nums ${
-                        product.is_low_stock ? 'text-partial-500' : 'text-ink-100'
+                        product.is_low_stock ? 'text-review' : 'text-ink'
                       }`}
                     >
                       {product.total_quantity} {product.unit}
                     </td>
-                    <td className="py-3 pr-4 text-right tabular-nums text-ink-400">
+                    <td className="py-3 pr-4 text-right tabular-nums text-ink-faint">
                       {product.reorder_point}
                     </td>
                     <td className="py-3">

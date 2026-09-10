@@ -27,7 +27,7 @@ export default async function LocaleLayout({
           the page would render blank, so opt every reveal into its finished
           state when scripting is off. */}
       <noscript>
-        <style>{'.reveal{opacity:1!important;transform:none!important;filter:none!important}.rule-draw{transform:none!important}.rise{animation:none!important}'}</style>
+        <style>{'.reveal{opacity:1!important;transform:none!important;filter:none!important}.rise{animation:none!important}'}</style>
       </noscript>
       <Grain />
       <SiteHeader locale={locale} dict={dict} />

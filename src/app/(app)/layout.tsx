@@ -7,7 +7,7 @@ export default async function AppLayout({ children }: LayoutProps<'/'>) {
 
   return (
     <div className="flex min-h-full flex-col">
-      <header className="sticky top-0 z-10 border-b border-ink-700/70 bg-ink-950/85 backdrop-blur">
+      <header className="sticky top-0 z-10 border-b border-rule/70 bg-paper/85 backdrop-blur">
         <div className="mx-auto flex max-w-7xl flex-wrap items-center gap-x-6 gap-y-3 px-6 py-3">
           <Link href="/dashboard" className="flex items-center gap-2">
             <span className="text-base font-semibold tracking-tight">Inverse</span>
@@ -16,14 +16,14 @@ export default async function AppLayout({ children }: LayoutProps<'/'>) {
           <div className="ml-auto flex items-center gap-3">
             <div className="text-right">
               <p className="text-sm font-medium leading-tight">{company.name}</p>
-              <p className="text-xs leading-tight text-ink-400">
+              <p className="text-xs leading-tight text-ink-faint">
                 {profile.full_name ?? profile.email} · {profile.role}
               </p>
             </div>
             <form action="/auth/signout" method="post">
               <button
                 type="submit"
-                className="rounded-lg border border-ink-600 px-3 py-1.5 text-sm text-ink-300 transition hover:border-ink-400 hover:text-ink-100"
+                className="rounded-lg border border-rule-strong px-3 py-1.5 text-sm text-ink-soft transition hover:border-ink-faint hover:text-ink"
               >
                 Sign out
               </button>

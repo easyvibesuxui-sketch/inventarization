@@ -12,7 +12,7 @@ export default function LoginPage() {
       <div className="w-full max-w-sm">
         <Link href="/ka" className="mb-8 flex items-center gap-2">
           <span className="text-lg font-semibold tracking-tight">Inverse</span>
-          <span className="rounded bg-accent-500/15 px-1.5 py-0.5 text-[10px] font-medium uppercase tracking-wider text-accent-500">
+          <span className="rounded bg-ink/15 px-1.5 py-0.5 text-[10px] font-medium uppercase tracking-wider text-ink">
             Beta
           </span>
         </Link>

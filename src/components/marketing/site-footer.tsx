@@ -10,26 +10,21 @@ export default function SiteFooter({
   dict: Dictionary;
 }) {
   return (
-    <footer className="border-t border-ink-700/60">
-      <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-4 px-6 py-8 text-sm text-ink-400">
+    <footer className="border-t border-rule">
+      <div className="mx-auto flex max-w-5xl flex-wrap items-baseline justify-between gap-x-8 gap-y-3 px-6 py-8 text-sm text-ink-faint">
         <p>{dict.footer.tagline}</p>
-        <nav className="flex flex-wrap items-center gap-4">
-          <Link href={`/${locale}#how`} className="transition hover:text-ink-100">
+        <nav className="flex flex-wrap items-baseline gap-6">
+          <Link href={`/${locale}#how`} className="transition hover:text-ink">
             {dict.nav.how}
           </Link>
-          <Link href={`/${locale}/pricing`} className="transition hover:text-ink-100">
+          <Link href={`/${locale}/pricing`} className="transition hover:text-ink">
             {dict.nav.pricing}
           </Link>
-          <Link href={`/${locale}#faq`} className="transition hover:text-ink-100">
-            {dict.nav.faq}
-          </Link>
-          <Link href="/login" className="transition hover:text-ink-100">
+          <Link href="/login" className="transition hover:text-ink">
             {dict.nav.signIn}
           </Link>
         </nav>
-        <p className="text-xs">
-          © {new Date().getFullYear()} Novora. {dict.footer.rights}
-        </p>
+        <p>© {new Date().getFullYear()} Novora</p>
       </div>
     </footer>
   );

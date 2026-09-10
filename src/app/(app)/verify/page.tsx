@@ -44,7 +44,7 @@ export default async function VerifyPage() {
     <div className="space-y-6">
       <div>
         <h1 className="text-2xl font-semibold tracking-tight">Verify a shelf</h1>
-        <p className="mt-1 max-w-2xl text-sm text-ink-400">
+        <p className="mt-1 max-w-2xl text-sm text-ink-faint">
           Point the camera at a shelf, freeze a frame, and Inverse counts what it sees
           against the record for that location. Analysis runs on a still image, not a live
           stream — so hold steady, capture, then send.

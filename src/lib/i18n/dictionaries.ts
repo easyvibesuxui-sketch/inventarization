@@ -173,6 +173,7 @@ const en = {
   cta: {
     title: 'Try it on one shelf',
     body: 'Leave your email and we will get you set up on a real shelf in your own warehouse — no migration, no commitment.',
+    email: 'Email',
     placeholder: 'you@company.ge',
     button: 'Request access',
     sending: 'Sending…',
@@ -451,6 +452,7 @@ const ka: Dictionary = {
   cta: {
     title: 'გამოსცადე ერთ თაროზე',
     body: 'დატოვე ელფოსტა და დაგეხმარებით, გამართო შენივე საწყობის რეალურ თაროზე — მიგრაციის და ვალდებულების გარეშე.',
+    email: 'ელფოსტა',
     placeholder: 'you@company.ge',
     button: 'მოითხოვე წვდომა',
     sending: 'იგზავნება…',

@@ -1,173 +1,128 @@
 @import "tailwindcss";
 
 /*
-  Inverse uses one dark surface everywhere. The palette is deliberately narrow:
-  three greys for depth, one accent, and three status colours that map directly
-  to the verification verdicts (match / partial / mismatch).
+  Paper. The page is printed ink on a warm off-white, not a dark UI: one neutral
+  ramp, no brand accent, and colour used only where it carries meaning — the
+  three verification verdicts.
 */
 @theme {
-  --color-ink-950: #070b12;
-  --color-ink-900: #0b1120;
-  --color-ink-850: #0f172a;
-  --color-ink-800: #131c31;
-  --color-ink-700: #1e293b;
-  --color-ink-600: #334155;
-  --color-ink-400: #94a3b8;
-  --color-ink-300: #cbd5e1;
-  --color-ink-100: #e2e8f0;
+  --color-paper: #faf9f6;
+  --color-paper-sunk: #f2f1ec;
+  --color-rule: #dedcd4;
+  --color-rule-strong: #c3c0b5;
 
-  --color-accent-500: #22d3ee;
-  --color-accent-600: #06b6d4;
-  --color-accent-700: #0e7490;
+  --color-ink: #14140f;
+  --color-ink-soft: #55534a;
+  --color-ink-faint: #85837a;
 
-  --color-match-500: #34d399;
-  --color-partial-500: #fbbf24;
-  --color-mismatch-500: #fb7185;
+  /* Verdict colours, mixed toward print rather than screen. */
+  --color-match: #2f6b41;
+  --color-review: #8a6415;
+  --color-mismatch: #a33227;
 
-  /* The loaded face comes first; the stack behind it keeps Georgian readable
-     if the webfont never arrives. */
-  --font-sans: var(--font-sans-loaded), ui-sans-serif, system-ui, -apple-system,
-    "Segoe UI", Roboto, "Noto Sans Georgian", "BPG Nino Mtavruli", Arial, sans-serif;
+  --font-sans: var(--font-body-loaded), "Helvetica Neue", Helvetica, Arial,
+    "Noto Sans Georgian", sans-serif;
+  --font-display: var(--font-display-loaded), var(--font-sans);
   --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
 
-  /* Condensed caps display face, for headings and labels only. */
-  --font-display: var(--font-display-loaded), var(--font-sans);
-
-  /* One easing for the whole page: decisive start, long soft settle. */
   --ease-out-quint: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 html {
-  color-scheme: dark;
+  color-scheme: light;
 }
 
 body {
-  background-color: var(--color-ink-950);
-  color: var(--color-ink-100);
+  background-color: var(--color-paper);
+  color: var(--color-ink);
   font-family: var(--font-sans);
-}
-
-/* Subtle grid wash behind the marketing pages. */
-.grid-wash {
-  background-image:
-    radial-gradient(60rem 40rem at 50% -10%, rgba(34, 211, 238, 0.12), transparent 70%),
-    linear-gradient(to right, rgba(148, 163, 184, 0.06) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(148, 163, 184, 0.06) 1px, transparent 1px);
-  background-size: 100% 100%, 3rem 3rem, 3rem 3rem;
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
 }
 
 ::selection {
-  background-color: var(--color-accent-700);
-  color: #fff;
+  background-color: var(--color-ink);
+  color: var(--color-paper);
 }
 
-
-/* ---------------------------------------------------------------------------
-   Display type
-   The face is caps-only and condensed, so it wants a little tracking and a
-   tighter leading than the body face. Declared in the components layer so a
-   `leading-*` or `tracking-*` utility still overrides it where a heading needs
-   something specific.
-   --------------------------------------------------------------------------- */
 @layer components {
+  /* Condensed caps face, for headings and small labels. */
   .font-display {
     font-family: var(--font-display);
-    letter-spacing: 0.02em;
-    line-height: 1.02;
+    letter-spacing: 0.01em;
+    line-height: 1.04;
   }
 
-  /* The display face has no lari sign, so anything containing a price opts back
-     into the body face rather than falling back mid-number. */
-  .font-body {
-    font-family: var(--font-sans);
-    letter-spacing: normal;
+  /* Small caps-style label: the one repeated typographic device on the page. */
+  .label {
+    font-family: var(--font-display);
+    font-size: 0.75rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--color-ink-faint);
   }
 }
 
 /* ---------------------------------------------------------------------------
-   Film grain
-   An SVG turbulence tile, fixed over the viewport. `overlay` keeps it invisible
-   on mid greys and lets it bite in the highlights and shadows.
-
-   Deliberately static. An animated version of this element — full-viewport,
-   blended, repainting every frame — forced the whole page to re-composite and
-   visibly starved the scroll-reveal transitions.
+   Paper grain
+   Multiply, not overlay: on a light ground it should read as tooth in the paper
+   rather than as a glow. Static — an animated full-viewport blended layer forces
+   the whole page to re-composite every frame.
    --------------------------------------------------------------------------- */
 .grain {
   position: fixed;
   inset: 0;
   z-index: 60;
   pointer-events: none;
-  opacity: 0.18;
-  mix-blend-mode: overlay;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)'/%3E%3C/svg%3E");
+  opacity: 0.35;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E");
   background-repeat: repeat;
 }
 
 /* ---------------------------------------------------------------------------
-   Load-in (above the fold)
-   Pure CSS, so the hero paints and animates without waiting for hydration.
-   `both` holds the start state through the delay and the end state after.
+   Motion
+   Deliberately quiet: a short fade and a few pixels of travel. No blur, no
+   scale. Type should settle, not perform.
    --------------------------------------------------------------------------- */
 @keyframes rise {
   from {
     opacity: 0;
-    transform: translate3d(0, 22px, 0);
-    filter: blur(6px);
+    transform: translate3d(0, 10px, 0);
   }
   to {
     opacity: 1;
     transform: none;
-    filter: none;
   }
 }
 
+/* Above the fold: pure CSS, so the hero never waits for hydration. */
 .rise {
-  animation: rise 0.85s var(--ease-out-quint) both;
+  animation: rise 0.6s var(--ease-out-quint) both;
 }
 
-/* ---------------------------------------------------------------------------
-   Scroll reveal
-   Reveal.tsx toggles `.is-visible`; the motion is entirely here.
-   --------------------------------------------------------------------------- */
+/* Below the fold: Reveal.tsx adds `.is-visible` when the element scrolls in. */
 .reveal {
   opacity: 0;
-  transform: translate3d(0, 22px, 0);
-  filter: blur(6px);
+  transform: translate3d(0, 10px, 0);
   transition:
-    opacity 0.75s var(--ease-out-quint),
-    transform 0.75s var(--ease-out-quint),
-    filter 0.75s var(--ease-out-quint);
+    opacity 0.55s var(--ease-out-quint),
+    transform 0.55s var(--ease-out-quint);
 }
 
 .reveal.is-visible {
   opacity: 1;
   transform: none;
-  filter: none;
-}
-
-/* A hairline that draws itself in as a section arrives. */
-.rule-draw {
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: transform 1.1s var(--ease-out-quint);
-}
-
-.reveal.is-visible .rule-draw,
-.rule-draw.is-visible {
-  transform: scaleX(1);
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .reveal,
-  .rule-draw {
-    opacity: 1;
-    transform: none;
-    filter: none;
-    transition: none;
-  }
-
   .rise {
     animation: none;
+  }
+
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
   }
 }

@@ -7,6 +7,9 @@ import { submitLead, type LeadState } from '@/app/[locale]/actions';
 
 const INITIAL: LeadState = { status: 'idle' };
 
+const FIELD =
+  'w-full border-b border-rule-strong bg-transparent py-2 text-sm placeholder:text-ink-faint focus:border-ink focus:outline-none';
+
 export default function LeadForm({
   locale,
   dict,
@@ -17,11 +20,7 @@ export default function LeadForm({
   const [state, action, pending] = useActionState(submitLead, INITIAL);
 
   if (state.status === 'success') {
-    return (
-      <p className="rounded-lg border border-match-500/40 bg-match-500/10 px-4 py-3 text-sm text-match-500">
-        {dict.cta.success}
-      </p>
-    );
+    return <p className="border-t border-ink py-4 text-sm">{dict.cta.success}</p>;
   }
 
   // The action returns a dictionary key, so the message is translated here
@@ -34,36 +33,34 @@ export default function LeadForm({
       : null;
 
   return (
-    <form action={action} className="space-y-3">
+    <form action={action} className="max-w-xl">
       <input type="hidden" name="locale" value={locale} />
-      <div className="flex flex-col gap-3 sm:flex-row">
-        <input
-          name="email"
-          type="email"
-          required
-          placeholder={dict.cta.placeholder}
-          aria-label={dict.cta.placeholder}
-          className="w-full flex-1 rounded-lg border border-ink-600 bg-ink-850 px-3.5 py-2.5 text-sm text-ink-100 placeholder:text-ink-400 focus:border-accent-600 focus:outline-none focus:ring-1 focus:ring-accent-600"
-        />
-        <input
-          name="company"
-          placeholder={dict.cta.companyPlaceholder}
-          aria-label={dict.cta.company}
-          className="w-full rounded-lg border border-ink-600 bg-ink-850 px-3.5 py-2.5 text-sm text-ink-100 placeholder:text-ink-400 focus:border-accent-600 focus:outline-none focus:ring-1 focus:ring-accent-600 sm:w-48"
-        />
-        <button
-          type="submit"
-          disabled={pending}
-          className="rounded-lg bg-accent-600 px-5 py-2.5 text-sm font-medium text-ink-950 transition hover:bg-accent-500 disabled:opacity-50"
-        >
-          {pending ? dict.cta.sending : dict.cta.button}
-        </button>
+      <div className="grid gap-x-6 gap-y-4 sm:grid-cols-2">
+        <label className="block">
+          <span className="label">{dict.cta.email}</span>
+          <input
+            name="email"
+            type="email"
+            required
+            placeholder={dict.cta.placeholder}
+            className={FIELD}
+          />
+        </label>
+        <label className="block">
+          <span className="label">{dict.cta.company}</span>
+          <input name="company" placeholder={dict.cta.companyPlaceholder} className={FIELD} />
+        </label>
       </div>
-      {error && (
-        <p className="rounded-lg border border-partial-500/40 bg-partial-500/10 px-4 py-3 text-sm text-partial-500">
-          {error}
-        </p>
-      )}
+
+      <button
+        type="submit"
+        disabled={pending}
+        className="mt-6 bg-ink px-6 py-2.5 text-sm text-paper transition hover:bg-ink-soft disabled:opacity-50"
+      >
+        {pending ? dict.cta.sending : dict.cta.button}
+      </button>
+
+      {error && <p className="mt-4 text-sm text-mismatch">{error}</p>}
     </form>
   );
 }

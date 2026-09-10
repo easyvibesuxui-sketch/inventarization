@@ -49,13 +49,13 @@ export default async function CheckDetailPage({ params }: PageProps<'/checks/[id
     <div className="space-y-6">
       <div className="flex flex-wrap items-start justify-between gap-4">
         <div>
-          <Link href="/checks" className="text-xs text-accent-500 hover:text-accent-400">
+          <Link href="/checks" className="text-xs text-ink hover:text-ink">
             ← All checks
           </Link>
           <h1 className="mt-1 text-2xl font-semibold tracking-tight">
             {check.locations?.code} — {check.locations?.name}
           </h1>
-          <p className="mt-1 text-sm text-ink-400">
+          <p className="mt-1 text-sm text-ink-faint">
             {new Date(check.started_at).toLocaleString('en-GB', {
               dateStyle: 'medium',
               timeStyle: 'short',
@@ -72,7 +72,7 @@ export default async function CheckDetailPage({ params }: PageProps<'/checks/[id
 
       {check.summary && (
         <Card title="What the model saw">
-          <p className="text-sm leading-relaxed text-ink-300">{check.summary}</p>
+          <p className="text-sm leading-relaxed text-ink-soft">{check.summary}</p>
         </Card>
       )}
 
@@ -112,12 +112,12 @@ export default async function CheckDetailPage({ params }: PageProps<'/checks/[id
           }
         >
           {rows.length === 0 ? (
-            <p className="text-sm text-ink-400">This check produced no line items.</p>
+            <p className="text-sm text-ink-faint">This check produced no line items.</p>
           ) : (
             <div className="overflow-x-auto">
               <table className="w-full min-w-[36rem] text-sm">
                 <thead>
-                  <tr className="border-b border-ink-700/70 text-left text-xs uppercase tracking-wider text-ink-400">
+                  <tr className="border-b border-rule/70 text-left text-xs uppercase tracking-wider text-ink-faint">
                     <th className="pb-2 pr-4 font-medium">Product</th>
                     <th className="pb-2 pr-4 text-right font-medium">Expected</th>
                     <th className="pb-2 pr-4 text-right font-medium">Counted</th>
@@ -125,27 +125,27 @@ export default async function CheckDetailPage({ params }: PageProps<'/checks/[id
                     <th className="pb-2 font-medium">Verdict</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-ink-700/50">
+                <tbody className="divide-y divide-rule/50">
                   {rows.map((row) => (
                     <tr key={row.id} className="align-top">
                       <td className="py-3 pr-4">
                         <p className="font-medium">{row.product_label}</p>
                         {row.notes && (
-                          <p className="mt-0.5 text-xs text-ink-400">{row.notes}</p>
+                          <p className="mt-0.5 text-xs text-ink-faint">{row.notes}</p>
                         )}
                         {row.needs_barcode && (
-                          <p className="mt-0.5 text-xs text-partial-500">
+                          <p className="mt-0.5 text-xs text-review">
                             Scan the barcode to confirm which variant this is.
                           </p>
                         )}
                       </td>
-                      <td className="py-3 pr-4 text-right tabular-nums text-ink-300">
+                      <td className="py-3 pr-4 text-right tabular-nums text-ink-soft">
                         {row.expected_qty ?? '—'}
                       </td>
                       <td className="py-3 pr-4 text-right font-semibold tabular-nums">
                         {row.detected_qty ?? '—'}
                       </td>
-                      <td className="py-3 pr-4 text-right tabular-nums text-ink-400">
+                      <td className="py-3 pr-4 text-right tabular-nums text-ink-faint">
                         {row.confidence === null
                           ? '—'
                           : `${Math.round(row.confidence * 100)}%`}
@@ -167,15 +167,15 @@ export default async function CheckDetailPage({ params }: PageProps<'/checks/[id
             <img
               src={signed.signedUrl}
               alt={`Shelf ${check.locations?.code ?? ''}`}
-              className="w-full rounded-lg border border-ink-700"
+              className="w-full rounded-lg border border-rule"
             />
           ) : (
-            <p className="text-sm text-ink-400">
+            <p className="text-sm text-ink-faint">
               The photo is no longer available in storage.
             </p>
           )}
           {check.input_tokens !== null && (
-            <p className="mt-3 text-xs text-ink-400">
+            <p className="mt-3 text-xs text-ink-faint">
               {check.input_tokens.toLocaleString()} input ·{' '}
               {(check.output_tokens ?? 0).toLocaleString()} output tokens
             </p>

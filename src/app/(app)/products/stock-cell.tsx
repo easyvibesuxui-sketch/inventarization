@@ -25,7 +25,7 @@ export default function StockCell({
   );
 
   if (levels.length === 0 && !canWrite) {
-    return <span className="text-xs text-ink-400">Not placed</span>;
+    return <span className="text-xs text-ink-faint">Not placed</span>;
   }
 
   return (
@@ -36,11 +36,11 @@ export default function StockCell({
           <form
             key={level.location_id}
             action={setStockLevel}
-            className="flex items-center gap-1 rounded-lg border border-ink-700 bg-ink-850 px-2 py-1"
+            className="flex items-center gap-1 rounded-lg border border-rule bg-paper-sunk px-2 py-1"
           >
             <input type="hidden" name="product_id" value={productId} />
             <input type="hidden" name="location_id" value={level.location_id} />
-            <span className="font-mono text-xs text-ink-400">
+            <span className="font-mono text-xs text-ink-faint">
               {location?.code ?? 'unknown'}
             </span>
             <input
@@ -50,12 +50,12 @@ export default function StockCell({
               defaultValue={level.quantity}
               disabled={!canWrite}
               aria-label={`Quantity at ${location?.code ?? 'location'}`}
-              className="w-14 bg-transparent text-right text-xs tabular-nums text-ink-100 focus:outline-none disabled:text-ink-400"
+              className="w-14 bg-transparent text-right text-xs tabular-nums text-ink focus:outline-none disabled:text-ink-faint"
             />
             {canWrite && (
               <button
                 type="submit"
-                className="text-xs text-accent-500 transition hover:text-accent-400"
+                className="text-xs text-ink transition hover:text-ink"
               >
                 save
               </button>
@@ -68,7 +68,7 @@ export default function StockCell({
         <button
           type="button"
           onClick={() => setAdding(true)}
-          className="rounded-lg border border-dashed border-ink-600 px-2 py-1 text-xs text-ink-400 transition hover:border-ink-400 hover:text-ink-100"
+          className="rounded-lg border border-dashed border-rule-strong px-2 py-1 text-xs text-ink-faint transition hover:border-ink-faint hover:text-ink"
         >
           + location
         </button>
@@ -78,16 +78,16 @@ export default function StockCell({
         <form
           action={setStockLevel}
           onSubmit={() => setAdding(false)}
-          className="flex items-center gap-1 rounded-lg border border-ink-600 bg-ink-850 px-2 py-1"
+          className="flex items-center gap-1 rounded-lg border border-rule-strong bg-paper-sunk px-2 py-1"
         >
           <input type="hidden" name="product_id" value={productId} />
           <select
             name="location_id"
             aria-label="Location"
-            className="bg-transparent text-xs text-ink-100 focus:outline-none"
+            className="bg-transparent text-xs text-ink focus:outline-none"
           >
             {unused.map((location) => (
-              <option key={location.id} value={location.id} className="bg-ink-850">
+              <option key={location.id} value={location.id} className="bg-paper-sunk">
                 {location.code}
               </option>
             ))}
@@ -100,7 +100,7 @@ export default function StockCell({
             aria-label="Quantity"
             className="w-14 bg-transparent text-right text-xs tabular-nums focus:outline-none"
           />
-          <button type="submit" className="text-xs text-accent-500 hover:text-accent-400">
+          <button type="submit" className="text-xs text-ink hover:text-ink">
             add
           </button>
         </form>

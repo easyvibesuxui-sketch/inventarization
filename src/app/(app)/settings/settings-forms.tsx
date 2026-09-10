@@ -37,7 +37,7 @@ export default function SettingsForms({
       </Card>
 
       <Card title="Demo data">
-        <p className="text-sm text-ink-400">
+        <p className="text-sm text-ink-faint">
           Loads a small catalogue — two near-identical hairbrush lines and a cosmetics
           shelf — so you can try the verification flow before importing anything real.
           It refuses to run if the workspace already has products.

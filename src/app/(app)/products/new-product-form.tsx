@@ -12,9 +12,9 @@ export default function NewProductForm({ locations }: { locations: Location[] })
   const formRef = useRef<HTMLFormElement>(null);
 
   return (
-    <details className="rounded-xl border border-ink-700/70 bg-ink-900/60">
-      <summary className="cursor-pointer list-none px-5 py-3.5 text-sm font-semibold text-ink-100 marker:content-none">
-        <span className="text-accent-500">+</span> Add a product
+    <details className="rounded-xl border border-rule/70 bg-paper-sunk/60">
+      <summary className="cursor-pointer list-none px-5 py-3.5 text-sm font-semibold text-ink marker:content-none">
+        <span className="text-ink">+</span> Add a product
       </summary>
       <form
         ref={formRef}
@@ -22,7 +22,7 @@ export default function NewProductForm({ locations }: { locations: Location[] })
           await action(formData);
           formRef.current?.reset();
         }}
-        className="grid gap-4 border-t border-ink-700/70 p-5 sm:grid-cols-2 lg:grid-cols-3"
+        className="grid gap-4 border-t border-rule/70 p-5 sm:grid-cols-2 lg:grid-cols-3"
       >
         <Field label="SKU">
           <input name="sku" required placeholder="JAN-1362" className={inputClass} />

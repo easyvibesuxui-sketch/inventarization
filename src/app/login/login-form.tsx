@@ -19,15 +19,15 @@ export default function LoginForm() {
   );
 
   return (
-    <div className="rounded-xl border border-ink-700/70 bg-ink-900/70 p-6">
-      <div className="mb-5 flex rounded-lg border border-ink-700 bg-ink-850 p-1 text-sm">
+    <div className="rounded-xl border border-rule/70 bg-paper-sunk/70 p-6">
+      <div className="mb-5 flex rounded-lg border border-rule bg-paper-sunk p-1 text-sm">
         {(['signin', 'signup'] as const).map((value) => (
           <button
             key={value}
             type="button"
             onClick={() => setMode(value)}
             className={`flex-1 rounded-md px-3 py-1.5 font-medium transition ${
-              mode === value ? 'bg-ink-700 text-ink-100' : 'text-ink-400 hover:text-ink-100'
+              mode === value ? 'bg-rule text-ink' : 'text-ink-faint hover:text-ink'
             }`}
           >
             {value === 'signin' ? 'Sign in' : 'Create account'}

@@ -24,11 +24,11 @@ export default async function OnboardingPage() {
     <main className="grid-wash flex flex-1 items-center justify-center px-6 py-16">
       <div className="w-full max-w-md">
         <h1 className="text-2xl font-semibold tracking-tight">Name your workspace</h1>
-        <p className="mt-2 text-sm text-ink-400">
+        <p className="mt-2 text-sm text-ink-faint">
           Everything in Inverse — products, locations and verification history — belongs to
           one company. You can invite colleagues to it once it exists.
         </p>
-        <div className="mt-6 rounded-xl border border-ink-700/70 bg-ink-900/70 p-6">
+        <div className="mt-6 rounded-xl border border-rule/70 bg-paper-sunk/70 p-6">
           <OnboardingForm />
         </div>
       </div>

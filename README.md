@@ -116,21 +116,26 @@ The signed-in app is English for now.
 
 ### Look and motion
 
-- **Two typefaces.** BPG Paata Cond Caps (`src/app/fonts/`, self-hosted woff2) sets
-  headings, nav and buttons; Noto Sans Georgian sets body text. The display face
-  has **no lari sign**, so any element containing a price carries `font-body`
-  rather than falling back mid-number.
-- **Grain** is one fixed SVG turbulence tile at `mix-blend-mode: overlay`. It is
-  deliberately static: an animated version forced a full-page re-composite every
-  frame and measurably starved the scroll transitions.
-- **Motion splits in two.** Above the fold uses `Rise` — a pure CSS animation
-  that runs on first paint, so the hero never waits for hydration to become
-  visible. Below the fold uses `Reveal`, an IntersectionObserver that toggles one
-  class and then disconnects; it never re-renders React as you scroll. Both are
-  disabled under `prefers-reduced-motion`, and a `<noscript>` rule unhides
-  everything when scripting is off.
-- **Photography** in `src/images/` was generated with Kling AI and is served
-  through `next/image` with blur placeholders (~60 KB each).
+The marketing site is set as ink on paper — a warm off-white ground, one neutral
+ramp, hairline rules instead of cards, and no brand accent. Colour appears only
+where it carries meaning: the three verification verdicts.
+
+- **Two typefaces.** Helvetica Neue LT Georgian (Light/Roman/Bold) sets body
+  text; BPG Paata Cond Caps sets headings and the small caps labels. Both are
+  self-hosted woff2 in `src/app/fonts/`. The display face has **no lari sign**,
+  so prices are always set in the body face.
+- **Grain** is one fixed SVG turbulence tile at `mix-blend-mode: multiply` — on a
+  light ground it should read as tooth in the paper, not as a glow. Deliberately
+  static: an animated full-viewport blended layer forces the whole page to
+  re-composite every frame and measurably starves the scroll transitions.
+- **Motion is quiet** — a short fade and a few pixels of travel, no blur or
+  scale. Above the fold uses `Rise`, a pure CSS animation that runs on first
+  paint so the hero never waits for hydration. Below the fold uses `Reveal`, an
+  IntersectionObserver that toggles one class and disconnects. Both are disabled
+  under `prefers-reduced-motion`, and a `<noscript>` rule unhides everything when
+  scripting is off.
+- **One photograph**, black and white, in the section about look-alike variants —
+  the one place an image does work that prose cannot.
 
 ### Layout
 
@@ -149,8 +154,8 @@ src/
   components/
     marketing/        header, footer, language switcher, mockups, FAQ, lead form,
                       grain, scroll progress, Rise/Reveal/Parallax motion
-  images/             generated photography (webp)
-  app/fonts/          self-hosted display face
+  images/             photography (webp, black and white)
+  app/fonts/          self-hosted body and display faces
 supabase/
   migrations/         schema, integrity, RLS, storage, RPCs, views, grants, leads
   tests/              tenant isolation

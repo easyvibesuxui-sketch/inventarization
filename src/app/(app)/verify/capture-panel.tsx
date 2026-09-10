@@ -126,7 +126,7 @@ export default function CapturePanel({ locations }: { locations: Location[] }) {
   return (
     <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_20rem]">
       <Card title="Camera">
-        <div className="relative aspect-video overflow-hidden rounded-lg border border-ink-700 bg-ink-950">
+        <div className="relative aspect-video overflow-hidden rounded-lg border border-rule bg-paper">
           {preview ? (
             // The captured frame, not a live feed — analysis runs on exactly this image.
             // eslint-disable-next-line @next/next/no-img-element
@@ -142,7 +142,7 @@ export default function CapturePanel({ locations }: { locations: Location[] }) {
 
           {mode === 'idle' && !preview && (
             <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 text-center">
-              <p className="text-sm text-ink-400">Camera is off</p>
+              <p className="text-sm text-ink-faint">Camera is off</p>
               <Button type="button" onClick={startCamera} variant="secondary">
                 Start camera
               </Button>
@@ -150,8 +150,8 @@ export default function CapturePanel({ locations }: { locations: Location[] }) {
           )}
 
           {mode === 'uploading' && (
-            <div className="absolute inset-0 flex items-center justify-center bg-ink-950/80">
-              <p className="text-sm text-accent-500">Analyzing the shelf…</p>
+            <div className="absolute inset-0 flex items-center justify-center bg-paper/80">
+              <p className="text-sm text-ink">Analyzing the shelf…</p>
             </div>
           )}
         </div>
@@ -187,7 +187,7 @@ export default function CapturePanel({ locations }: { locations: Location[] }) {
           )}
 
           {(mode === 'idle' || mode === 'streaming') && (
-            <label className="inline-flex cursor-pointer items-center rounded-lg border border-ink-600 bg-ink-800 px-4 py-2 text-sm font-medium transition hover:border-ink-400">
+            <label className="inline-flex cursor-pointer items-center rounded-lg border border-rule-strong bg-paper-sunk px-4 py-2 text-sm font-medium transition hover:border-ink-faint">
               Upload a photo
               <input
                 type="file"
@@ -233,7 +233,7 @@ export default function CapturePanel({ locations }: { locations: Location[] }) {
         </Card>
 
         <Card title="Getting a good count">
-          <ul className="space-y-2 text-sm text-ink-400">
+          <ul className="space-y-2 text-sm text-ink-faint">
             <li>Fill the frame with one shelf — not the whole rack.</li>
             <li>Shoot straight on. Oblique angles hide the back of each row.</li>
             <li>Avoid glare on packaging; it costs the model confidence.</li>

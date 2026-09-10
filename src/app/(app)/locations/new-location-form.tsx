@@ -12,9 +12,9 @@ export default function NewLocationForm({ locations }: { locations: Location[] }
   const formRef = useRef<HTMLFormElement>(null);
 
   return (
-    <details className="rounded-xl border border-ink-700/70 bg-ink-900/60">
+    <details className="rounded-xl border border-rule/70 bg-paper-sunk/60">
       <summary className="cursor-pointer list-none px-5 py-3.5 text-sm font-semibold marker:content-none">
-        <span className="text-accent-500">+</span> Add a location
+        <span className="text-ink">+</span> Add a location
       </summary>
       <form
         ref={formRef}
@@ -22,7 +22,7 @@ export default function NewLocationForm({ locations }: { locations: Location[] }
           await action(formData);
           formRef.current?.reset();
         }}
-        className="grid gap-4 border-t border-ink-700/70 p-5 sm:grid-cols-2 lg:grid-cols-4"
+        className="grid gap-4 border-t border-rule/70 p-5 sm:grid-cols-2 lg:grid-cols-4"
       >
         <Field label="Code">
           <input name="code" required placeholder="R-2" className={inputClass} />

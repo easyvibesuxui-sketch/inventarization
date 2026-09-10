@@ -27,77 +27,97 @@ export default async function PricingPage({ params }: PageProps<'/[locale]/prici
 
   const dict = getDictionary(locale);
 
-  return (
-    <div className="grid-wash">
-      <div className="mx-auto max-w-6xl px-6 py-20">
-        <div className="max-w-2xl">
-          <h1 className="text-4xl font-semibold tracking-tight">
-            {dict.pricingTeaser.title}
-          </h1>
-          <p className="mt-3 text-ink-400">{dict.pricing.intro}</p>
-        </div>
+  const limitRows = [
+    { label: dict.pricing.limitProducts, key: 'skus' },
+    { label: dict.pricing.limitLocations, key: 'locations' },
+    { label: dict.pricing.limitUsers, key: 'users' },
+    { label: dict.pricing.limitChecks, key: 'checks' },
+  ] as const;
 
-        <div className="mt-10">
+  return (
+    <>
+      <section>
+        <div className="mx-auto max-w-5xl px-6 pb-16 pt-20">
+          <h1 className="font-display text-5xl sm:text-6xl">{dict.pricingTeaser.title}</h1>
+          <p className="mt-6 max-w-xl text-lg font-light leading-relaxed text-ink-soft">
+            {dict.pricing.intro}
+          </p>
+        </div>
+      </section>
+
+      <section className="border-t border-rule">
+        <div className="mx-auto max-w-5xl px-6 py-16">
           <PricingCalculator dict={dict} />
         </div>
+      </section>
 
-        <div className="mt-16 grid gap-5 md:grid-cols-2 lg:grid-cols-4">
-          {PLANS.map((plan) => (
-            <div
-              key={plan.id}
-              className="flex flex-col rounded-xl border border-ink-700/70 bg-ink-900/60 p-6"
-            >
-              <h2 className="text-sm font-semibold uppercase tracking-wider text-accent-500">
-                {dict.plans[plan.id].name}
-              </h2>
-              <p className="mt-3 text-3xl font-semibold tabular-nums">
-                {plan.monthly === null
-                  ? dict.pricingTeaser.custom
-                  : formatMoney(plan.monthly)}
-                {plan.monthly !== null && plan.monthly > 0 && (
-                  <span className="text-sm font-normal text-ink-400">
-                    {dict.pricingTeaser.perMonth}
-                  </span>
-                )}
-              </p>
-              <p className="mt-2 text-sm text-ink-400">{dict.plans[plan.id].blurb}</p>
-
-              <dl className="mt-5 space-y-1.5 border-t border-ink-700/70 pt-5 text-sm">
-                {(
-                  [
-                    [dict.pricing.limitProducts, plan.limits.skus],
-                    [dict.pricing.limitLocations, plan.limits.locations],
-                    [dict.pricing.limitUsers, plan.limits.users],
-                    [dict.pricing.limitChecks, plan.limits.checks],
-                  ] as const
-                ).map(([label, value]) => (
-                  <div key={label} className="flex justify-between gap-3">
-                    <dt className="text-ink-400">{label}</dt>
-                    <dd className="tabular-nums">
-                      {Number.isFinite(value)
-                        ? formatLimit(value)
-                        : dict.pricing.unlimited}
-                    </dd>
-                  </div>
+      {/* Plans, as one comparison table rather than four cards. */}
+      <section className="border-t border-rule">
+        <div className="mx-auto max-w-5xl px-6 py-16">
+          <p className="label mb-8">{dict.pricingTeaser.title}</p>
+          <div className="overflow-x-auto">
+            <table className="w-full min-w-[44rem] border-t border-ink text-sm">
+              <thead>
+                <tr className="border-b border-ink text-left align-bottom">
+                  <th className="w-40 py-4 pr-6 font-normal" />
+                  {PLANS.map((plan) => (
+                    <th key={plan.id} className="py-4 pr-6 font-normal">
+                      <span className="label block">{dict.plans[plan.id].name}</span>
+                      <span className="mt-2 block text-2xl tabular-nums text-ink">
+                        {plan.monthly === null
+                          ? dict.pricingTeaser.custom
+                          : formatMoney(plan.monthly)}
+                        {plan.monthly !== null && plan.monthly > 0 && (
+                          <span className="text-xs text-ink-faint">
+                            {dict.pricingTeaser.perMonth}
+                          </span>
+                        )}
+                      </span>
+                    </th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {limitRows.map((row) => (
+                  <tr key={row.key} className="border-b border-rule">
+                    <th scope="row" className="py-3 pr-6 text-left font-normal text-ink-faint">
+                      {row.label}
+                    </th>
+                    {PLANS.map((plan) => {
+                      const value = plan.limits[row.key];
+                      return (
+                        <td key={plan.id} className="py-3 pr-6 tabular-nums">
+                          {Number.isFinite(value)
+                            ? formatLimit(value)
+                            : dict.pricing.unlimited}
+                        </td>
+                      );
+                    })}
+                  </tr>
                 ))}
-              </dl>
+                <tr className="align-top">
+                  <th scope="row" className="py-4 pr-6 text-left font-normal text-ink-faint">
+                    &nbsp;
+                  </th>
+                  {PLANS.map((plan) => (
+                    <td key={plan.id} className="py-4 pr-6">
+                      <ul className="space-y-1.5 text-ink-soft">
+                        {dict.plans[plan.id].features.map((feature) => (
+                          <li key={feature}>{feature}</li>
+                        ))}
+                      </ul>
+                    </td>
+                  ))}
+                </tr>
+              </tbody>
+            </table>
+          </div>
 
-              <ul className="mt-5 space-y-1.5 border-t border-ink-700/70 pt-5 text-sm text-ink-300">
-                {dict.plans[plan.id].features.map((feature) => (
-                  <li key={feature} className="flex gap-2">
-                    <span className="text-accent-500">·</span>
-                    {feature}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
+          <p className="mt-10 max-w-2xl text-sm text-ink-faint">
+            {dict.pricing.disclaimer}
+          </p>
         </div>
-
-        <p className="mt-10 rounded-lg border border-partial-500/30 bg-partial-500/5 px-4 py-3 text-sm text-partial-500">
-          {dict.pricing.disclaimer}
-        </p>
-      </div>
-    </div>
+      </section>
+    </>
   );
 }

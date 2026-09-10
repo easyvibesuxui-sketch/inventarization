@@ -26,8 +26,8 @@ export default function AppNav() {
             aria-current={active ? 'page' : undefined}
             className={`whitespace-nowrap rounded-lg px-3 py-1.5 text-sm font-medium transition ${
               active
-                ? 'bg-ink-800 text-ink-100'
-                : 'text-ink-400 hover:bg-ink-800/60 hover:text-ink-100'
+                ? 'bg-paper-sunk text-ink'
+                : 'text-ink-faint hover:bg-paper-sunk/60 hover:text-ink'
             }`}
           >
             {label}

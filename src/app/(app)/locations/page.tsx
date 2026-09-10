@@ -35,7 +35,7 @@ export default async function LocationsPage() {
     <div className="space-y-6">
       <div>
         <h1 className="text-2xl font-semibold tracking-tight">Locations</h1>
-        <p className="mt-1 text-sm text-ink-400">
+        <p className="mt-1 text-sm text-ink-faint">
           Warehouses, racks and shelves. A verification always runs against one location.
         </p>
       </div>
@@ -52,7 +52,7 @@ export default async function LocationsPage() {
           <div className="overflow-x-auto">
             <table className="w-full min-w-[40rem] text-sm">
               <thead>
-                <tr className="border-b border-ink-700/70 text-left text-xs uppercase tracking-wider text-ink-400">
+                <tr className="border-b border-rule/70 text-left text-xs uppercase tracking-wider text-ink-faint">
                   <th className="pb-2 pr-4 font-medium">Code</th>
                   <th className="pb-2 pr-4 font-medium">Name</th>
                   <th className="pb-2 pr-4 font-medium">Type</th>
@@ -61,7 +61,7 @@ export default async function LocationsPage() {
                   <th className="pb-2 text-right font-medium">Units</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-ink-700/50">
+              <tbody className="divide-y divide-rule/50">
                 {list.map((location) => {
                   const stat = stats.get(location.id);
                   const parent = location.parent_id
@@ -69,12 +69,12 @@ export default async function LocationsPage() {
                     : undefined;
                   return (
                     <tr key={location.id}>
-                      <td className="py-3 pr-4 font-mono text-xs text-ink-300">
+                      <td className="py-3 pr-4 font-mono text-xs text-ink-soft">
                         {location.code}
                       </td>
                       <td className="py-3 pr-4 font-medium">{location.name}</td>
-                      <td className="py-3 pr-4 capitalize text-ink-300">{location.kind}</td>
-                      <td className="py-3 pr-4 text-ink-400">
+                      <td className="py-3 pr-4 capitalize text-ink-soft">{location.kind}</td>
+                      <td className="py-3 pr-4 text-ink-faint">
                         {parent ? `${parent.code} — ${parent.name}` : '—'}
                       </td>
                       <td className="py-3 pr-4 text-right tabular-nums">
