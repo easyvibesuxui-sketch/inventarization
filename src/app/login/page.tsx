@@ -2,31 +2,41 @@ import { Suspense } from 'react';
 import Link from 'next/link';
 import LoginForm from './login-form';
 import { isSupabaseConfigured } from '@/lib/env';
-import { Alert } from '@/components/ui';
+import { DEFAULT_LOCALE } from '@/lib/i18n/config';
 
 export const metadata = { title: 'Sign in' };
 
+/**
+ * The bridge between the public site and the platform. It borrows the site's
+ * vocabulary — hairline rules, square corners, the display face — so crossing
+ * from one to the other does not feel like landing on a different product.
+ */
 export default function LoginPage() {
   return (
-    <main className="grid-wash flex flex-1 items-center justify-center px-6 py-16">
-      <div className="w-full max-w-sm">
-        <Link href="/ka" className="mb-8 flex items-center gap-2">
-          <span className="text-lg font-semibold tracking-tight">Inverse</span>
-          <span className="rounded bg-ink/15 px-1.5 py-0.5 text-[10px] font-medium uppercase tracking-wider text-ink">
-            Beta
-          </span>
-        </Link>
-        {!isSupabaseConfigured() && (
-          <div className="mb-4">
-            <Alert tone="info">
-              This is a preview with no Supabase project attached, so accounts are
-              unavailable. The landing page and the pricing calculator are fully live.
-            </Alert>
-          </div>
-        )}
-        <Suspense fallback={null}>
-          <LoginForm />
-        </Suspense>
+    <main className="flex flex-1 flex-col">
+      <header className="border-b border-rule">
+        <div className="mx-auto flex max-w-5xl items-baseline gap-6 px-6 py-5">
+          <Link
+            href={`/${DEFAULT_LOCALE}`}
+            className="font-display text-lg tracking-[0.08em]"
+          >
+            INVERSE
+          </Link>
+          <p className="label">Platform</p>
+        </div>
+      </header>
+
+      <div className="mx-auto flex w-full max-w-5xl flex-1 items-start px-6 py-20">
+        <div className="w-full max-w-sm">
+          {!isSupabaseConfigured() && (
+            <p className="mb-10 border-l-2 border-review pl-4 text-sm text-ink-soft">
+              This preview has no database attached, so accounts are unavailable.
+            </p>
+          )}
+          <Suspense fallback={null}>
+            <LoginForm />
+          </Suspense>
+        </div>
       </div>
     </main>
   );

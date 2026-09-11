@@ -46,6 +46,7 @@ const en = {
     contact: 'Contact',
     platform: 'Platform',
     pricing: 'Pricing',
+    signIn: 'Sign in',
   },
 
   home: {
@@ -427,6 +428,7 @@ const ka: Dictionary = {
     contact: 'კონტაქტი',
     platform: 'პლატფორმა',
     pricing: 'ფასები',
+    signIn: 'შესვლა',
   },
 
   home: {

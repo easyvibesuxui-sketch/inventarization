@@ -3,9 +3,11 @@
 import { useActionState, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { signIn, signUp, type AuthState } from './actions';
-import { Alert, Button, Field, inputClass } from '@/components/ui';
 
 const EMPTY: AuthState = {};
+
+const FIELD =
+  'mt-1 w-full border-b border-rule-strong bg-transparent py-2 text-sm focus:border-ink focus:outline-none';
 
 export default function LoginForm() {
   const [mode, setMode] = useState<'signin' | 'signup'>('signin');
@@ -19,15 +21,18 @@ export default function LoginForm() {
   );
 
   return (
-    <div className="rounded-xl border border-rule/70 bg-paper-sunk/70 p-6">
-      <div className="mb-5 flex rounded-lg border border-rule bg-paper-sunk p-1 text-sm">
+    <div>
+      <div className="flex items-baseline gap-6 border-b border-ink pb-3">
         {(['signin', 'signup'] as const).map((value) => (
           <button
             key={value}
             type="button"
             onClick={() => setMode(value)}
-            className={`flex-1 rounded-md px-3 py-1.5 font-medium transition ${
-              mode === value ? 'bg-rule text-ink' : 'text-ink-faint hover:text-ink'
+            aria-current={mode === value ? 'true' : undefined}
+            className={`text-sm transition ${
+              mode === value
+                ? 'text-ink underline underline-offset-4'
+                : 'text-ink-faint hover:text-ink'
             }`}
           >
             {value === 'signin' ? 'Sign in' : 'Create account'}
@@ -35,48 +40,49 @@ export default function LoginForm() {
         ))}
       </div>
 
-      <form action={action} className="space-y-4">
+      <form action={action} className="mt-8 space-y-6">
         <input type="hidden" name="next" value={next} />
 
         {mode === 'signup' && (
-          <Field label="Full name">
-            <input name="full_name" autoComplete="name" className={inputClass} />
-          </Field>
+          <label className="block">
+            <span className="label">Full name</span>
+            <input name="full_name" autoComplete="name" className={FIELD} />
+          </label>
         )}
 
-        <Field label="Email">
-          <input
-            name="email"
-            type="email"
-            required
-            autoComplete="email"
-            className={inputClass}
-          />
-        </Field>
+        <label className="block">
+          <span className="label">Email</span>
+          <input name="email" type="email" required autoComplete="email" className={FIELD} />
+        </label>
 
-        <Field
-          label="Password"
-          hint={mode === 'signup' ? 'At least 8 characters.' : undefined}
-        >
+        <label className="block">
+          <span className="label">Password</span>
           <input
             name="password"
             type="password"
             required
             autoComplete={mode === 'signin' ? 'current-password' : 'new-password'}
-            className={inputClass}
+            className={FIELD}
           />
-        </Field>
+          {mode === 'signup' && (
+            <span className="mt-2 block text-xs text-ink-faint">
+              At least 8 characters.
+            </span>
+          )}
+        </label>
 
-        {(state.error || linkError) && <Alert>{state.error ?? linkError}</Alert>}
-        {state.notice && <Alert tone="info">{state.notice}</Alert>}
+        {(state.error || linkError) && (
+          <p className="text-sm text-mismatch">{state.error ?? linkError}</p>
+        )}
+        {state.notice && <p className="text-sm text-ink-soft">{state.notice}</p>}
 
-        <Button type="submit" disabled={pending} className="w-full">
-          {pending
-            ? 'Working…'
-            : mode === 'signin'
-              ? 'Sign in'
-              : 'Create account'}
-        </Button>
+        <button
+          type="submit"
+          disabled={pending}
+          className="w-full bg-ink px-6 py-2.5 text-sm text-paper transition hover:bg-ink-soft disabled:opacity-50"
+        >
+          {pending ? 'Working…' : mode === 'signin' ? 'Sign in' : 'Create account'}
+        </button>
       </form>
     </div>
   );

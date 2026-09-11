@@ -27,9 +27,16 @@ export default function SiteFooter({
 
         <div className="mt-10 flex flex-wrap items-baseline justify-between gap-x-8 gap-y-2 border-t border-rule pt-6 text-sm text-ink-faint">
           <p>{dict.footer.tagline}</p>
-          <p>
-            © {new Date().getFullYear()} Inverse. {dict.footer.rights}
-          </p>
+          <div className="flex items-baseline gap-6">
+            {/* The platform is an internal tool in pilot, not a public product,
+                so its entrance sits here rather than in the header. */}
+            <Link href="/login" className="transition hover:text-ink">
+              {dict.nav.signIn}
+            </Link>
+            <p>
+              © {new Date().getFullYear()} Inverse. {dict.footer.rights}
+            </p>
+          </div>
         </div>
       </div>
     </footer>

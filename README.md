@@ -192,4 +192,7 @@ Deliberately unfinished:
   no checkout, webhooks or plan enforcement yet.
 - **Team invitations** — an owner or admin can see the team, but there is no invite flow.
 - **The signed-in app has not had a design pass** on the current palette; its
-  colour tokens were migrated mechanically so it stays coherent.
+  colour tokens were migrated mechanically so it stays coherent. The sign-in
+  page is the exception — it is the bridge from the public site, so it borrows
+  the site's vocabulary. The entrance to it sits in the site footer rather than
+  the header: the platform is an internal tool in pilot, not a public product.
