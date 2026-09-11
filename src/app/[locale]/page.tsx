@@ -1,9 +1,10 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { isLocale } from '@/lib/i18n/config';
-import { getDictionary } from '@/lib/i18n/dictionaries';
+import { isLocale, type Locale } from '@/lib/i18n/config';
+import { getDictionary, type Dictionary } from '@/lib/i18n/dictionaries';
 import { pageMetadata } from '@/lib/i18n/page-meta';
+import { formatMoney, PLANS } from '@/lib/pricing';
 import Reveal from '@/components/marketing/reveal';
 import Rise from '@/components/marketing/rise';
 import { Band } from '@/components/marketing/page-shell';
@@ -18,20 +19,39 @@ export async function generateMetadata({
   }));
 }
 
+/** The link that closes each condensed section and leads to the full page. */
+function More({
+  href,
+  label,
+  dict,
+}: {
+  href: string;
+  label: string;
+  dict: Dictionary;
+}) {
+  return (
+    <Link
+      href={href}
+      className="mt-8 inline-block text-sm underline underline-offset-4 decoration-rule-strong transition hover:decoration-ink"
+    >
+      {label} — {dict.home.more}
+    </Link>
+  );
+}
+
+/**
+ * The home page is an index of the whole site: every other page contributes a
+ * short section here, composed from the same dictionary entries the full page
+ * uses, so the two can never drift apart.
+ */
 export default async function HomePage({ params }: PageProps<'/[locale]'>) {
   const { locale } = await params;
   if (!isLocale(locale)) notFound();
 
   const dict = getDictionary(locale);
-
-  const pages = [
-    { href: `/${locale}/about`, label: dict.nav.about, body: dict.home.pages.about },
-    { href: `/${locale}/services`, label: dict.nav.services, body: dict.home.pages.services },
-    { href: `/${locale}/team`, label: dict.nav.team, body: dict.home.pages.team },
-    { href: `/${locale}/careers`, label: dict.nav.careers, body: dict.home.pages.careers },
-    { href: `/${locale}/news`, label: dict.nav.news, body: dict.home.pages.news },
-    { href: `/${locale}/contact`, label: dict.nav.contact, body: dict.home.pages.contact },
-  ];
+  const l = locale as Locale;
+  const teaserPlans = PLANS.slice(0, 3);
+  const latest = dict.news.items[0];
 
   return (
     <>
@@ -57,13 +77,13 @@ export default async function HomePage({ params }: PageProps<'/[locale]'>) {
           <Rise delay={180}>
             <div className="mt-10 flex flex-wrap items-center gap-6">
               <Link
-                href={`/${locale}/contact`}
+                href={`/${l}/contact`}
                 className="bg-ink px-6 py-2.5 text-sm text-paper transition hover:bg-ink-soft"
               >
                 {dict.home.ctaPrimary}
               </Link>
               <Link
-                href={`/${locale}/services`}
+                href={`/${l}/services`}
                 className="text-sm underline underline-offset-4 decoration-rule-strong transition hover:decoration-ink"
               >
                 {dict.home.ctaSecondary}
@@ -73,23 +93,173 @@ export default async function HomePage({ params }: PageProps<'/[locale]'>) {
         </div>
       </section>
 
-      {/* Where to go next */}
-      <Band label={dict.home.pagesTitle}>
-        <nav className="border-t border-ink">
-          {pages.map((page, index) => (
-            <Reveal key={page.href} delay={index * 60}>
-              <Link
-                href={page.href}
-                className="group grid gap-x-10 gap-y-1 border-b border-rule py-5 transition md:grid-cols-[18rem_1fr]"
-              >
-                <span className="underline-offset-4 group-hover:underline">
-                  {page.label}
-                </span>
-                <span className="text-sm text-ink-soft">{page.body}</span>
-              </Link>
+      {/* Services */}
+      <Band label={dict.nav.services}>
+        <Reveal>
+          <h2 className="font-display max-w-2xl text-2xl sm:text-3xl">
+            {dict.services.title}
+          </h2>
+          <p className="mt-4 max-w-xl text-ink-soft">{dict.home.servicesLead}</p>
+        </Reveal>
+
+        <div className="mt-10 border-t border-ink">
+          {dict.services.items.map((item, index) => (
+            <Reveal
+              key={item.title}
+              delay={index * 60}
+              className="grid gap-x-10 gap-y-1 border-b border-rule py-4 md:grid-cols-[3rem_18rem_1fr]"
+            >
+              <span className="text-sm tabular-nums text-ink-faint">
+                {String(index + 1).padStart(2, '0')}
+              </span>
+              <h3 className="text-base">{item.title}</h3>
+              <p className="max-w-xl text-sm text-ink-soft">{item.body}</p>
             </Reveal>
           ))}
-        </nav>
+        </div>
+
+        <Reveal delay={140}>
+          <More href={`/${l}/services`} label={dict.nav.services} dict={dict} />
+        </Reveal>
+      </Band>
+
+      {/* About */}
+      <Band label={dict.nav.about}>
+        <Reveal>
+          <h2 className="font-display max-w-2xl text-2xl sm:text-3xl">
+            {dict.about.title}
+          </h2>
+          <p className="mt-4 max-w-xl text-ink-soft">{dict.home.aboutLead}</p>
+        </Reveal>
+
+        <dl className="mt-10 grid grid-cols-2 border-t border-ink md:grid-cols-4">
+          {dict.about.stats.map((stat, index) => (
+            <Reveal
+              key={stat.label}
+              delay={index * 70}
+              className="border-b border-rule py-6 pr-6 md:border-b-0"
+            >
+              <dt className="label">{stat.label}</dt>
+              <dd className="font-display mt-3 text-4xl">{stat.value}</dd>
+            </Reveal>
+          ))}
+        </dl>
+
+        <Reveal delay={140}>
+          <More href={`/${l}/about`} label={dict.nav.about} dict={dict} />
+        </Reveal>
+      </Band>
+
+      {/* Platform */}
+      <Band label={dict.nav.platform}>
+        <Reveal>
+          <h2 className="font-display max-w-2xl text-2xl sm:text-3xl">
+            {dict.platform.title}
+          </h2>
+          <p className="mt-4 max-w-xl text-ink-soft">{dict.home.platformLead}</p>
+        </Reveal>
+
+        <div className="mt-10 grid gap-x-10 gap-y-8 border-t border-ink pt-8 md:grid-cols-2">
+          {dict.platform.sections.map((section, index) => (
+            <Reveal key={section.title} delay={index * 70}>
+              <h3 className="text-base">{section.title}</h3>
+              <p className="mt-2 max-w-md text-sm leading-relaxed text-ink-soft">
+                {section.body}
+              </p>
+            </Reveal>
+          ))}
+        </div>
+
+        <Reveal delay={160}>
+          <More href={`/${l}/platform`} label={dict.nav.platform} dict={dict} />
+        </Reveal>
+      </Band>
+
+      {/* Pricing */}
+      <Band label={dict.nav.pricing}>
+        <Reveal>
+          <h2 className="font-display max-w-2xl text-2xl sm:text-3xl">
+            {dict.pricingTeaser.title}
+          </h2>
+          <p className="mt-4 max-w-xl text-ink-soft">{dict.home.pricingLead}</p>
+        </Reveal>
+
+        <div className="mt-10 grid border-t border-ink md:grid-cols-3">
+          {teaserPlans.map((plan, index) => (
+            <Reveal
+              key={plan.id}
+              delay={index * 70}
+              className="border-b border-rule py-6 md:border-b-0 md:pr-8"
+            >
+              <h3 className="label">{dict.plans[plan.id].name}</h3>
+              {/* Prices stay in the body face: the display face has no ₾. */}
+              <p className="mt-3 text-3xl tabular-nums">
+                {plan.monthly === null
+                  ? dict.pricingTeaser.custom
+                  : formatMoney(plan.monthly)}
+                {plan.monthly !== null && plan.monthly > 0 && (
+                  <span className="text-sm text-ink-faint">
+                    {dict.pricingTeaser.perMonth}
+                  </span>
+                )}
+              </p>
+              <p className="mt-3 max-w-xs text-sm text-ink-soft">
+                {dict.plans[plan.id].blurb}
+              </p>
+            </Reveal>
+          ))}
+        </div>
+
+        <Reveal delay={140} className="flex flex-wrap items-baseline gap-x-8">
+          <More href={`/${l}/pricing`} label={dict.pricingTeaser.cta} dict={dict} />
+          <p className="text-sm text-ink-faint">{dict.pricingTeaser.placeholder}</p>
+        </Reveal>
+      </Band>
+
+      {/* Team */}
+      <Band label={dict.nav.team}>
+        <Reveal className="grid gap-x-10 gap-y-4 md:grid-cols-[18rem_1fr]">
+          <div>
+            <h2 className="font-display text-2xl">{dict.team.founderName}</h2>
+            <p className="label mt-2">{dict.team.founderRole}</p>
+          </div>
+          <div>
+            <p className="max-w-xl leading-relaxed text-ink-soft">{dict.team.founderBody}</p>
+            <More href={`/${l}/team`} label={dict.nav.team} dict={dict} />
+          </div>
+        </Reveal>
+      </Band>
+
+      {/* News */}
+      <Band label={dict.nav.news}>
+        <Reveal>
+          <p className="label">
+            {latest.badge} · {latest.year}
+          </p>
+          <h2 className="font-display mt-3 max-w-2xl text-2xl sm:text-3xl">
+            {latest.title}
+          </h2>
+          <p className="mt-4 max-w-xl leading-relaxed text-ink-soft">{latest.body}</p>
+          <More href={`/${l}/news`} label={dict.nav.news} dict={dict} />
+        </Reveal>
+      </Band>
+
+      {/* Careers */}
+      <Band label={dict.nav.careers}>
+        <Reveal>
+          <h2 className="font-display max-w-2xl text-2xl sm:text-3xl">
+            {dict.careers.title}
+          </h2>
+          <p className="mt-4 max-w-xl text-ink-soft">{dict.careers.intro}</p>
+          <ul className="mt-8 border-t border-ink">
+            {dict.careers.roles.map((role) => (
+              <li key={role.title} className="border-b border-rule py-3 text-sm">
+                {role.title}
+              </li>
+            ))}
+          </ul>
+          <More href={`/${l}/careers`} label={dict.nav.careers} dict={dict} />
+        </Reveal>
       </Band>
 
       {/* Closing call */}
@@ -100,7 +270,7 @@ export default async function HomePage({ params }: PageProps<'/[locale]'>) {
           </h2>
           <p className="mt-5 max-w-lg text-ink-soft">{dict.home.finalBody}</p>
           <Link
-            href={`/${locale}/contact`}
+            href={`/${l}/contact`}
             className="mt-8 inline-block bg-ink px-6 py-2.5 text-sm text-paper transition hover:bg-ink-soft"
           >
             {dict.home.finalCta}

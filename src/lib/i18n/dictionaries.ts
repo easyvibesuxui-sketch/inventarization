@@ -28,6 +28,12 @@ const en = {
     newsDescription: 'What we are working on, and where Inverse is going next.',
     contactTitle: 'Contact',
     contactDescription: 'Request a service or ask a question. We reply within 24 hours.',
+    platformTitle: 'Platform',
+    platformDescription:
+      'The multi-tenant inventory tool behind the service, with AI verification from a photograph.',
+    pricingTitle: 'Pricing',
+    pricingDescription:
+      'Work out what the Inverse platform costs for your catalogue, sites and check volume.',
   },
 
   nav: {
@@ -38,6 +44,8 @@ const en = {
     careers: 'Careers',
     news: 'News',
     contact: 'Contact',
+    platform: 'Platform',
+    pricing: 'Pricing',
   },
 
   home: {
@@ -56,6 +64,17 @@ const en = {
       news: 'What we are working on right now',
       contact: 'Get in touch to request a service',
     },
+    more: 'Read more',
+    servicesLead:
+      'Four services, from a one-off audit to an ongoing process.',
+    aboutLead:
+      'A Tbilisi consultancy built on more than twenty years of counting and warehouse management.',
+    platformLead:
+      'Alongside the service, we are building the tool our own counters use.',
+    teamLead: 'Practical experience, turned into a service.',
+    newsLead: 'What we are working on right now.',
+    pricingLead:
+      'Platform pricing, for when the tool opens up. Services are quoted per engagement.',
     finalTitle: "Let's start with your warehouse",
     finalBody:
       'Tell us the scale of your warehouse or shop and we will get back to you within 24 hours.',
@@ -244,6 +263,122 @@ const en = {
       'This deployment has no database attached yet, so the form cannot store your details. Write to us directly at info@inverse.ge.',
   },
 
+  platform: {
+    title: 'The platform behind the service',
+    intro:
+      'Alongside the counting service we are building the tool our own teams use on the floor — and which will open to clients after the pilot.',
+    sections: [
+      {
+        title: 'One record, many sites',
+        body: 'Products in folders, locations down to the individual shelf, and quantities held per location. Each client company is isolated inside the database itself, not by application code that could forget a filter.',
+      },
+      {
+        title: 'Verification from a photograph',
+        body: 'A counter photographs a shelf; the system reads that still image, counts what it can see of each product on record, and reports how certain it is. It runs on a frozen frame rather than a live stream — which is also what can be stored, re-checked and shown to an auditor later.',
+      },
+      {
+        title: 'A verdict per SKU, not a guess',
+        body: 'Green where the count matches, amber where a human should look, red where the record is wrong. Counts reach the record only when a person approves them.',
+      },
+      {
+        title: 'Where a camera is not enough',
+        body: 'Two products from the same line can be identical from a metre away and differ only in size. Those are flagged for a barcode scan, with the candidate items named, rather than guessed at.',
+      },
+    ],
+    dashboardTitle: 'What the operator sees',
+    dashboard: [
+      'Stock by product and by location',
+      'Status of every verification run',
+      'Low-stock alerts against a reorder point per product',
+      'Filtering by location',
+    ],
+    statusTitle: 'Where it stands',
+    statusBody:
+      'In pilot preparation for 2026. Until then the method is used inside our own service work.',
+  },
+
+  pricingTeaser: {
+    title: 'Pricing',
+    body: 'Platform pricing, for when the tool opens to clients. Counting services are quoted per engagement — tell us the scale and we will come back with a number.',
+    cta: 'Open the calculator',
+    perMonth: '/mo',
+    custom: 'Custom',
+    placeholder: 'These figures are provisional and pending commercial sign-off.',
+  },
+
+  plans: {
+    free: {
+      name: 'Free',
+      blurb: 'One shelf, one person, no card.',
+      features: ['AI shelf verification', 'Low-stock alerts', 'Community support'],
+    },
+    starter: {
+      name: 'Starter',
+      blurb: 'A single shop or small warehouse.',
+      features: [
+        'Everything in Free',
+        'Product folders and categories',
+        'Verification history and export',
+        'Email support',
+      ],
+    },
+    growth: {
+      name: 'Growth',
+      blurb: 'Multiple sites and a real counting routine.',
+      features: [
+        'Everything in Starter',
+        'Barcode confirmation workflow',
+        'Role-based access',
+        'Priority support',
+      ],
+    },
+    enterprise: {
+      name: 'Enterprise',
+      blurb: 'Distribution-scale inventory.',
+      features: [
+        'Everything in Growth',
+        'SSO and audit logs',
+        'Custom integrations',
+        'Onboarding and SLA',
+      ],
+    },
+  },
+
+  pricing: {
+    intro:
+      'Priced in GEL for the Georgian market. Tell the calculator how much you actually count and it will pick the cheapest plan that covers it — including when paying per-check overage beats moving up a tier.',
+    skus: 'Products (SKUs)',
+    skusHint: 'Distinct items you track',
+    locations: 'Locations',
+    locationsHint: 'Warehouses, shops, racks',
+    users: 'Users',
+    usersHint: 'People with a login',
+    checks: 'AI verifications / month',
+    checksHint: 'One photo analysed = one check',
+    payYearly: 'Pay yearly',
+    save: 'save',
+    recommended: 'Recommended',
+    letsTalk: "Let's talk",
+    letsTalkBody:
+      'At this volume the pricing is worth a conversation rather than a slider.',
+    plan: 'Plan',
+    extraChecks: 'extra checks',
+    billedYearly: 'billed yearly',
+    saves: 'saves',
+    limitProducts: 'Products',
+    limitLocations: 'Locations',
+    limitUsers: 'Users',
+    limitChecks: 'AI checks / mo',
+    unlimited: 'Unlimited',
+    disclaimer:
+      'Prices on this page are placeholders pending commercial sign-off. They live in one file, so changing them updates the calculator and this table together.',
+    reasonExceeds: 'exceeds the tier below.',
+    reasonFits: 'Your usage fits inside this plan with room to spare.',
+    reasonOverage: 'checks over the included allowance, billed at',
+    reasonEnterprise: 'Your volume is past the self-serve tiers.',
+    each: 'each',
+  },
+
   footer: {
     tagline: 'Inverse — inventory counting and audit services. Tbilisi, Georgia.',
     rights: 'All rights reserved.',
@@ -274,6 +409,12 @@ const ka: Dictionary = {
     contactTitle: 'კონტაქტი',
     contactDescription:
       'მოითხოვეთ მომსახურება ან დასვით კითხვა — 24 საათში დაგიკავშირდებით.',
+    platformTitle: 'პლატფორმა',
+    platformDescription:
+      'მრავალ-ტენანტიანი ინვენტარიზაციის ინსტრუმენტი მომსახურების უკან, ფოტოზე დაფუძნებული AI ვერიფიკაციით.',
+    pricingTitle: 'ფასები',
+    pricingDescription:
+      'გამოთვალეთ, რა დაჯდება Inverse-ის პლატფორმა თქვენი კატალოგის, ობიექტებისა და შემოწმებების მიხედვით.',
   },
 
   nav: {
@@ -284,6 +425,8 @@ const ka: Dictionary = {
     careers: 'კარიერა',
     news: 'სიახლეები',
     contact: 'კონტაქტი',
+    platform: 'პლატფორმა',
+    pricing: 'ფასები',
   },
 
   home: {
@@ -302,6 +445,17 @@ const ka: Dictionary = {
       news: 'რაზე ვმუშაობთ ამ დროისთვის',
       contact: 'დაგვიკავშირდით მომსახურების მოთხოვნისთვის',
     },
+    more: 'ვრცლად',
+    servicesLead:
+      'ოთხი მომსახურება — ერთჯერადი აუდიტიდან მუდმივ პროცესამდე.',
+    aboutLead:
+      'თბილისური საკონსულტაციო კომპანია, 20+ წლიანი პრაქტიკული გამოცდილებით.',
+    platformLead:
+      'მომსახურების პარალელურად ვაშენებთ ინსტრუმენტს, რომელსაც ჩვენივე გუნდი იყენებს.',
+    teamLead: 'პრაქტიკული გამოცდილება, ქცეული მომსახურებად.',
+    newsLead: 'რაზე ვმუშაობთ ამ დროისთვის.',
+    pricingLead:
+      'პლატფორმის ფასები — როცა ინსტრუმენტი გაიხსნება. მომსახურება ინდივიდუალურად ფასდება.',
     finalTitle: 'დავიწყოთ თქვენი საწყობით',
     finalBody:
       'გვითხარით თქვენი საწყობის ან მაღაზიის მასშტაბი და დაგიკავშირდებით 24 საათში.',
@@ -488,6 +642,125 @@ const ka: Dictionary = {
     missingMessage: 'მოკლედ მიწერეთ, რა გჭირდებათ.',
     fallback:
       'ამ ვერსიას ჯერ ბაზა არ აქვს მიერთებული, ამიტომ ფორმა ვერ შეინახავს მონაცემებს. მოგვწერეთ პირდაპირ: info@inverse.ge.',
+  },
+
+  platform: {
+    title: 'პლატფორმა მომსახურების უკან',
+    intro:
+      'დათვლის მომსახურების პარალელურად ვაშენებთ ინსტრუმენტს, რომელსაც ჩვენივე გუნდი იყენებს ადგილზე — და რომელიც პილოტის შემდეგ კლიენტებისთვისაც გაიხსნება.',
+    sections: [
+      {
+        title: 'ერთი აღრიცხვა, მრავალი ობიექტი',
+        body: 'პროდუქტები საქაღალდეებში, ლოკაციები კონკრეტულ თარომდე და რაოდენობები თითოეულ ლოკაციაზე. თითოეული კლიენტი კომპანია იზოლირებულია თავად ბაზის დონეზე და არა კოდით, რომელსაც ფილტრის დამატება შეიძლება დაავიწყდეს.',
+      },
+      {
+        title: 'ვერიფიკაცია ფოტოდან',
+        body: 'თანამშრომელი იღებს თაროს ფოტოს; სისტემა კითხულობს ამ სტოპ-კადრს, ითვლის თითოეული აღრიცხული პროდუქტის ხილულ რაოდენობას და აღნიშნავს, რამდენად დარწმუნებულია. მუშაობს გაჩერებულ კადრზე და არა პირდაპირ ნაკადზე — სწორედ ის ინახება, ხელახლა მოწმდება და მოგვიანებით აუდიტორს ეჩვენება.',
+      },
+      {
+        title: 'ვერდიქტი თითოეულ SKU-ზე, არა ვარაუდი',
+        body: 'მწვანე — ემთხვევა. ყვითელი — ადამიანმა უნდა შეხედოს. წითელი — აღრიცხვა მცდარია. ციფრი აღრიცხვაში მხოლოდ ადამიანის დადასტურებით ხვდება.',
+      },
+      {
+        title: 'სად არ კმარა კამერა',
+        body: 'ერთი სერიის ორი პროდუქტი მეტრის მანძილიდან იდენტურია და მხოლოდ ზომით განსხვავდება. ასეთები მოინიშნება ბარკოდით შესამოწმებლად, სავარაუდო ერთეულების დასახელებით — და არ გამოიცნობა.',
+      },
+    ],
+    dashboardTitle: 'რას ხედავს ოპერატორი',
+    dashboard: [
+      'მარაგი პროდუქტისა და ლოკაციის მიხედვით',
+      'თითოეული შემოწმების სტატუსი',
+      'მარაგის შემცირების შეტყობინება თითოეული პროდუქტის ზღვრის მიხედვით',
+      'ფილტრი ლოკაციით',
+    ],
+    statusTitle: 'რა ეტაპზეა',
+    statusBody:
+      'პილოტის მომზადების ეტაპზე, 2026. მანამდე მეთოდი ჩვენივე მომსახურების ფარგლებში გამოიყენება.',
+  },
+
+  pricingTeaser: {
+    title: 'ფასები',
+    body: 'პლატფორმის ფასები — როცა ინსტრუმენტი კლიენტებისთვის გაიხსნება. დათვლის მომსახურება ინდივიდუალურად ფასდება — გვითხარით მასშტაბი და ციფრს დაგიბრუნებთ.',
+    cta: 'გახსენით კალკულატორი',
+    perMonth: '/თვე',
+    custom: 'ინდივიდუალური',
+    placeholder: 'ეს ციფრები წინასწარია და კომერციულ დამტკიცებას ელოდება.',
+  },
+
+  plans: {
+    free: {
+      name: 'უფასო',
+      blurb: 'ერთი თარო, ერთი ადამიანი, ბარათის გარეშე.',
+      features: [
+        'AI შემოწმება თაროზე',
+        'მარაგის შემცირების შეტყობინება',
+        'მხარდაჭერა საზოგადოებისგან',
+      ],
+    },
+    starter: {
+      name: 'საწყისი',
+      blurb: 'ერთი მაღაზია ან პატარა საწყობი.',
+      features: [
+        'ყველაფერი უფასოდან',
+        'პროდუქტების საქაღალდეები და კატეგორიები',
+        'შემოწმებების ისტორია და ექსპორტი',
+        'მხარდაჭერა ელფოსტით',
+      ],
+    },
+    growth: {
+      name: 'ზრდა',
+      blurb: 'რამდენიმე ობიექტი და რეგულარული აღრიცხვა.',
+      features: [
+        'ყველაფერი საწყისიდან',
+        'ბარკოდით დადასტურების პროცესი',
+        'როლებზე დაფუძნებული წვდომა',
+        'პრიორიტეტული მხარდაჭერა',
+      ],
+    },
+    enterprise: {
+      name: 'საწარმო',
+      blurb: 'სადისტრიბუციო მასშტაბის მარაგი.',
+      features: [
+        'ყველაფერი ზრდიდან',
+        'SSO და აუდიტის ჟურნალი',
+        'ინდივიდუალური ინტეგრაციები',
+        'დანერგვა და SLA',
+      ],
+    },
+  },
+
+  pricing: {
+    intro:
+      'ფასები ლარშია, ქართული ბაზრისთვის. უთხარით კალკულატორს, რამდენს ითვლით რეალურად და ის აირჩევს ყველაზე იაფ ტარიფს — მათ შორის მაშინაც, როცა ზედმეტ შემოწმებებში გადახდა ტარიფის აწევაზე იაფია.',
+    skus: 'პროდუქტი (SKU)',
+    skusHint: 'განსხვავებული ერთეული, რომელსაც აღრიცხავთ',
+    locations: 'ლოკაცია',
+    locationsHint: 'საწყობი, მაღაზია, სტელაჟი',
+    users: 'მომხმარებელი',
+    usersHint: 'ადამიანი, ვისაც წვდომა აქვს',
+    checks: 'AI შემოწმება / თვე',
+    checksHint: 'ერთი გაანალიზებული ფოტო = ერთი შემოწმება',
+    payYearly: 'გადაიხადეთ წლიურად',
+    save: 'დაზოგეთ',
+    recommended: 'რეკომენდებული',
+    letsTalk: 'დავსხდეთ და ვისაუბროთ',
+    letsTalkBody: 'ამ მოცულობაზე ფასი საუბარს იმსახურებს და არა სლაიდერს.',
+    plan: 'ტარიფი',
+    extraChecks: 'დამატებითი შემოწმება',
+    billedYearly: 'წლიური გადახდით',
+    saves: 'ზოგავს',
+    limitProducts: 'პროდუქტი',
+    limitLocations: 'ლოკაცია',
+    limitUsers: 'მომხმარებელი',
+    limitChecks: 'AI შემოწმება / თვე',
+    unlimited: 'ულიმიტო',
+    disclaimer:
+      'ამ გვერდზე მოცემული ფასები წინასწარია და კომერციულ დამტკიცებას ელოდება. ისინი ერთ ფაილშია, ამიტომ მათი შეცვლა კალკულატორსაც და ცხრილსაც ერთად განაახლებს.',
+    reasonExceeds: 'აჭარბებს ქვედა ტარიფს.',
+    reasonFits: 'თქვენი მოხმარება მარაგითაც კი ეტევა ამ ტარიფში.',
+    reasonOverage: 'შემოწმება ლიმიტს ზემოთ, ფასით',
+    reasonEnterprise: 'თქვენი მოცულობა თვითმომსახურების ტარიფებს სცდება.',
+    each: 'თითო',
   },
 
   footer: {

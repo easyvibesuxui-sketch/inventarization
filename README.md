@@ -3,10 +3,15 @@
 Two things live in this repository:
 
 1. **The public site** — the marketing site for Inverse, an inventory counting
-   and audit consultancy in Tbilisi. Seven pages, Georgian and English.
-2. **The application** — a signed-in, multi-tenant inventory tool with an
-   AI photo-verification step. It is not the public offering: the site's News
-   page lists it as a 2026 project in pilot preparation.
+   and audit consultancy in Tbilisi. Nine pages, Georgian and English.
+2. **The application** — the signed-in, multi-tenant inventory tool with its
+   AI photo-verification step. The site's Platform and News pages describe it;
+   it is in pilot preparation for 2026 and is used inside the service work
+   until then.
+
+Both come from the same product: the services brief describes what the company
+sells today, the handoff brief describes the tool being built behind it. Neither
+supersedes the other.
 
 ## Stack
 
@@ -142,13 +147,14 @@ where it carries meaning: the three verification verdicts.
 ```
 src/
   app/
-    [locale]/         public site: home, about, services, team, careers,
-                      news, contact (ka + en)
+    [locale]/         public site: home, services, about, platform, pricing,
+                      team, careers, news, contact (ka + en)
     (app)/            signed-in shell: dashboard, products, locations, verify, checks, settings
     api/verify/       upload → analyze → persist, the one server route
     login/ onboarding/
   lib/
     i18n/             locales, the two dictionaries, shared page metadata
+    pricing.ts        platform plan figures and the calculator's rule
     supabase/         browser, server and proxy clients
     verification/     prompt, schema, analysis call, grading
   components/
@@ -166,7 +172,8 @@ supabase/
 
 Done:
 
-- The public site: seven pages in Georgian and English, with a contact form
+- The public site: nine pages in Georgian and English, with a contact form
+- Platform page and pricing calculator, drawn from the product handoff brief
 - Multi-tenant schema and RLS policies, with an isolation test
 - Verification app on real backend storage — private Supabase Storage bucket plus
   `inventory_checks` / `inventory_check_items`, no `localStorage`
@@ -174,9 +181,10 @@ Done:
 
 Deliberately unfinished:
 
-- **No pricing page.** The site content brief does not include one; a services
-  business quotes per engagement. The old plan/calculator module was removed and
-  is recoverable from git history if it is ever wanted back.
+- **Platform pricing is provisional** pending commercial sign-off. The figures
+  live in `src/lib/pricing.ts`, so changing them updates the calculator and the
+  plan table together. Counting services are quoted per engagement and are not
+  priced on the site.
 - **Barcode reading** — the schema, the model contract and the UI all carry the
   `needs_barcode` flag, and products have a `barcode` column, but no scanner is wired up.
   Deciding the capture approach is still an open item.
