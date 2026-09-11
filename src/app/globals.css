@@ -149,11 +149,30 @@ body {
   overflow: hidden;
 }
 
+/* The stage carries the footage's overall strength, so the crossfade between
+   the clips inside it stays a true handover rather than a dip to paper. */
+.site-bg-stage {
+  position: absolute;
+  inset: 0;
+  opacity: 0.8;
+}
+
+/* The three clips are stacked; the backdrop sets each one's opacity and drift
+   from the scroll position. The first is opaque so the page is never bare
+   before the script runs. */
 .site-bg-video {
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
-  opacity: 0.7;
+  opacity: 0;
+  transform-origin: center;
+  will-change: opacity, transform;
+}
+
+.site-bg-video:first-of-type {
+  opacity: 1;
 }
 
 /* The frosted pane that holds the footage far enough back to read over. Its
@@ -165,9 +184,19 @@ body {
   --px: 50%;
   --py: 50%;
   --spot-r: 0px;
-  -webkit-backdrop-filter: blur(10px) saturate(0.68);
-  backdrop-filter: blur(10px) saturate(0.68);
-  background-color: color-mix(in srgb, var(--color-paper) 76%, transparent);
+  /* How thick the pane is at rest, and how much it thickens at the seam where
+     one clip hands over to the next. The backdrop sets --breath; these two say
+     what that breath is worth on this screen. */
+  --frost-blur: 8px;
+  --frost-paper: 76%;
+  --breath: 0;
+  -webkit-backdrop-filter: blur(calc(var(--frost-blur) + var(--breath) * 5px)) saturate(0.68);
+  backdrop-filter: blur(calc(var(--frost-blur) + var(--breath) * 5px)) saturate(0.68);
+  background-color: color-mix(
+    in srgb,
+    var(--color-paper) calc(var(--frost-paper) + var(--breath) * 6%),
+    transparent
+  );
   -webkit-mask-image: radial-gradient(
     circle var(--spot-r) at var(--px) var(--py),
     rgb(0 0 0 / 0.42) 0%,
@@ -186,6 +215,16 @@ body {
 @media (hover: hover) {
   .site-frost[data-pointer] {
     --spot-r: 17rem;
+  }
+}
+
+/* A landscape clip on a portrait screen is cropped hard and loses most of its
+   detail, and there is no pointer to open a hole in the pane, so the pane has
+   to give more of the picture back on its own. */
+@media (max-width: 40rem) {
+  .site-frost {
+    --frost-blur: 5px;
+    --frost-paper: 64%;
   }
 }
 

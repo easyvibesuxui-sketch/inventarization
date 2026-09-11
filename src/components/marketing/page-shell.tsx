@@ -1,6 +1,6 @@
-import type { ReactNode } from "react";
-import Reveal from "./reveal";
-import Rise from "./rise";
+import type { ReactNode } from 'react';
+import Reveal from './reveal';
+import Rise from './rise';
 
 /** One column width and one vertical rhythm for every page. */
 export function Band({
@@ -41,9 +41,7 @@ export function PageHeader({
           </Rise>
         )}
         <Rise delay={eyebrow ? 60 : 0}>
-          <h1 className="font-display mt-6 max-w-3xl text-4xl sm:text-5xl md:text-6xl">
-            {title}
-          </h1>
+          <h1 className="font-display mt-6 max-w-3xl text-4xl sm:text-5xl md:text-6xl">{title}</h1>
         </Rise>
         {intro && (
           <Rise delay={120}>
@@ -79,9 +77,7 @@ export function RuledItem({
           {aside && <p className="label mt-2">{aside}</p>}
         </div>
         <div>
-          {body && (
-            <p className="max-w-xl leading-relaxed text-ink-soft">{body}</p>
-          )}
+          {body && <p className="max-w-xl leading-relaxed text-ink-soft">{body}</p>}
           {points && points.length > 0 && (
             <ul className="mt-4 space-y-1.5 text-sm text-ink-soft">
               {points.map((point) => (
