@@ -120,10 +120,15 @@ The marketing site is set as ink on paper — a warm off-white ground, one neutr
 ramp, hairline rules instead of cards, and no brand accent. Colour appears only
 where it carries meaning: the three verification verdicts.
 
-- **Two typefaces.** Helvetica Neue LT Georgian (Light/Roman/Bold) sets body
-  text; BPG Paata Cond Caps sets headings and the small caps labels. Both are
-  self-hosted woff2 in `src/app/fonts/`. The display face has **no lari sign**,
-  so prices are always set in the body face.
+- **Two typefaces.** Noto Sans Georgian sets body text; BPG Paata Cond Caps
+  (self-hosted woff2 in `src/app/fonts/`) sets headings and the small caps
+  labels. Both are free for commercial use — Noto under the SIL Open Font
+  License, BPG Paata released freely by its author. The display face has **no
+  lari sign**, so prices are always set in the body face.
+
+  Noto Sans Georgian is the only neutral grotesque on Google Fonts that carries
+  Georgian; the paid Helvetica Neue Georgian it replaced was licensed for desktop
+  use only, which does not cover webfont embedding.
 - **Grain** is one fixed SVG turbulence tile at `mix-blend-mode: multiply` — on a
   light ground it should read as tooth in the paper, not as a glow. Deliberately
   static: an animated full-viewport blended layer forces the whole page to
