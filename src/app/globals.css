@@ -244,11 +244,14 @@ body {
   );
 }
 
-@media (max-width: 40rem) {
+/* A phone gets the portrait cut of each clip, so the footage arrives composed
+   rather than magnified out of a landscape frame, and the pane over it can be
+   lighter than the one a cropped clip needed. */
+@media (max-aspect-ratio: 1 / 1) {
   .site-column {
-    -webkit-backdrop-filter: blur(5px);
-    backdrop-filter: blur(5px);
-    background-color: color-mix(in srgb, var(--color-paper) 44%, transparent);
+    -webkit-backdrop-filter: blur(4px);
+    backdrop-filter: blur(4px);
+    background-color: color-mix(in srgb, var(--color-paper) 40%, transparent);
   }
 }
 

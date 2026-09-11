@@ -1,7 +1,7 @@
 'use client';
 
 import { usePathname } from 'next/navigation';
-import { useEffect, useMemo, useRef } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import BackgroundVideo from './background-video';
 
 /**
@@ -45,9 +45,24 @@ function smooth(t: number) {
   return x * x * (3 - 2 * x);
 }
 
+/** Screens taller than they are wide get the clips shot that way round. */
+const PORTRAIT = '(max-aspect-ratio: 1 / 1)';
+
 export default function SiteBackground() {
   const pathname = usePathname();
   const order = useMemo(() => orderFor(pathname), [pathname]);
+
+  // Server-rendered as landscape and corrected on mount: the alternative is
+  // guessing from a user-agent string, and being wrong for a whole session.
+  const [portrait, setPortrait] = useState(false);
+
+  useEffect(() => {
+    const query = window.matchMedia(PORTRAIT);
+    const sync = () => setPortrait(query.matches);
+    sync();
+    query.addEventListener('change', sync);
+    return () => query.removeEventListener('change', sync);
+  }, []);
 
   const videos = useRef(new Map<string, HTMLVideoElement>());
   const frost = useRef<HTMLDivElement>(null);
@@ -155,7 +170,7 @@ export default function SiteBackground() {
       window.removeEventListener('resize', schedule);
       document.removeEventListener('visibilitychange', onVisibility);
     };
-  }, [order]);
+  }, [order, portrait]);
 
   // The pointer opens a soft hole in the frost: where you are looking the blur
   // lifts and the picture comes through.
@@ -200,12 +215,17 @@ export default function SiteBackground() {
       <div className="site-bg-stage">
         {order.map((name) => (
           <BackgroundVideo
-            key={name}
+            key={`${name}-${portrait ? 'p' : 'l'}`}
             name={name}
+            portrait={portrait}
             ref={(node) => {
               if (!node) return;
               videos.current.set(name, node);
-              return () => videos.current.delete(name);
+              // On an orientation flip React can run this cleanup after the
+              // replacement has already registered, so only clear our own.
+              return () => {
+                if (videos.current.get(name) === node) videos.current.delete(name);
+              };
             }}
           />
         ))}
