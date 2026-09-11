@@ -8,7 +8,7 @@ import { submitContact, type ContactState } from '@/app/[locale]/actions';
 const INITIAL: ContactState = { status: 'idle' };
 
 const FIELD =
-  'mt-1 w-full border-b border-rule-strong bg-transparent py-2 text-sm focus:border-ink focus:outline-none';
+  'mt-1.5 w-full rounded-control border border-rule-strong bg-transparent px-3 py-2 text-sm transition focus:border-ink focus:outline-none';
 
 export default function ContactForm({
   locale,
@@ -69,7 +69,7 @@ export default function ContactForm({
       <button
         type="submit"
         disabled={pending}
-        className="mt-8 bg-ink px-6 py-2.5 text-sm text-paper transition hover:bg-ink-soft disabled:opacity-50"
+        className="mt-8 rounded-control bg-ink px-6 py-2.5 text-sm text-paper transition hover:bg-ink-soft disabled:opacity-50"
       >
         {pending ? dict.contact.sending : dict.contact.submit}
       </button>

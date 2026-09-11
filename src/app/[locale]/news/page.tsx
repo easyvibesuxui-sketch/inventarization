@@ -62,7 +62,7 @@ export default async function NewsPage({ params }: PageProps<'/[locale]/news'>) 
                       alt=""
                       placeholder="blur"
                       sizes="(min-width: 768px) 34rem, 100vw"
-                      className="mt-8 w-full max-w-xl"
+                      className="mt-8 w-full max-w-xl rounded-media"
                     />
                   )}
                 </div>

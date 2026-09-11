@@ -8,6 +8,7 @@ import { formatMoney, PLANS } from '@/lib/pricing';
 import Reveal from '@/components/marketing/reveal';
 import Rise from '@/components/marketing/rise';
 import { Band } from '@/components/marketing/page-shell';
+import VideoBand from '@/components/marketing/video-band';
 
 export async function generateMetadata({
   params,
@@ -56,8 +57,8 @@ export default async function HomePage({ params }: PageProps<'/[locale]'>) {
   return (
     <>
       {/* Hero */}
-      <section>
-        <div className="mx-auto max-w-5xl px-6 pb-24 pt-20 sm:pt-28">
+      <VideoBand name="aisle">
+        <div className="mx-auto max-w-5xl px-6 pb-28 pt-24 sm:pt-32">
           <Rise>
             <p className="label">{dict.home.tag}</p>
           </Rise>
@@ -78,7 +79,7 @@ export default async function HomePage({ params }: PageProps<'/[locale]'>) {
             <div className="mt-10 flex flex-wrap items-center gap-6">
               <Link
                 href={`/${l}/contact`}
-                className="bg-ink px-6 py-2.5 text-sm text-paper transition hover:bg-ink-soft"
+                className="rounded-control bg-ink px-6 py-2.5 text-sm text-paper transition hover:bg-ink-soft"
               >
                 {dict.home.ctaPrimary}
               </Link>
@@ -91,7 +92,7 @@ export default async function HomePage({ params }: PageProps<'/[locale]'>) {
             </div>
           </Rise>
         </div>
-      </section>
+      </VideoBand>
 
       {/* Services */}
       <Band label={dict.nav.services}>
@@ -271,7 +272,7 @@ export default async function HomePage({ params }: PageProps<'/[locale]'>) {
           <p className="mt-5 max-w-lg text-ink-soft">{dict.home.finalBody}</p>
           <Link
             href={`/${l}/contact`}
-            className="mt-8 inline-block bg-ink px-6 py-2.5 text-sm text-paper transition hover:bg-ink-soft"
+            className="mt-8 inline-block rounded-control bg-ink px-6 py-2.5 text-sm text-paper transition hover:bg-ink-soft"
           >
             {dict.home.finalCta}
           </Link>

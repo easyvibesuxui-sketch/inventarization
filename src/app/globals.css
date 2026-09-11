@@ -26,6 +26,12 @@
   --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
 
   --ease-out-quint: cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* Two radii, so rounding is a decision made once rather than per component:
+     `control` for things you click or type into, `media` for pictures and
+     video. Structural hairline rules stay square. */
+  --radius-control: 0.625rem;
+  --radius-media: 1rem;
 }
 
 html {

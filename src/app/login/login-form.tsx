@@ -7,7 +7,7 @@ import { signIn, signUp, type AuthState } from './actions';
 const EMPTY: AuthState = {};
 
 const FIELD =
-  'mt-1 w-full border-b border-rule-strong bg-transparent py-2 text-sm focus:border-ink focus:outline-none';
+  'mt-1.5 w-full rounded-control border border-rule-strong bg-transparent px-3 py-2 text-sm transition focus:border-ink focus:outline-none';
 
 export default function LoginForm() {
   const [mode, setMode] = useState<'signin' | 'signup'>('signin');
@@ -79,7 +79,7 @@ export default function LoginForm() {
         <button
           type="submit"
           disabled={pending}
-          className="w-full bg-ink px-6 py-2.5 text-sm text-paper transition hover:bg-ink-soft disabled:opacity-50"
+          className="w-full rounded-control bg-ink px-6 py-2.5 text-sm text-paper transition hover:bg-ink-soft disabled:opacity-50"
         >
           {pending ? 'Working…' : mode === 'signin' ? 'Sign in' : 'Create account'}
         </button>

@@ -47,7 +47,7 @@ export default async function CareersPage({ params }: PageProps<'/[locale]/caree
         <Reveal delay={140} className="mt-10">
           <Link
             href={`/${locale}/contact`}
-            className="inline-block bg-ink px-6 py-2.5 text-sm text-paper transition hover:bg-ink-soft"
+            className="inline-block rounded-control bg-ink px-6 py-2.5 text-sm text-paper transition hover:bg-ink-soft"
           >
             {dict.nav.contact}
           </Link>

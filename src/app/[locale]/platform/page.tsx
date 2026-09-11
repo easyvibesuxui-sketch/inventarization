@@ -31,6 +31,7 @@ export default async function PlatformPage({ params }: PageProps<'/[locale]/plat
         eyebrow={dict.nav.platform}
         title={dict.platform.title}
         intro={dict.platform.intro}
+        video="scan"
       />
 
       <Band>
@@ -54,7 +55,7 @@ export default async function PlatformPage({ params }: PageProps<'/[locale]/plat
             alt=""
             placeholder="blur"
             sizes="(min-width: 768px) 34rem, 100vw"
-            className="w-full max-w-xl"
+            className="w-full max-w-xl rounded-media"
           />
         </Reveal>
       </Band>

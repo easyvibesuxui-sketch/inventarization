@@ -26,7 +26,7 @@ export default function MobileNav({
       </button>
 
       {open && (
-        <nav className="absolute right-0 top-8 z-50 w-56 border border-rule bg-paper p-4 shadow-sm">
+        <nav className="absolute right-0 top-8 z-50 w-56 rounded-control border border-rule bg-paper p-4 shadow-sm">
           {links.map((link) => (
             <Link
               key={link.href}

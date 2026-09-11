@@ -29,6 +29,7 @@ export default async function ServicesPage({ params }: PageProps<'/[locale]/serv
         eyebrow={dict.nav.services}
         title={dict.services.title}
         intro={dict.services.intro}
+        video="racks"
       />
 
       <Band>
@@ -48,7 +49,7 @@ export default async function ServicesPage({ params }: PageProps<'/[locale]/serv
         <Reveal delay={120} className="mt-12">
           <Link
             href={`/${locale}/contact`}
-            className="inline-block bg-ink px-6 py-2.5 text-sm text-paper transition hover:bg-ink-soft"
+            className="inline-block rounded-control bg-ink px-6 py-2.5 text-sm text-paper transition hover:bg-ink-soft"
           >
             {dict.home.ctaPrimary}
           </Link>

@@ -141,6 +141,17 @@ where it carries meaning: the three verification verdicts.
   scripting is off.
 - **One photograph**, black and white, in the section about look-alike variants —
   the one place an image does work that prose cannot.
+- **Three background clips** — home hero, Services and Platform — under a scrim,
+  desaturated to match the photograph. They carry **no `autoplay` attribute**: an
+  IntersectionObserver starts playback when the band scrolls into view and pauses
+  it when it leaves, so a visitor who never reaches a section never decodes a
+  frame. Playback also pauses when the tab is hidden and never starts at all
+  under `prefers-reduced-motion`, where the poster is the whole treatment.
+  Each clip ships as VP9 and H.264 and loops seamlessly (the source is
+  concatenated with its own reverse); all six files together are about 1.2 MB.
+- **Rounding** is two tokens, `--radius-control` and `--radius-media`, so it is
+  decided once: controls and fields get one, pictures and video the other, and
+  the structural hairline rules stay square.
 
 ### Layout
 

@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react';
 import Reveal from './reveal';
 import Rise from './rise';
+import VideoBand from './video-band';
 
 /** One column width and one vertical rhythm for every page. */
 export function Band({
@@ -22,19 +23,31 @@ export function Band({
   );
 }
 
-/** The masthead every inner page opens with. */
+/**
+ * The masthead every inner page opens with. Pass `video` to give it a clip that
+ * plays as the page is scrolled into view.
+ */
 export function PageHeader({
   eyebrow,
   title,
   intro,
+  video,
 }: {
   eyebrow?: string;
   title: string;
   intro?: string;
+  /** Base file name in /public/video, without extension. */
+  video?: string;
 }) {
+  const Wrapper = video
+    ? ({ children }: { children: ReactNode }) => (
+        <VideoBand name={video}>{children}</VideoBand>
+      )
+    : ({ children }: { children: ReactNode }) => <section>{children}</section>;
+
   return (
-    <section>
-      <div className="mx-auto max-w-5xl px-6 pb-16 pt-20">
+    <Wrapper>
+      <div className="mx-auto max-w-5xl px-6 pb-20 pt-24">
         {eyebrow && (
           <Rise>
             <p className="label">{eyebrow}</p>
@@ -51,7 +64,7 @@ export function PageHeader({
           </Rise>
         )}
       </div>
-    </section>
+    </Wrapper>
   );
 }
 
