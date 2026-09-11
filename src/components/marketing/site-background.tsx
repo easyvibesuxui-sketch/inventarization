@@ -211,6 +211,8 @@ export default function SiteBackground() {
         ))}
       </div>
       <div ref={frost} className="site-frost" />
+      {/* The calm ground under the text, no wider than the text itself. */}
+      <div className="site-column" />
       {/* A breath of ink at the edges, so the page has a shape rather than
           washing out into the browser chrome. */}
       <div className="site-vignette" />

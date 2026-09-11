@@ -47,7 +47,7 @@ export default async function HomePage({ params }: PageProps<'/[locale]'>) {
     <>
       {/* Hero */}
       <section>
-        <div className="mx-auto max-w-5xl px-6 pb-28 pt-24 sm:pt-32">
+        <div className="mx-auto max-w-5xl px-6 pb-40 pt-32 sm:pt-44 md:pb-48">
           <Rise>
             <p className="label">{dict.home.tag}</p>
           </Rise>

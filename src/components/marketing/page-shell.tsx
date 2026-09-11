@@ -14,8 +14,8 @@ export function Band({
 }) {
   return (
     <section id={id} className="border-t border-rule">
-      <div className="mx-auto max-w-5xl px-6 py-20">
-        {label && <p className="label mb-10">{label}</p>}
+      <div className="mx-auto max-w-5xl px-6 py-28 md:py-40">
+        {label && <p className="label mb-14">{label}</p>}
         {children}
       </div>
     </section>
@@ -34,7 +34,7 @@ export function PageHeader({
 }) {
   return (
     <section>
-      <div className="mx-auto max-w-5xl px-6 pb-20 pt-24">
+      <div className="mx-auto max-w-5xl px-6 pb-32 pt-28 md:pb-40 md:pt-36">
         {eyebrow && (
           <Rise>
             <p className="label">{eyebrow}</p>
