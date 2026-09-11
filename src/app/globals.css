@@ -124,6 +124,45 @@ body {
   transform: none;
 }
 
+/* The radius of the hole the pointer opens in a video band's frost. Declared
+   with @property so it can be transitioned; browsers without it simply snap. */
+@property --spot-r {
+  syntax: "<length>";
+  inherits: false;
+  initial-value: 0px;
+}
+
+/* The frosted pane over a background clip. Its mask is opaque everywhere except
+   a soft circle at the pointer, so hovering lifts the blur and the wash exactly
+   where you are looking and leaves the rest of the band quiet to read over. */
+.video-frost {
+  --px: 50%;
+  --py: 50%;
+  --spot-r: 0px;
+  -webkit-backdrop-filter: blur(6px) saturate(0.7);
+  backdrop-filter: blur(6px) saturate(0.7);
+  background-color: color-mix(in srgb, var(--color-paper) 20%, transparent);
+  -webkit-mask-image: radial-gradient(
+    circle var(--spot-r) at var(--px) var(--py),
+    transparent 0%,
+    transparent 25%,
+    black 100%
+  );
+  mask-image: radial-gradient(
+    circle var(--spot-r) at var(--px) var(--py),
+    transparent 0%,
+    transparent 25%,
+    black 100%
+  );
+  transition: --spot-r 0.5s var(--ease-out-quint);
+}
+
+@media (hover: hover) {
+  .video-band:hover .video-frost {
+    --spot-r: 17rem;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .rise {
     animation: none;
@@ -132,6 +171,10 @@ body {
   .reveal {
     opacity: 1;
     transform: none;
+    transition: none;
+  }
+
+  .video-frost {
     transition: none;
   }
 }

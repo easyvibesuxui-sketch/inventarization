@@ -64,7 +64,7 @@ export default async function HomePage({ params }: PageProps<'/[locale]'>) {
           </Rise>
 
           <Rise delay={60}>
-            <h1 className="font-display mt-8 max-w-3xl text-4xl sm:text-6xl md:text-7xl">
+            <h1 className="font-display mt-8 max-w-2xl text-3xl sm:text-4xl md:text-5xl">
               {dict.home.title}
             </h1>
           </Rise>
