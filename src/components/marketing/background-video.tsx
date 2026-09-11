@@ -1,21 +1,38 @@
-'use client';
+"use client";
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef } from "react";
 
 /**
- * A muted background clip that plays only while it is on screen.
+ * Playback is gated on the visitor actually having scrolled.
  *
- * There is deliberately no `autoplay` attribute: playback is started by an
- * IntersectionObserver when the band scrolls into view and paused again when it
- * leaves, so a visitor who never reaches the section never decodes a frame.
- *
- * The poster carries the first frame, so the band is never empty — which also
- * makes it the whole treatment for anyone who asked for reduced motion, where
- * playback never starts at all.
+ * An IntersectionObserver on its own is not enough: a band that fills the first
+ * screen is already intersecting at first paint, so the clip starts the moment
+ * the page loads — which is autoplay by any other name. This module-level latch
+ * flips on the first real scroll gesture and never flips back, so every clip on
+ * the page waits for it and then behaves as "plays while on screen".
  */
+let hasScrolled = false;
+const waiting = new Set<() => void>();
+
+function watchForScroll() {
+  if (typeof window === "undefined" || hasScrolled) return;
+
+  const unlock = () => {
+    // A restored scroll position (back button, or a #hash) fires a scroll event
+    // without the visitor having touched anything, so require actual travel.
+    if (window.scrollY < 24) return;
+    hasScrolled = true;
+    window.removeEventListener("scroll", unlock);
+    for (const notify of waiting) notify();
+    waiting.clear();
+  };
+
+  window.addEventListener("scroll", unlock, { passive: true });
+}
+
 export default function BackgroundVideo({
   name,
-  className = '',
+  className = "",
 }: {
   /** Base file name in /public/video, without extension. */
   name: string;
@@ -26,18 +43,27 @@ export default function BackgroundVideo({
   useEffect(() => {
     const video = ref.current;
     if (!video) return;
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
-    const play = () => {
-      // Autoplay policies still reject a muted play() in some states; the poster
-      // stays up, which is a perfectly good outcome.
-      void video.play().catch(() => {});
+    let onScreen = false;
+
+    const sync = () => {
+      if (onScreen && hasScrolled) {
+        // Autoplay policies still reject a muted play() in some states; the
+        // poster stays up, which is a perfectly good outcome.
+        void video.play().catch(() => {});
+      } else {
+        video.pause();
+      }
     };
+
+    watchForScroll();
+    if (!hasScrolled) waiting.add(sync);
 
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) play();
-        else video.pause();
+        onScreen = entry.isIntersecting;
+        sync();
       },
       { threshold: 0.25 },
     );
@@ -46,12 +72,14 @@ export default function BackgroundVideo({
     // A clip playing in a tab nobody is looking at is wasted battery.
     const onVisibility = () => {
       if (document.hidden) video.pause();
+      else sync();
     };
-    document.addEventListener('visibilitychange', onVisibility);
+    document.addEventListener("visibilitychange", onVisibility);
 
     return () => {
       observer.disconnect();
-      document.removeEventListener('visibilitychange', onVisibility);
+      waiting.delete(sync);
+      document.removeEventListener("visibilitychange", onVisibility);
     };
   }, []);
 
