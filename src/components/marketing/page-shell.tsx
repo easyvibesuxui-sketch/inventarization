@@ -1,7 +1,6 @@
 import type { ReactNode } from "react";
 import Reveal from "./reveal";
 import Rise from "./rise";
-import VideoBand from "./video-band";
 
 /** One column width and one vertical rhythm for every page. */
 export function Band({
@@ -23,48 +22,38 @@ export function Band({
   );
 }
 
-/**
- * The masthead every inner page opens with. Pass `video` to give it a clip that
- * plays as the page is scrolled into view.
- */
+/** The masthead every inner page opens with. */
 export function PageHeader({
   eyebrow,
   title,
   intro,
-  video,
 }: {
   eyebrow?: string;
   title: string;
   intro?: string;
-  /** Base file name in /public/video, without extension. */
-  video?: string;
 }) {
-  const inner = (
-    <div className="mx-auto max-w-5xl px-6 pb-20 pt-24">
-      {eyebrow && (
-        <Rise>
-          <p className="label">{eyebrow}</p>
+  return (
+    <section>
+      <div className="mx-auto max-w-5xl px-6 pb-20 pt-24">
+        {eyebrow && (
+          <Rise>
+            <p className="label">{eyebrow}</p>
+          </Rise>
+        )}
+        <Rise delay={eyebrow ? 60 : 0}>
+          <h1 className="font-display mt-6 max-w-3xl text-4xl sm:text-5xl md:text-6xl">
+            {title}
+          </h1>
         </Rise>
-      )}
-      <Rise delay={eyebrow ? 60 : 0}>
-        <h1 className="font-display mt-6 max-w-3xl text-4xl sm:text-5xl md:text-6xl">
-          {title}
-        </h1>
-      </Rise>
-      {intro && (
-        <Rise delay={120}>
-          <p className="mt-8 max-w-xl text-lg font-light leading-relaxed text-ink-soft">
-            {intro}
-          </p>
-        </Rise>
-      )}
-    </div>
-  );
-
-  return video ? (
-    <VideoBand name={video}>{inner}</VideoBand>
-  ) : (
-    <section>{inner}</section>
+        {intro && (
+          <Rise delay={120}>
+            <p className="mt-8 max-w-xl text-lg font-light leading-relaxed text-ink-soft">
+              {intro}
+            </p>
+          </Rise>
+        )}
+      </div>
+    </section>
   );
 }
 

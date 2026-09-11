@@ -1,23 +1,25 @@
-import type { Metadata } from 'next';
-import Link from 'next/link';
-import { notFound } from 'next/navigation';
-import { isLocale } from '@/lib/i18n/config';
-import { getDictionary } from '@/lib/i18n/dictionaries';
-import { pageMetadata } from '@/lib/i18n/page-meta';
-import Reveal from '@/components/marketing/reveal';
-import { Band, PageHeader, RuledItem } from '@/components/marketing/page-shell';
+import type { Metadata } from "next";
+import Link from "next/link";
+import { notFound } from "next/navigation";
+import { isLocale } from "@/lib/i18n/config";
+import { getDictionary } from "@/lib/i18n/dictionaries";
+import { pageMetadata } from "@/lib/i18n/page-meta";
+import Reveal from "@/components/marketing/reveal";
+import { Band, PageHeader, RuledItem } from "@/components/marketing/page-shell";
 
 export async function generateMetadata({
   params,
-}: PageProps<'/[locale]/services'>): Promise<Metadata> {
+}: PageProps<"/[locale]/services">): Promise<Metadata> {
   const { locale } = await params;
-  return pageMetadata(locale, 'services', (meta) => ({
+  return pageMetadata(locale, "services", (meta) => ({
     title: meta.servicesTitle,
     description: meta.servicesDescription,
   }));
 }
 
-export default async function ServicesPage({ params }: PageProps<'/[locale]/services'>) {
+export default async function ServicesPage({
+  params,
+}: PageProps<"/[locale]/services">) {
   const { locale } = await params;
   if (!isLocale(locale)) notFound();
 
@@ -29,7 +31,6 @@ export default async function ServicesPage({ params }: PageProps<'/[locale]/serv
         eyebrow={dict.nav.services}
         title={dict.services.title}
         intro={dict.services.intro}
-        video="racks"
       />
 
       <Band>
@@ -40,7 +41,7 @@ export default async function ServicesPage({ params }: PageProps<'/[locale]/serv
               title={item.title}
               body={item.body}
               points={item.points}
-              aside={String(index + 1).padStart(2, '0')}
+              aside={String(index + 1).padStart(2, "0")}
               delay={index * 60}
             />
           ))}

@@ -1,9 +1,10 @@
-import { notFound } from 'next/navigation';
-import { HTML_LANG, isLocale, LOCALES } from '@/lib/i18n/config';
-import { getDictionary } from '@/lib/i18n/dictionaries';
-import SiteHeader from '@/components/marketing/site-header';
-import SiteFooter from '@/components/marketing/site-footer';
-import Grain from '@/components/marketing/grain';
+import { notFound } from "next/navigation";
+import { HTML_LANG, isLocale, LOCALES } from "@/lib/i18n/config";
+import { getDictionary } from "@/lib/i18n/dictionaries";
+import SiteHeader from "@/components/marketing/site-header";
+import SiteFooter from "@/components/marketing/site-footer";
+import Grain from "@/components/marketing/grain";
+import SiteBackground from "@/components/marketing/site-background";
 
 export function generateStaticParams() {
   return LOCALES.map((locale) => ({ locale }));
@@ -12,7 +13,7 @@ export function generateStaticParams() {
 export default async function LocaleLayout({
   children,
   params,
-}: LayoutProps<'/[locale]'>) {
+}: LayoutProps<"/[locale]">) {
   const { locale } = await params;
   if (!isLocale(locale)) notFound();
 
@@ -27,8 +28,13 @@ export default async function LocaleLayout({
           the page would render blank, so opt every reveal into its finished
           state when scripting is off. */}
       <noscript>
-        <style>{'.reveal{opacity:1!important;transform:none!important;filter:none!important}.rise{animation:none!important}'}</style>
+        <style>
+          {
+            ".reveal{opacity:1!important;transform:none!important;filter:none!important}.rise{animation:none!important}"
+          }
+        </style>
       </noscript>
+      <SiteBackground />
       <Grain />
       <SiteHeader locale={locale} dict={dict} />
       <main className="flex-1">{children}</main>

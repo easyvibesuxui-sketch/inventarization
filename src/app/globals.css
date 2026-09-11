@@ -20,10 +20,11 @@
   --color-review: #8a6415;
   --color-mismatch: #a33227;
 
-  --font-sans: var(--font-body-loaded), "Helvetica Neue", Helvetica, Arial,
-    sans-serif;
+  --font-sans:
+    var(--font-body-loaded), "Helvetica Neue", Helvetica, Arial, sans-serif;
   --font-display: var(--font-display-loaded), var(--font-sans);
-  --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+  --font-mono:
+    ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
 
   --ease-out-quint: cubic-bezier(0.16, 1, 0.3, 1);
 
@@ -36,10 +37,13 @@
 
 html {
   color-scheme: light;
+  background-color: var(--color-paper);
 }
 
 body {
-  background-color: var(--color-paper);
+  /* The ground is on <html>, so the fixed backdrop behind the body shows
+     through every page rather than being painted over section by section. */
+  background-color: transparent;
   color: var(--color-ink);
   font-family: var(--font-sans);
   font-weight: 400;
@@ -124,43 +128,75 @@ body {
   transform: none;
 }
 
-/* The radius of the hole the pointer opens in a video band's frost. Declared
-   with @property so it can be transitioned; browsers without it simply snap. */
+/* The radius of the hole the pointer opens in the frost. Declared with
+   @property so it can be transitioned; browsers without it simply snap. */
 @property --spot-r {
   syntax: "<length>";
   inherits: false;
   initial-value: 0px;
 }
 
-/* The frosted pane over a background clip. Its mask is opaque everywhere except
-   a soft circle at the pointer, so hovering lifts the blur and the wash exactly
-   where you are looking and leaves the rest of the band quiet to read over. */
-.video-frost {
+/* ---------------------------------------------------------------------------
+   The site backdrop
+   --------------------------------------------------------------------------- */
+
+/* One clip fixed behind every page. Content scrolls over it; it stays put. */
+.site-bg {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.site-bg-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.7;
+}
+
+/* The frosted pane that holds the footage far enough back to read over. Its
+   mask is opaque everywhere except a soft circle at the pointer, so hovering
+   lifts the blur and the wash exactly where you are looking. */
+.site-frost {
+  position: absolute;
+  inset: 0;
   --px: 50%;
   --py: 50%;
   --spot-r: 0px;
-  -webkit-backdrop-filter: blur(6px) saturate(0.7);
-  backdrop-filter: blur(6px) saturate(0.7);
-  background-color: color-mix(in srgb, var(--color-paper) 20%, transparent);
+  -webkit-backdrop-filter: blur(10px) saturate(0.68);
+  backdrop-filter: blur(10px) saturate(0.68);
+  background-color: color-mix(in srgb, var(--color-paper) 76%, transparent);
   -webkit-mask-image: radial-gradient(
     circle var(--spot-r) at var(--px) var(--py),
-    transparent 0%,
-    transparent 25%,
+    rgb(0 0 0 / 0.42) 0%,
+    rgb(0 0 0 / 0.42) 25%,
     black 100%
   );
   mask-image: radial-gradient(
     circle var(--spot-r) at var(--px) var(--py),
-    transparent 0%,
-    transparent 25%,
+    rgb(0 0 0 / 0.42) 0%,
+    rgb(0 0 0 / 0.42) 25%,
     black 100%
   );
   transition: --spot-r 0.5s var(--ease-out-quint);
 }
 
 @media (hover: hover) {
-  .video-band:hover .video-frost {
+  .site-frost[data-pointer] {
     --spot-r: 17rem;
   }
+}
+
+.site-vignette {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    120% 100% at 50% 45%,
+    transparent 45%,
+    color-mix(in srgb, var(--color-ink) 10%, transparent) 100%
+  );
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -174,7 +210,7 @@ body {
     transition: none;
   }
 
-  .video-frost {
+  .site-frost {
     transition: none;
   }
 }

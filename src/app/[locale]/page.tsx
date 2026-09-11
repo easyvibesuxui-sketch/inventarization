@@ -1,20 +1,19 @@
-import type { Metadata } from 'next';
-import Link from 'next/link';
-import { notFound } from 'next/navigation';
-import { isLocale, type Locale } from '@/lib/i18n/config';
-import { getDictionary, type Dictionary } from '@/lib/i18n/dictionaries';
-import { pageMetadata } from '@/lib/i18n/page-meta';
-import { formatMoney, PLANS } from '@/lib/pricing';
-import Reveal from '@/components/marketing/reveal';
-import Rise from '@/components/marketing/rise';
-import { Band } from '@/components/marketing/page-shell';
-import VideoBand from '@/components/marketing/video-band';
+import type { Metadata } from "next";
+import Link from "next/link";
+import { notFound } from "next/navigation";
+import { isLocale, type Locale } from "@/lib/i18n/config";
+import { getDictionary, type Dictionary } from "@/lib/i18n/dictionaries";
+import { pageMetadata } from "@/lib/i18n/page-meta";
+import { formatMoney, PLANS } from "@/lib/pricing";
+import Reveal from "@/components/marketing/reveal";
+import Rise from "@/components/marketing/rise";
+import { Band } from "@/components/marketing/page-shell";
 
 export async function generateMetadata({
   params,
-}: PageProps<'/[locale]'>): Promise<Metadata> {
+}: PageProps<"/[locale]">): Promise<Metadata> {
   const { locale } = await params;
-  return pageMetadata(locale, '', (meta) => ({
+  return pageMetadata(locale, "", (meta) => ({
     title: meta.homeTitle,
     description: meta.homeDescription,
   }));
@@ -45,7 +44,7 @@ function More({
  * short section here, composed from the same dictionary entries the full page
  * uses, so the two can never drift apart.
  */
-export default async function HomePage({ params }: PageProps<'/[locale]'>) {
+export default async function HomePage({ params }: PageProps<"/[locale]">) {
   const { locale } = await params;
   if (!isLocale(locale)) notFound();
 
@@ -57,7 +56,7 @@ export default async function HomePage({ params }: PageProps<'/[locale]'>) {
   return (
     <>
       {/* Hero */}
-      <VideoBand name="aisle">
+      <section>
         <div className="mx-auto max-w-5xl px-6 pb-28 pt-24 sm:pt-32">
           <Rise>
             <p className="label">{dict.home.tag}</p>
@@ -92,7 +91,7 @@ export default async function HomePage({ params }: PageProps<'/[locale]'>) {
             </div>
           </Rise>
         </div>
-      </VideoBand>
+      </section>
 
       {/* Services */}
       <Band label={dict.nav.services}>
@@ -100,7 +99,9 @@ export default async function HomePage({ params }: PageProps<'/[locale]'>) {
           <h2 className="font-display max-w-2xl text-2xl sm:text-3xl">
             {dict.services.title}
           </h2>
-          <p className="mt-4 max-w-xl text-ink-soft">{dict.home.servicesLead}</p>
+          <p className="mt-4 max-w-xl text-ink-soft">
+            {dict.home.servicesLead}
+          </p>
         </Reveal>
 
         <div className="mt-10 border-t border-ink">
@@ -111,7 +112,7 @@ export default async function HomePage({ params }: PageProps<'/[locale]'>) {
               className="grid gap-x-10 gap-y-1 border-b border-rule py-4 md:grid-cols-[3rem_18rem_1fr]"
             >
               <span className="text-sm tabular-nums text-ink-faint">
-                {String(index + 1).padStart(2, '0')}
+                {String(index + 1).padStart(2, "0")}
               </span>
               <h3 className="text-base">{item.title}</h3>
               <p className="max-w-xl text-sm text-ink-soft">{item.body}</p>
@@ -157,7 +158,9 @@ export default async function HomePage({ params }: PageProps<'/[locale]'>) {
           <h2 className="font-display max-w-2xl text-2xl sm:text-3xl">
             {dict.platform.title}
           </h2>
-          <p className="mt-4 max-w-xl text-ink-soft">{dict.home.platformLead}</p>
+          <p className="mt-4 max-w-xl text-ink-soft">
+            {dict.home.platformLead}
+          </p>
         </Reveal>
 
         <div className="mt-10 grid gap-x-10 gap-y-8 border-t border-ink pt-8 md:grid-cols-2">
@@ -212,8 +215,14 @@ export default async function HomePage({ params }: PageProps<'/[locale]'>) {
         </div>
 
         <Reveal delay={140} className="flex flex-wrap items-baseline gap-x-8">
-          <More href={`/${l}/pricing`} label={dict.pricingTeaser.cta} dict={dict} />
-          <p className="text-sm text-ink-faint">{dict.pricingTeaser.placeholder}</p>
+          <More
+            href={`/${l}/pricing`}
+            label={dict.pricingTeaser.cta}
+            dict={dict}
+          />
+          <p className="text-sm text-ink-faint">
+            {dict.pricingTeaser.placeholder}
+          </p>
         </Reveal>
       </Band>
 
@@ -225,7 +234,9 @@ export default async function HomePage({ params }: PageProps<'/[locale]'>) {
             <p className="label mt-2">{dict.team.founderRole}</p>
           </div>
           <div>
-            <p className="max-w-xl leading-relaxed text-ink-soft">{dict.team.founderBody}</p>
+            <p className="max-w-xl leading-relaxed text-ink-soft">
+              {dict.team.founderBody}
+            </p>
             <More href={`/${l}/team`} label={dict.nav.team} dict={dict} />
           </div>
         </Reveal>
@@ -240,7 +251,9 @@ export default async function HomePage({ params }: PageProps<'/[locale]'>) {
           <h2 className="font-display mt-3 max-w-2xl text-2xl sm:text-3xl">
             {latest.title}
           </h2>
-          <p className="mt-4 max-w-xl leading-relaxed text-ink-soft">{latest.body}</p>
+          <p className="mt-4 max-w-xl leading-relaxed text-ink-soft">
+            {latest.body}
+          </p>
           <More href={`/${l}/news`} label={dict.nav.news} dict={dict} />
         </Reveal>
       </Band>
@@ -254,7 +267,10 @@ export default async function HomePage({ params }: PageProps<'/[locale]'>) {
           <p className="mt-4 max-w-xl text-ink-soft">{dict.careers.intro}</p>
           <ul className="mt-8 border-t border-ink">
             {dict.careers.roles.map((role) => (
-              <li key={role.title} className="border-b border-rule py-3 text-sm">
+              <li
+                key={role.title}
+                className="border-b border-rule py-3 text-sm"
+              >
                 {role.title}
               </li>
             ))}
