@@ -13,12 +13,15 @@
 export default function BackgroundVideo({
   name,
   portrait,
+  eager,
   ref,
 }: {
   /** Base file name in /public/video, without extension or orientation. */
   name: string;
   /** Serve the portrait cut, for screens taller than they are wide. */
   portrait: boolean;
+  /** The opening clip, the only one wanted before the reader has moved. */
+  eager?: boolean;
   ref: (node: HTMLVideoElement | null) => void;
 }) {
   const file = portrait ? `${name}-portrait` : name;
@@ -30,7 +33,9 @@ export default function BackgroundVideo({
       muted
       loop
       playsInline
-      preload="auto"
+      // Only the opening clip is worth a phone's data before it is asked for;
+      // the other two are a third and two thirds of the way down the page.
+      preload={eager ? 'auto' : 'metadata'}
       aria-hidden
       tabIndex={-1}
       className="site-bg-video"

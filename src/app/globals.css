@@ -149,6 +149,10 @@ body {
   z-index: -1;
   pointer-events: none;
   overflow: hidden;
+  /* The clips are not rendered until the screen's orientation is known, and a
+     phone may refuse to play them at all (Low Power Mode blocks inline
+     playback outright). Either way the page needs its ground. */
+  background-color: var(--color-paper);
 }
 
 /* The stage carries the footage's overall strength, so the crossfade between

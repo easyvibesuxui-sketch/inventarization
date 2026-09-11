@@ -52,9 +52,11 @@ export default function SiteBackground() {
   const pathname = usePathname();
   const order = useMemo(() => orderFor(pathname), [pathname]);
 
-  // Server-rendered as landscape and corrected on mount: the alternative is
-  // guessing from a user-agent string, and being wrong for a whole session.
-  const [portrait, setPortrait] = useState(false);
+  // Null until measured, and nothing is rendered before then. Rendering a
+  // guess first means a phone downloads the landscape set, throws it away on
+  // hydration and downloads the portrait set — two payloads on the connection
+  // least able to afford one, with the clip arriving late or not at all.
+  const [portrait, setPortrait] = useState<boolean | null>(null);
 
   useEffect(() => {
     const query = window.matchMedia(PORTRAIT);
@@ -213,22 +215,24 @@ export default function SiteBackground() {
   return (
     <div aria-hidden className="site-bg">
       <div className="site-bg-stage">
-        {order.map((name) => (
-          <BackgroundVideo
-            key={`${name}-${portrait ? 'p' : 'l'}`}
-            name={name}
-            portrait={portrait}
-            ref={(node) => {
-              if (!node) return;
-              videos.current.set(name, node);
-              // On an orientation flip React can run this cleanup after the
-              // replacement has already registered, so only clear our own.
-              return () => {
-                if (videos.current.get(name) === node) videos.current.delete(name);
-              };
-            }}
-          />
-        ))}
+        {portrait !== null &&
+          order.map((name, i) => (
+            <BackgroundVideo
+              key={`${name}-${portrait ? 'p' : 'l'}`}
+              name={name}
+              portrait={portrait}
+              eager={i === 0}
+              ref={(node) => {
+                if (!node) return;
+                videos.current.set(name, node);
+                // On an orientation flip React can run this cleanup after the
+                // replacement has already registered, so only clear our own.
+                return () => {
+                  if (videos.current.get(name) === node) videos.current.delete(name);
+                };
+              }}
+            />
+          ))}
       </div>
       <div ref={frost} className="site-frost" />
       {/* The calm ground under the text, no wider than the text itself. */}
