@@ -1,10 +1,12 @@
 # Inverse
 
-Multi-tenant inventory management with an AI physical-verification step, aimed at SMBs
-in Georgia and the wider Caucasus. A Novora product.
+Two things live in this repository:
 
-Photograph a shelf; Inverse counts what is actually on it and compares that against what
-your records claim, marking each SKU green, amber or red.
+1. **The public site** — the marketing site for Inverse, an inventory counting
+   and audit consultancy in Tbilisi. Seven pages, Georgian and English.
+2. **The application** — a signed-in, multi-tenant inventory tool with an
+   AI photo-verification step. It is not the public offering: the site's News
+   page lists it as a 2026 project in pilot preparation.
 
 ## Stack
 
@@ -14,7 +16,6 @@ your records claim, marking each SKU green, amber or red.
 | Database & auth | Supabase (Postgres, RLS, Storage) |
 | Vision | Claude (`claude-opus-5`) via `@anthropic-ai/sdk` |
 | Styling | Tailwind CSS v4 |
-| Payments | Stripe — columns reserved, not yet wired up |
 
 ## Getting started
 
@@ -98,19 +99,13 @@ explicit human action, and it skips anything flagged for a barcode.
 
 ### Languages
 
-The marketing site is Georgian and English, served from `/ka` and `/en`; `/`
-redirects to Georgian, the launch market. All copy lives in
-`src/lib/i18n/dictionaries.ts`, where `en` is the shape of record and `ka` is
-typed against it — a missing key fails the build rather than rendering blank.
+The public site is Georgian and English, served from `/ka` and `/en`; `/`
+redirects to Georgian. Every string lives in `src/lib/i18n/dictionaries.ts`,
+where `en` is the shape of record and `ka` is typed against it — a missing or
+misspelled key fails the build rather than rendering as blank space.
 
-Two consequences worth knowing when editing:
-
-- **Plan prose is dictionary content, plan figures are not.** `src/lib/pricing.ts`
-  holds ids, prices and limits; names, blurbs and feature lists are per locale.
-  Both languages therefore quote the same numbers by construction.
-- **The pricing rule returns reason codes, not sentences.** `quote()` explains
-  its choice as data (`{kind: 'overage', count, rate}`), and the calculator turns
-  that into words in the reader's language.
+Page metadata is built once in `src/lib/i18n/page-meta.ts`, so every page gets
+the same canonical/hreflang shape without repeating it seven times.
 
 The signed-in app is English for now.
 
@@ -147,22 +142,23 @@ where it carries meaning: the three verification verdicts.
 ```
 src/
   app/
-    [locale]/         marketing site: landing, pricing calculator (ka + en)
+    [locale]/         public site: home, about, services, team, careers,
+                      news, contact (ka + en)
     (app)/            signed-in shell: dashboard, products, locations, verify, checks, settings
     api/verify/       upload → analyze → persist, the one server route
     login/ onboarding/
   lib/
-    i18n/             locales and the two dictionaries
+    i18n/             locales, the two dictionaries, shared page metadata
     supabase/         browser, server and proxy clients
     verification/     prompt, schema, analysis call, grading
-    pricing.ts        plan figures and the calculator's rule
   components/
-    marketing/        header, footer, language switcher, mockups, FAQ, lead form,
-                      grain, scroll progress, Rise/Reveal/Parallax motion
+    marketing/        header, footer, language switcher, mobile nav, page shell,
+                      contact form, grain, Rise/Reveal motion
   images/             photography (webp, black and white)
   app/fonts/          self-hosted body and display faces
 supabase/
-  migrations/         schema, integrity, RLS, storage, RPCs, views, grants, leads
+  migrations/         schema, integrity, RLS, storage, RPCs, views, grants,
+                      contact requests
   tests/              tenant isolation
 ```
 
@@ -170,20 +166,22 @@ supabase/
 
 Done:
 
+- The public site: seven pages in Georgian and English, with a contact form
 - Multi-tenant schema and RLS policies, with an isolation test
 - Verification app on real backend storage — private Supabase Storage bucket plus
   `inventory_checks` / `inventory_check_items`, no `localStorage`
 - Dashboard: stock table, low-stock alerts, location filter, verification status
-- Pricing calculator page
-- Bilingual marketing site (Georgian and English) with an early-access form
 
 Deliberately unfinished:
 
-- **Pricing figures are placeholders** pending commercial sign-off. They live in one file,
-  `src/lib/pricing.ts`, so changing them updates the calculator and the plan table together.
+- **No pricing page.** The site content brief does not include one; a services
+  business quotes per engagement. The old plan/calculator module was removed and
+  is recoverable from git history if it is ever wanted back.
 - **Barcode reading** — the schema, the model contract and the UI all carry the
   `needs_barcode` flag, and products have a `barcode` column, but no scanner is wired up.
   Deciding the capture approach is still an open item.
 - **Stripe** — `companies` reserves `stripe_customer_id` and `stripe_subscription_id`;
   no checkout, webhooks or plan enforcement yet.
 - **Team invitations** — an owner or admin can see the team, but there is no invite flow.
+- **The signed-in app has not had a design pass** on the current palette; its
+  colour tokens were migrated mechanically so it stays coherent.

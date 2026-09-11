@@ -20,8 +20,8 @@
   --color-review: #8a6415;
   --color-mismatch: #a33227;
 
-  --font-sans: var(--font-body-loaded), ui-sans-serif, system-ui, "Helvetica Neue",
-    Arial, sans-serif;
+  --font-sans: var(--font-body-loaded), "Helvetica Neue", Helvetica, Arial,
+    sans-serif;
   --font-display: var(--font-display-loaded), var(--font-sans);
   --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
 
@@ -38,6 +38,9 @@ body {
   font-family: var(--font-sans);
   font-weight: 400;
   -webkit-font-smoothing: antialiased;
+  /* Georgian compounds are long and do not hyphenate; without this a single
+     word in a large heading pushes the whole page wider than a phone. */
+  overflow-wrap: break-word;
 }
 
 ::selection {

@@ -130,19 +130,20 @@ begin
 end;
 $$;
 
--- The public landing form writes leads, and only writes them.
+-- The public contact form writes requests, and only writes them.
 do $$
 declare
   n integer;
 begin
   set local role anon;
-  insert into public.leads (email, company, locale) values ('anon@novora.ge', 'Novora', 'ka');
+  insert into public.contact_requests (name, email, message, topic, locale)
+    values ('Anon', 'anon@novora.ge', 'Please quote a full count.', 'service', 'ka');
   begin
-    select count(*) into n from public.leads;
-    raise exception 'FAILED: anon read % lead rows', n;
+    select count(*) into n from public.contact_requests;
+    raise exception 'FAILED: anon read % contact rows', n;
   exception
     when insufficient_privilege then
-      raise notice 'ok: anon can submit a lead but cannot read leads back';
+      raise notice 'ok: anon can submit a contact request but cannot read them back';
   end;
 end;
 $$;

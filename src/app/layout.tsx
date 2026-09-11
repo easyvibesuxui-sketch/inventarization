@@ -1,17 +1,19 @@
 import type { Metadata } from 'next';
-import { Noto_Sans_Georgian } from 'next/font/google';
 import localFont from 'next/font/local';
 import './globals.css';
 import { DEFAULT_LOCALE, HTML_LANG } from '@/lib/i18n/config';
 
 /*
-  Body face. Noto Sans Georgian is the only neutral grotesque on Google Fonts
-  that carries Georgian, and it is SIL Open Font Licensed — free for commercial
-  use, unlike the Helvetica Neue Georgian it replaces.
+  Body face: Helvetica Neue LT Georgian, licensed by the client, who holds the
+  rights for this use. Covers Latin and the full mkhedruli range, including the
+  lari sign, in three weights.
 */
-const body = Noto_Sans_Georgian({
-  subsets: ['georgian', 'latin'],
-  weight: ['300', '400', '500', '700'],
+const body = localFont({
+  src: [
+    { path: './fonts/helvetica-neue-geo-45.woff2', weight: '300', style: 'normal' },
+    { path: './fonts/helvetica-neue-geo-55.woff2', weight: '400', style: 'normal' },
+    { path: './fonts/helvetica-neue-geo-75.woff2', weight: '700', style: 'normal' },
+  ],
   variable: '--font-body-loaded',
   display: 'swap',
 });

@@ -1,286 +1,252 @@
 import type { Locale } from './config';
 
 /**
- * Marketing copy for both locales.
+ * Site copy for both locales.
  *
  * `en` is the shape of record: `ka` is typed against it, so a missing or
- * misspelled key fails the build instead of rendering as blank space.
- * It is deliberately not `as const` — literal types would make every Georgian
- * string a mismatch rather than a translation.
+ * misspelled key fails the build instead of rendering as blank space. It is
+ * deliberately not `as const` — literal types would make every Georgian string a
+ * mismatch rather than a translation.
  */
 const en = {
   meta: {
-    title: 'Inverse — AI inventory verification',
-    description:
-      'Inventory management for SMBs in Georgia and the Caucasus, with an AI verification step: photograph a shelf and Inverse counts what is really on it.',
-    pricingTitle: 'Pricing',
-    pricingDescription:
-      'Work out what Inverse costs for your catalogue, sites and check volume.',
+    siteName: 'Inverse',
+    homeTitle: 'Inverse — inventory counting and audit services',
+    homeDescription:
+      'Inverse helps companies in Georgia organise warehouse, retail and production inventory — accurate counts, discrepancies found, a report you can act on.',
+    aboutTitle: 'About',
+    aboutDescription:
+      'A Tbilisi inventory consultancy, built on more than twenty years of hands-on counting and warehouse management.',
+    servicesTitle: 'Services',
+    servicesDescription:
+      'Full physical counts, scheduled partial audits, discrepancy analysis and process consulting.',
+    teamTitle: 'Team',
+    teamDescription: 'Who is behind Inverse.',
+    careersTitle: 'Careers',
+    careersDescription: 'Inverse is growing. Open roles and why you might join.',
+    newsTitle: 'News',
+    newsDescription: 'What we are working on, and where Inverse is going next.',
+    contactTitle: 'Contact',
+    contactDescription: 'Request a service or ask a question. We reply within 24 hours.',
   },
+
   nav: {
-    how: 'How it works',
-    product: 'Product',
-    pricing: 'Pricing',
-    faq: 'FAQ',
-    signIn: 'Sign in',
-    start: 'Start free',
+    home: 'Home',
+    about: 'About',
+    services: 'Services',
+    team: 'Team',
+    careers: 'Careers',
+    news: 'News',
+    contact: 'Contact',
   },
-  hero: {
-    eyebrow: 'Inventory verification · Tbilisi',
-    title: 'Your records say 12. The shelf says 9.',
-    body: 'Inverse is inventory management for small and mid-sized businesses in Georgia and the Caucasus, with an AI verification step built in: photograph a shelf and it counts what is actually on it against what your records claim.',
-    primary: 'Start free',
-    secondary: 'See how it works',
-    note: 'No card required · Georgian and English',
-  },
-  problem: {
-    title: 'Why the numbers stop matching',
-    body: 'Nothing dramatic goes wrong. The gap opens slowly, and it opens in the same three places every time.',
-    items: [
-      {
-        title: 'Counting by hand eats days',
-        body: 'A full count means closing the floor, pulling people off their work, and reading thousands of labels one by one. So it happens twice a year instead of twice a month.',
-      },
-      {
-        title: 'The spreadsheet drifts',
-        body: 'A sale, a return, a broken item, a supplier who sent nine instead of ten. Each one is small. Six months of them is a number nobody trusts.',
-      },
-      {
-        title: 'Nobody notices until a customer does',
-        body: 'The error surfaces when you promise stock you do not have — or when you reorder something already sitting in the back.',
-      },
-    ],
-  },
-  how: {
-    title: 'How it works',
-    body: 'Four steps. The longest one takes about as much time as taking a photo.',
-    steps: [
-      {
-        title: 'Record what should be there',
-        body: 'Products in folders, locations down to the individual shelf. Import what you already have, or start from scratch.',
-      },
-      {
-        title: 'Photograph what is there',
-        body: 'Phone, tablet or a head-worn camera. Freeze one frame — the analysis runs on that exact still, not on a live stream.',
-      },
-      {
-        title: 'Claude counts the shelf',
-        body: 'It reports how many units of each product it can see, how sure it is, and whether two variants were separable at all.',
-      },
-      {
-        title: 'You get a verdict per SKU',
-        body: 'Green where the count matches, amber where it needs a human, red where the record is wrong. Apply the counts in one click when you agree.',
-      },
-    ],
-  },
-  product: {
-    title: 'What you actually use',
-    body: 'Three screens carry the work.',
-    items: [
-      {
-        title: 'Dashboard',
-        body: 'Units on record, what is below its reorder point, and what the last checks flagged.',
-      },
-      {
-        title: 'Verification',
-        body: 'Pick a shelf, capture a frame, send. The result comes back in under a minute.',
-      },
-      {
-        title: 'Check result',
-        body: 'Every SKU with its expected count, the counted number, and the confidence behind it.',
-      },
-    ],
-  },
-  honesty: {
-    title: 'Where vision alone is not enough',
-    body: 'Two hairbrushes from the same line can be identical from a metre away and differ only in size. Inverse does not guess at those.',
-    detail:
-      'It marks them for a barcode scan and names which SKUs are in play. A count that looks confident is never quietly wrong — and the model never decides on its own whether your record is acceptable. It reports what it sees; the comparison is made by rules you can read.',
-    points: [
-      'Look-alike variants are flagged, not guessed',
-      'Every count carries a confidence score',
-      'Counts reach your stock only when a person approves them',
-    ],
-  },
-  features: {
-    title: 'Built for more than one company',
-    body: 'Inverse is multi-tenant from the first row of the database.',
-    items: [
-      {
-        title: 'Isolation enforced by Postgres',
-        body: 'Every table is scoped by company through Row Level Security, not by application code that could forget a filter.',
-      },
-      {
-        title: 'Roles that mean something',
-        body: 'Owner, admin, member and viewer. A viewer can read the catalogue and never write to it.',
-      },
-      {
-        title: 'Folders and categories',
-        body: 'Organise thousands of SKUs the way your team already talks about them.',
-      },
-      {
-        title: 'Low-stock alerts',
-        body: 'A reorder point per product, and a dashboard that tells you what crossed it.',
-      },
-      {
-        title: 'Full verification history',
-        body: 'Every check keeps its photo, its counts and its confidence — an audit trail, not just a result.',
-      },
-      {
-        title: 'Built for Georgia',
-        body: 'Georgian and English throughout, priced in GEL, made in Tbilisi by Novora.',
-      },
-    ],
-  },
-  pricingTeaser: {
-    title: 'Pricing',
-    body: 'Start free. Move up only when your catalogue, your sites or your counting routine actually outgrow a tier.',
-    cta: 'Open the calculator',
-    perMonth: '/mo',
-    custom: 'Custom',
-    placeholder:
-      'These figures are provisional and pending commercial sign-off.',
-  },
-  faq: {
-    title: 'Questions',
-    items: [
-      {
-        q: 'How accurate is the AI count?',
-        a: 'Accurate enough to replace a first pass, not to replace judgement. Every count comes with a confidence score, and anything the model is unsure about — a partly hidden shelf, glare, two variants that look the same — comes back amber for a human rather than as a number you might trust by mistake.',
-      },
-      {
-        q: 'Does it work with video or smart glasses?',
-        a: 'It works with a still frame from any camera, including a head-worn one. The analysis deliberately runs on one frozen frame rather than a live stream, because that is what the vision model reads — and because a still is what you can store, re-check and show to an auditor later.',
-      },
-      {
-        q: 'What about products that look identical?',
-        a: 'They are flagged for a barcode scan instead of being guessed at, with the candidate SKUs named. You can also give each product a short visual note — "matte black handle, gold band" — which the model reads before counting.',
-      },
-      {
-        q: 'Is my data separated from other companies?',
-        a: 'Yes, and the separation is enforced inside Postgres rather than in application code. Every table is scoped by company through Row Level Security, and rows cannot reference a parent belonging to another tenant even if something tried to write one.',
-      },
-      {
-        q: 'Do I have to replace my current system?',
-        a: 'No. Many teams start by using Inverse only for the verification step, keeping their existing records, and importing later once the counts have earned their trust.',
-      },
-      {
-        q: 'What does it cost to run a check?',
-        a: 'Each plan includes a monthly allowance of checks, and additional checks are billed per check. The calculator on the pricing page works out which is cheaper for your volume — sometimes paying overage beats moving up a tier.',
-      },
-    ],
-  },
-  cta: {
-    title: 'Try it on one shelf',
-    body: 'Leave your email and we will get you set up on a real shelf in your own warehouse — no migration, no commitment.',
-    email: 'Email',
-    placeholder: 'you@company.ge',
-    button: 'Request access',
-    sending: 'Sending…',
-    success: 'Thank you. We will be in touch shortly.',
-    company: 'Company',
-    companyPlaceholder: 'Your company',
-    fallback:
-      'This preview has no database attached yet, so the form cannot store your details. Write to us directly instead.',
-    invalidEmail: 'Enter a valid email address.',
-  },
-  footer: {
-    tagline: 'Inverse — a Novora product. Tbilisi, Georgia.',
-    product: 'Product',
-    rights: 'All rights reserved.',
-  },
-  // Labels inside the illustrated product mockups.
-  // Plan prose. The figures themselves live in src/lib/pricing.ts.
-  plans: {
-    free: {
-      name: 'Free',
-      blurb: 'One shelf, one person, no card.',
-      features: ['AI shelf verification', 'Low-stock alerts', 'Community support'],
+
+  home: {
+    tag: 'Inventory counting and audit services',
+    title: 'Accurate inventory for your business',
+    subtitle:
+      'Inverse helps companies organise warehouse, retail and production inventory — with accurate counts, discrepancies found, and a report anyone can read.',
+    ctaPrimary: 'Request a service',
+    ctaSecondary: 'Services',
+    pagesTitle: 'Around the site',
+    pages: {
+      about: 'Who we are and why we started Inverse',
+      services: 'From a full count to process consulting',
+      team: 'Who is behind Inverse',
+      careers: 'We are growing the team — join us',
+      news: 'What we are working on right now',
+      contact: 'Get in touch to request a service',
     },
-    starter: {
-      name: 'Starter',
-      blurb: 'A single shop or small warehouse.',
-      features: [
-        'Everything in Free',
-        'Product folders and categories',
-        'Verification history and export',
-        'Email support',
-      ],
-    },
-    growth: {
-      name: 'Growth',
-      blurb: 'Multiple sites and a real counting routine.',
-      features: [
-        'Everything in Starter',
-        'Barcode confirmation workflow',
-        'Role-based access',
-        'Priority support',
-      ],
-    },
-    enterprise: {
-      name: 'Enterprise',
-      blurb: 'Distribution-scale inventory.',
-      features: [
-        'Everything in Growth',
-        'SSO and audit logs',
-        'Custom integrations',
-        'Onboarding and SLA',
-      ],
-    },
+    finalTitle: "Let's start with your warehouse",
+    finalBody:
+      'Tell us the scale of your warehouse or shop and we will get back to you within 24 hours.',
+    finalCta: 'Request a service',
   },
-  pricing: {
+
+  about: {
+    title: 'Experience that turns counting into a system',
     intro:
-      'Priced in GEL for the Georgian market. Tell the calculator how much you actually count and it will pick the cheapest plan that covers it — including when paying per-check overage beats moving up a tier.',
-    skus: 'Products (SKUs)',
-    skusHint: 'Distinct items you track',
-    locations: 'Locations',
-    locationsHint: 'Warehouses, shops, racks',
-    users: 'Users',
-    usersHint: 'People with a login',
-    checks: 'AI verifications / month',
-    checksHint: 'One photo analysed = one check',
-    payYearly: 'Pay yearly',
-    save: 'save',
-    recommended: 'Recommended',
-    letsTalk: "Let's talk",
-    letsTalkBody:
-      'At this volume the pricing is worth a conversation rather than a slider.',
-    plan: 'Plan',
-    extraChecks: 'extra checks',
-    billedYearly: 'billed yearly',
-    saves: 'saves',
-    limitProducts: 'Products',
-    limitLocations: 'Locations',
-    limitUsers: 'Users',
-    limitChecks: 'AI checks / mo',
-    unlimited: 'Unlimited',
-    disclaimer:
-      'Prices on this page are placeholders pending commercial sign-off. They live in one file, so changing them updates the calculator and this table together.',
-    reasonExceeds: 'exceeds the tier below.',
-    reasonFits: 'Your usage fits inside this plan with room to spare.',
-    reasonOverage: 'checks over the included allowance, billed at',
-    reasonEnterprise: 'Your volume is past the self-serve tiers.',
-    each: 'each',
+      'Inverse is a Tbilisi-based inventory consultancy. We help businesses build a counting process that is accurate, legible and repeatable.',
+    storyTitle: 'Our story',
+    story: [
+      'Inverse came out of a practical need. Stocktaking is usually slow, manual and error-prone, and it needed a systematic approach. More than twenty years in inventory and warehouse management taught us where the time goes and where the errors come from.',
+      'Today Inverse works with manufacturers, warehouses, retail chains and pharmaceutical distributors — accurate counts, discrepancy analysis, and a process put in order.',
+    ],
+    stats: [
+      { value: '20+', label: 'Years of experience' },
+      { value: '4', label: 'Industries served' },
+      { value: '2026', label: 'Founded' },
+      { value: 'GE', label: 'Tbilisi, Georgia' },
+    ],
+    principlesTitle: 'Our principles',
+    principles: [
+      {
+        title: 'Accuracy',
+        body: 'The number we hand you has to match reality — not an estimate of it.',
+      },
+      {
+        title: 'Transparency',
+        body: 'The report is legible: it shows where the discrepancy is, and why.',
+      },
+      {
+        title: 'Practicality',
+        body: 'Our advice comes from work done on real floors, not from theory.',
+      },
+    ],
   },
-  mockup: {
-    unitsOnRecord: 'Units on record',
-    activeProducts: 'Active products',
-    lowStock: 'Low stock',
-    flagged: 'Flagged',
-    lowStockAlerts: 'Low stock alerts',
-    reorderAt: 'reorder at',
-    captureFrame: 'Capture frame',
-    verifyAgainst: 'Verify against',
-    holdSteady: 'Hold steady, then capture',
-    results: 'Results',
-    expected: 'Expected',
-    counted: 'Counted',
-    confidence: 'Confidence',
-    verdict: 'Verdict',
-    match: 'Match',
-    review: 'Check',
-    mismatch: 'Mismatch',
-    barcodeNote: 'Scan the barcode to confirm the variant',
+
+  services: {
+    title: 'The full range of inventory work',
+    intro:
+      'From a one-off audit to an ongoing process, scaled to your business.',
+    items: [
+      {
+        title: 'Full physical count',
+        body: 'A complete physical count of a warehouse or shop — every SKU verified, with a detailed report.',
+        points: [
+          'Every category counted',
+          'Compared against your records',
+          'Final report with a summary',
+        ],
+      },
+      {
+        title: 'Partial and scheduled audits',
+        body: 'Regular, selective checks on high-risk or high-turnover categories.',
+        points: [
+          'On a recurring schedule',
+          'Focused on high-risk SKUs',
+          'Fast results, less downtime',
+        ],
+      },
+      {
+        title: 'Discrepancy analysis',
+        body: 'A detailed report on the gap between your records and the physical stock, and an analysis of what caused it.',
+        points: [
+          'Exactly where the discrepancy sits',
+          'Root-cause analysis',
+          'Recommendations to close it',
+        ],
+      },
+      {
+        title: 'Process consulting',
+        body: 'Putting your inventory system and warehouse process in order, for improvement that lasts.',
+        points: [
+          'Assessment of the current process',
+          'An improvement plan',
+          'Support through implementation',
+        ],
+      },
+    ],
+  },
+
+  team: {
+    title: 'Who is behind Inverse',
+    intro:
+      'Hands-on experience in inventory and warehouse management, turned into a service.',
+    founderName: 'Giorgi',
+    founderRole: 'Founder',
+    founderBody:
+      'More than twenty years of hands-on experience in inventory and warehouse management. He also leads Novora, a furniture and interior design firm, which is a separate business independent of Inverse.',
+    growingTitle: 'The team is growing',
+    growing: [
+      'We are adding technical and operational capacity to grow the service.',
+      'We are building partnerships and advisory relationships with industry specialists.',
+      'We are open to new members — see the open roles.',
+    ],
+  },
+
+  careers: {
+    title: 'Growing the team',
+    intro:
+      'Inverse is growing. We are looking for people who want to make stocktaking more accurate and less painful.',
+    openTitle: 'Open roles',
+    openNote: 'Planned',
+    roles: [
+      {
+        title: 'Technical co-founder / CTO',
+        body: 'Technical capacity for building the product — AI, backend and frontend.',
+      },
+      {
+        title: 'Sales',
+        body: 'Operational experience from a real manufacturing or retail business, working directly with customers.',
+      },
+    ],
+    whyTitle: 'Why Inverse',
+    why: [
+      {
+        title: 'A real problem',
+        body: 'You see the result of your work on an actual warehouse floor, not only in theory.',
+      },
+      {
+        title: 'A small, flexible team',
+        body: 'A chance to join early, where your contribution is visible.',
+      },
+      {
+        title: 'Twenty years of experience beside you',
+        body: 'Learning and growing in an environment built on practical knowledge.',
+      },
+    ],
+  },
+
+  news: {
+    title: 'What we are working on',
+    intro: 'How Inverse is developing — new projects and where we are heading.',
+    items: [
+      {
+        badge: 'Coming soon',
+        year: '2026',
+        title: 'AI-based video monitoring',
+        body: 'We are building a camera-based automatic verification system that recognises products from a shelf photo or video, counts them, and compares the result against your records.',
+        points: [
+          'Automatic product recognition and counting',
+          'Real-time comparison against the record',
+          'Barcode confirmation for visually identical items',
+        ],
+      },
+      {
+        badge: 'In progress',
+        year: '2026',
+        title: 'Preparing the pilot',
+        body: 'We are preparing a first pilot to test the AI verification method in a working warehouse, before it becomes part of our standard service.',
+        points: [],
+      },
+    ],
+  },
+
+  contact: {
+    title: 'Get in touch',
+    intro:
+      'Request a service, or just ask a question. We reply within 24 hours.',
+    emailLabel: 'Email',
+    email: 'info@inverse.ge',
+    locationLabel: 'Location',
+    location: 'Tbilisi, Georgia',
+    responseLabel: 'Response time',
+    response: 'Within 24 hours',
+    formTitle: 'Send a message',
+    name: 'Name',
+    company: 'Company',
+    emailField: 'Email',
+    phone: 'Phone',
+    topic: 'What is this about?',
+    topics: {
+      service: 'Service request',
+      question: 'General question',
+      career: 'Careers / CV',
+      other: 'Other',
+    },
+    message: 'Message',
+    submit: 'Send',
+    sending: 'Sending…',
+    success: 'Thank you. We will be in touch within 24 hours.',
+    invalidEmail: 'Enter a valid email address.',
+    missingMessage: 'Write a short message so we know what you need.',
+    fallback:
+      'This deployment has no database attached yet, so the form cannot store your details. Write to us directly at info@inverse.ge.',
+  },
+
+  footer: {
+    tagline: 'Inverse — inventory counting and audit services. Tbilisi, Georgia.',
+    rights: 'All rights reserved.',
   },
 };
 
@@ -289,279 +255,244 @@ type Dictionary = typeof en;
 
 const ka: Dictionary = {
   meta: {
-    title: 'Inverse — ინვენტარიზაცია AI-ით',
-    description:
-      'საწყობის მართვის სისტემა ქართული და კავკასიის მცირე ბიზნესისთვის, ჩაშენებული AI შემოწმებით: გადაუღე თაროს ფოტო და Inverse დათვლის რა დევს რეალურად.',
-    pricingTitle: 'ფასები',
-    pricingDescription:
-      'გამოთვალე რა დაგიჯდება Inverse შენი კატალოგის, ობიექტებისა და შემოწმებების რაოდენობის მიხედვით.',
+    siteName: 'Inverse',
+    homeTitle: 'Inverse — ინვენტარიზაციისა და აღრიცხვის მომსახურება',
+    homeDescription:
+      'Inverse ეხმარება კომპანიებს საწყობის, საცალო წერტილისა და საწარმოს ინვენტარიზაციის ორგანიზებაში — ზუსტი დათვლით, შეუსაბამობების აღმოჩენითა და გასაგები ანგარიშით.',
+    aboutTitle: 'ჩვენ შესახებ',
+    aboutDescription:
+      'თბილისში დაფუძნებული ინვენტარიზაციის საკონსულტაციო კომპანია, 20+ წლიანი პრაქტიკული გამოცდილებით.',
+    servicesTitle: 'მომსახურება',
+    servicesDescription:
+      'სრული ინვენტარიზაცია, გეგმური აუდიტი, შეუსაბამობის ანალიზი და პროცესის კონსალტინგი.',
+    teamTitle: 'გუნდი',
+    teamDescription: 'ვინ დგას Inverse-ს უკან.',
+    careersTitle: 'კარიერა',
+    careersDescription: 'Inverse იზრდება — ღია პოზიციები და რატომ ღირს შემოერთება.',
+    newsTitle: 'სიახლეები',
+    newsDescription: 'რაზე ვმუშაობთ და საით მივდივართ.',
+    contactTitle: 'კონტაქტი',
+    contactDescription:
+      'მოითხოვეთ მომსახურება ან დასვით კითხვა — 24 საათში დაგიკავშირდებით.',
   },
+
   nav: {
-    how: 'როგორ მუშაობს',
-    product: 'პროდუქტი',
-    pricing: 'ფასები',
-    faq: 'კითხვები',
-    signIn: 'შესვლა',
-    start: 'დაიწყე უფასოდ',
+    home: 'მთავარი',
+    about: 'ჩვენ შესახებ',
+    services: 'მომსახურება',
+    team: 'გუნდი',
+    careers: 'კარიერა',
+    news: 'სიახლეები',
+    contact: 'კონტაქტი',
   },
-  hero: {
-    eyebrow: 'ინვენტარიზაცია · თბილისი',
-    title: 'აღრიცხვა ამბობს 12. თარო ამბობს 9.',
-    body: 'Inverse არის საწყობის მართვის სისტემა საქართველოსა და კავკასიის რეგიონის მცირე და საშუალო ბიზნესისთვის, ჩაშენებული AI შემოწმებით: გადაუღე თაროს ფოტო და ის დათვლის, რა დევს რეალურად — და შეადარებს იმას, რასაც შენი აღრიცხვა ამბობს.',
-    primary: 'დაიწყე უფასოდ',
-    secondary: 'ნახე როგორ მუშაობს',
-    note: 'ბარათი არ სჭირდება · ქართული და ინგლისური',
-  },
-  problem: {
-    title: 'რატომ წყვეტს ციფრები დამთხვევას',
-    body: 'არაფერი დრამატული არ ხდება. სხვაობა ნელა იზრდება და ყოველთვის ერთსა და იმავე სამ ადგილას.',
-    items: [
-      {
-        title: 'ხელით დათვლა დღეებს ჭამს',
-        body: 'სრული ინვენტარიზაცია ნიშნავს ობიექტის დაკეტვას, ხალხის სამუშაოდან მოწყვეტას და ათასობით ეტიკეტის სათითაოდ წაკითხვას. ამიტომ ის წელიწადში ორჯერ ტარდება და არა თვეში ორჯერ.',
-      },
-      {
-        title: 'ცხრილი ნელ-ნელა შორდება რეალობას',
-        body: 'გაყიდვა, დაბრუნება, დაზიანებული საქონელი, მომწოდებელი რომელმაც ცხრა გამოგზავნა და არა ათი. თითოეული წვრილმანია. ნახევარი წლის შემდეგ კი ციფრს აღარავინ ენდობა.',
-      },
-      {
-        title: 'შეცდომა კლიენტამდე აღწევს',
-        body: 'პრობლემა მაშინ ჩნდება, როცა ჰპირდები მარაგს, რომელიც არ გაქვს — ან ხელახლა უკვეთავ იმას, რაც უკვე საწყობში გიდევს.',
-      },
-    ],
-  },
-  how: {
-    title: 'როგორ მუშაობს',
-    body: 'ოთხი ნაბიჯი. ყველაზე გრძელი იმდენ დროს იკავებს, რამდენსაც ფოტოს გადაღება.',
-    steps: [
-      {
-        title: 'აღრიცხე რა უნდა იდოს',
-        body: 'პროდუქტები საქაღალდეებში, ლოკაციები კონკრეტულ თარომდე. ატვირთე ის, რაც უკვე გაქვს, ან დაიწყე ნულიდან.',
-      },
-      {
-        title: 'გადაუღე ფოტო რა დევს',
-        body: 'ტელეფონი, ტაბლეტი ან სათვალეზე დამაგრებული კამერა. გააჩერე ერთი კადრი — ანალიზი სწორედ ამ სტოპ-კადრზე მუშაობს და არა პირდაპირ ნაკადზე.',
-      },
-      {
-        title: 'Claude ითვლის თაროს',
-        body: 'ის აღწერს, თითოეული პროდუქტის რამდენ ერთეულს ხედავს, რამდენად დარწმუნებულია და საერთოდ თუ შეძლო ორი მსგავსი ვარიანტის გარჩევა.',
-      },
-      {
-        title: 'იღებ ვერდიქტს თითოეულ SKU-ზე',
-        body: 'მწვანე — ემთხვევა. ყვითელი — ადამიანის თვალი სჭირდება. წითელი — აღრიცხვა მცდარია. თუ ეთანხმები, ერთი დაჭერით ატარებ ცვლილებას მარაგში.',
-      },
-    ],
-  },
-  product: {
-    title: 'რასაც რეალურად იყენებ',
-    body: 'სამი ეკრანი ატარებს მთელ სამუშაოს.',
-    items: [
-      {
-        title: 'მთავარი პანელი',
-        body: 'რამდენი ერთეულია აღრიცხვაზე, რა ჩამოსცდა შევსების ზღვარს და რა მონიშნა ბოლო შემოწმებებმა.',
-      },
-      {
-        title: 'შემოწმება',
-        body: 'აირჩიე თარო, გააჩერე კადრი, გააგზავნე. შედეგი წუთზე ნაკლებში ბრუნდება.',
-      },
-      {
-        title: 'შემოწმების შედეგი',
-        body: 'ყველა SKU მოსალოდნელი რაოდენობით, დათვლილი რიცხვით და იმ სანდოობით, რომელიც მის უკან დგას.',
-      },
-    ],
-  },
-  honesty: {
-    title: 'სად არ კმარა მხოლოდ ხედვა',
-    body: 'ერთი სერიის ორი ჯაგრისი მეტრის მანძილიდან იდენტურია და მხოლოდ ზომით განსხვავდება. Inverse ასეთებს არ გამოიცნობს.',
-    detail:
-      'ის ნიშნავს მათ ბარკოდით შესამოწმებლად და ასახელებს, რომელი SKU-ებია სავარაუდო. თავდაჯერებულად გამოყურებული რიცხვი არასდროს არის ჩუმად მცდარი — და მოდელი თავად არ წყვეტს, მისაღებია თუ არა შენი აღრიცხვა. ის აღწერს რასაც ხედავს; შედარებას კი აკეთებს წესი, რომელიც შეგიძლია წაიკითხო.',
-    points: [
-      'მსგავსი ვარიანტები მოინიშნება და არა გამოიცნობა',
-      'ყოველ დათვლას თან ახლავს სანდოობის ქულა',
-      'ციფრი მარაგში მხოლოდ ადამიანის დადასტურებით ხვდება',
-    ],
-  },
-  features: {
-    title: 'აშენებულია ერთზე მეტი კომპანიისთვის',
-    body: 'Inverse მრავალ-ტენანტიანია ბაზის პირველივე სტრიქონიდან.',
-    items: [
-      {
-        title: 'იზოლაცია Postgres-ის დონეზე',
-        body: 'ყველა ცხრილი კომპანიით არის შემოსაზღვრული Row Level Security-ით და არა კოდით, რომელსაც ფილტრის დამატება შეიძლება დაავიწყდეს.',
-      },
-      {
-        title: 'როლები, რომლებსაც აზრი აქვს',
-        body: 'მფლობელი, ადმინი, წევრი და დამკვირვებელი. დამკვირვებელი კითხულობს კატალოგს და ვერასდროს წერს მასში.',
-      },
-      {
-        title: 'საქაღალდეები და კატეგორიები',
-        body: 'დაალაგე ათასობით SKU ისე, როგორც შენი გუნდი უკვე საუბრობს მათზე.',
-      },
-      {
-        title: 'მარაგის შემცირების შეტყობინება',
-        body: 'შევსების ზღვარი თითოეულ პროდუქტზე და პანელი, რომელიც გეუბნება რამ გადალახა ის.',
-      },
-      {
-        title: 'შემოწმებების სრული ისტორია',
-        body: 'ყოველი შემოწმება ინახავს ფოტოს, რიცხვებს და სანდოობას — ეს აუდიტის კვალია და არა უბრალოდ შედეგი.',
-      },
-      {
-        title: 'შექმნილია საქართველოსთვის',
-        body: 'ქართული და ინგლისური მთელ სისტემაში, ფასები ლარში, დამზადებულია თბილისში, Novora-ს მიერ.',
-      },
-    ],
-  },
-  pricingTeaser: {
-    title: 'ფასები',
-    body: 'დაიწყე უფასოდ. გადადი ზემოთ მხოლოდ მაშინ, როცა შენი კატალოგი, ობიექტები ან შემოწმებების რიტმი რეალურად გასცდება ტარიფს.',
-    cta: 'გახსენი კალკულატორი',
-    perMonth: '/თვე',
-    custom: 'ინდივიდუალური',
-    placeholder:
-      'ეს ციფრები წინასწარია და საბოლოო კომერციულ დამტკიცებას ელოდება.',
-  },
-  faq: {
-    title: 'კითხვები',
-    items: [
-      {
-        q: 'რამდენად ზუსტია AI დათვლა?',
-        a: 'იმდენად, რომ პირველი გადათვლა ჩაანაცვლოს — და არა იმდენად, რომ განსჯა ჩაანაცვლოს. ყოველ რიცხვს თან ახლავს სანდოობის ქულა, ხოლო ყველაფერი, რაშიც მოდელი დარწმუნებული არაა — ნაწილობრივ დაფარული თარო, ბრჭყვიალა შეფუთვა, ორი ერთნაირი ვარიანტი — ბრუნდება ყვითლად, ადამიანისთვის, და არა ისეთ ციფრად, რომელსაც შეცდომით ენდობი.',
-      },
-      {
-        q: 'მუშაობს ვიდეოსთან ან სმარტ-სათვალესთან?',
-        a: 'მუშაობს ნებისმიერი კამერის სტოპ-კადრთან, მათ შორის თავზე დამაგრებულთან. ანალიზი განზრახ ერთ გაჩერებულ კადრზე ეშვება და არა პირდაპირ ნაკადზე — რადგან ხედვის მოდელი სწორედ ამას კითხულობს, და რადგან სწორედ სტოპ-კადრია ის, რაც შეგიძლია შეინახო, ხელახლა შეამოწმო და მოგვიანებით აუდიტორს აჩვენო.',
-      },
-      {
-        q: 'რა ხდება ერთნაირად გამოიყურებად პროდუქტებზე?',
-        a: 'ისინი მოინიშნება ბარკოდით შესამოწმებლად და არ გამოიცნობა, სავარაუდო SKU-ების დასახელებით. ასევე შეგიძლია თითოეულ პროდუქტს მისცე მოკლე ვიზუალური აღწერა — „მქრქალი შავი სახელური, ოქროსფერი ზოლი" — რომელსაც მოდელი დათვლამდე კითხულობს.',
-      },
-      {
-        q: 'ჩემი მონაცემები გამიჯნულია სხვა კომპანიებისგან?',
-        a: 'დიახ, და გამიჯვნა უზრუნველყოფილია თავად Postgres-ში და არა აპლიკაციის კოდში. ყველა ცხრილი კომპანიით არის შემოსაზღვრული Row Level Security-ით, ხოლო ჩანაწერი ვერ მიუთითებს სხვა ტენანტის ჩანაწერზე მაშინაც კი, თუ ვინმე შეეცდება ასეთის ჩაწერას.',
-      },
-      {
-        q: 'აუცილებელია არსებული სისტემის ჩანაცვლება?',
-        a: 'არა. ბევრი გუნდი იწყებს Inverse-ის მხოლოდ შემოწმების ეტაპზე გამოყენებით, ინახავს არსებულ აღრიცხვას და მონაცემებს გადმოიტანს მოგვიანებით — მას შემდეგ, რაც ციფრები ნდობას დაიმსახურებს.',
-      },
-      {
-        q: 'რა ჯდება ერთი შემოწმება?',
-        a: 'თითოეული ტარიფი მოიცავს შემოწმებების თვიურ ლიმიტს, ზედმეტი კი ცალობით ანგარიშდება. ფასების გვერდზე კალკულატორი გამოთვლის, რომელია შენი მოცულობისთვის იაფი — ზოგჯერ ზედმეტში გადახდა უფრო მომგებიანია, ვიდრე ტარიფის აწევა.',
-      },
-    ],
-  },
-  cta: {
-    title: 'გამოსცადე ერთ თაროზე',
-    body: 'დატოვე ელფოსტა და დაგეხმარებით, გამართო შენივე საწყობის რეალურ თაროზე — მიგრაციის და ვალდებულების გარეშე.',
-    email: 'ელფოსტა',
-    placeholder: 'you@company.ge',
-    button: 'მოითხოვე წვდომა',
-    sending: 'იგზავნება…',
-    success: 'გმადლობთ. მალე დაგიკავშირდებით.',
-    company: 'კომპანია',
-    companyPlaceholder: 'შენი კომპანია',
-    fallback:
-      'ამ ვერსიას ჯერ ბაზა არ აქვს მიერთებული, ამიტომ ფორმა ვერ შეინახავს მონაცემებს. დაგვიკავშირდი პირდაპირ.',
-    invalidEmail: 'შეიყვანე სწორი ელფოსტა.',
-  },
-  footer: {
-    tagline: 'Inverse — Novora-ს პროდუქტი. თბილისი, საქართველო.',
-    product: 'პროდუქტი',
-    rights: 'ყველა უფლება დაცულია.',
-  },
-  plans: {
-    free: {
-      name: 'უფასო',
-      blurb: 'ერთი თარო, ერთი ადამიანი, ბარათის გარეშე.',
-      features: [
-        'AI შემოწმება თაროზე',
-        'მარაგის შემცირების შეტყობინება',
-        'მხარდაჭერა საზოგადოებისგან',
-      ],
+
+  home: {
+    tag: 'ინვენტარიზაციისა და აღრიცხვის მომსახურება',
+    title: 'ზუსტი ინვენტარიზაცია თქვენი ბიზნესისთვის',
+    subtitle:
+      'Inverse ეხმარება კომპანიებს საწყობის, საცალო წერტილისა და საწარმოს ინვენტარიზაციის ორგანიზებაში — ზუსტი დათვლით, შეუსაბამობების აღმოჩენითა და გასაგები ანგარიშით.',
+    ctaPrimary: 'მომსახურების მოთხოვნა',
+    ctaSecondary: 'სერვისები',
+    pagesTitle: 'გვერდების მიმოხილვა',
+    pages: {
+      about: 'ვინ ვართ და რატომ დავიწყეთ Inverse',
+      services: 'სრული ინვენტარიზაციიდან კონსალტინგამდე',
+      team: 'ვინ დგას Inverse-ს უკან',
+      careers: 'გუნდს ვზრდით — შემოგვიერთდით',
+      news: 'რაზე ვმუშაობთ ამ დროისთვის',
+      contact: 'დაგვიკავშირდით მომსახურების მოთხოვნისთვის',
     },
-    starter: {
-      name: 'საწყისი',
-      blurb: 'ერთი მაღაზია ან პატარა საწყობი.',
-      features: [
-        'ყველაფერი უფასოდან',
-        'პროდუქტების საქაღალდეები და კატეგორიები',
-        'შემოწმებების ისტორია და ექსპორტი',
-        'მხარდაჭერა ელფოსტით',
-      ],
-    },
-    growth: {
-      name: 'ზრდა',
-      blurb: 'რამდენიმე ობიექტი და რეგულარული აღრიცხვა.',
-      features: [
-        'ყველაფერი საწყისიდან',
-        'ბარკოდით დადასტურების პროცესი',
-        'როლებზე დაფუძნებული წვდომა',
-        'პრიორიტეტული მხარდაჭერა',
-      ],
-    },
-    enterprise: {
-      name: 'საწარმო',
-      blurb: 'სადისტრიბუციო მასშტაბის მარაგი.',
-      features: [
-        'ყველაფერი ზრდიდან',
-        'SSO და აუდიტის ჟურნალი',
-        'ინდივიდუალური ინტეგრაციები',
-        'დანერგვა და SLA',
-      ],
-    },
+    finalTitle: 'დავიწყოთ თქვენი საწყობით',
+    finalBody:
+      'გვითხარით თქვენი საწყობის ან მაღაზიის მასშტაბი და დაგიკავშირდებით 24 საათში.',
+    finalCta: 'მომსახურების მოთხოვნა',
   },
-  pricing: {
+
+  about: {
+    title: 'გამოცდილება, რომელიც ინვენტარიზაციას სისტემად აქცევს',
     intro:
-      'ფასები ლარშია, ქართული ბაზრისთვის. უთხარი კალკულატორს რამდენს ითვლი რეალურად და ის აირჩევს ყველაზე იაფ ტარიფს — მათ შორის მაშინაც, როცა ზედმეტ შემოწმებებში გადახდა ტარიფის აწევაზე იაფია.',
-    skus: 'პროდუქტი (SKU)',
-    skusHint: 'განსხვავებული ერთეული, რომელსაც აღრიცხავ',
-    locations: 'ლოკაცია',
-    locationsHint: 'საწყობი, მაღაზია, სტელაჟი',
-    users: 'მომხმარებელი',
-    usersHint: 'ადამიანი, ვისაც წვდომა აქვს',
-    checks: 'AI შემოწმება / თვე',
-    checksHint: 'ერთი გაანალიზებული ფოტო = ერთი შემოწმება',
-    payYearly: 'გადაიხადე წლიურად',
-    save: 'დაზოგე',
-    recommended: 'რეკომენდებული',
-    letsTalk: 'დავსხდეთ და ვისაუბროთ',
-    letsTalkBody:
-      'ამ მოცულობაზე ფასი საუბარს იმსახურებს და არა სლაიდერს.',
-    plan: 'ტარიფი',
-    extraChecks: 'დამატებითი შემოწმება',
-    billedYearly: 'წლიური გადახდით',
-    saves: 'ზოგავს',
-    limitProducts: 'პროდუქტი',
-    limitLocations: 'ლოკაცია',
-    limitUsers: 'მომხმარებელი',
-    limitChecks: 'AI შემოწმება / თვე',
-    unlimited: 'ულიმიტო',
-    disclaimer:
-      'ამ გვერდზე მოცემული ფასები წინასწარია და კომერციულ დამტკიცებას ელოდება. ისინი ერთ ფაილშია, ამიტომ მათი შეცვლა კალკულატორსაც და ცხრილსაც ერთად განაახლებს.',
-    reasonExceeds: 'აჭარბებს ქვედა ტარიფს.',
-    reasonFits: 'შენი მოხმარება მარაგითაც კი ეტევა ამ ტარიფში.',
-    reasonOverage: 'შემოწმება ლიმიტს ზემოთ, ფასით',
-    reasonEnterprise: 'შენი მოცულობა თვითმომსახურების ტარიფებს სცდება.',
-    each: 'თითო',
+      'Inverse თბილისში დაფუძნებული ინვენტარიზაციის საკონსულტაციო კომპანიაა — ვეხმარებით ბიზნესებს ზუსტი, გასაგები და განმეორებადი ინვენტარიზაციის პროცესის აწყობაში.',
+    storyTitle: 'ჩვენი ისტორია',
+    story: [
+      'Inverse დაიბადა პრაქტიკული საჭიროებიდან — ინვენტარიზაცია, რომელიც ხშირად ნელი, ხელით და შეცდომისკენ მიდრეკილი პროცესია, საჭიროებდა სისტემურ მიდგომას. 20+ წლიანმა გამოცდილებამ ინვენტარიზაციასა და საწყობის მართვაში გვასწავლა, სად იკარგება დრო და სად ჩნდება შეცდომა.',
+      'დღეს Inverse ეხმარება საწარმოო კომპანიებს, საწყობებს, საცალო ქსელებსა და ფარმაცევტულ საწყობებს — ზუსტი დათვლით, შეუსაბამობის ანალიზითა და პროცესის მოწესრიგებით.',
+    ],
+    stats: [
+      { value: '20+', label: 'წლიანი გამოცდილება' },
+      { value: '4', label: 'ინდუსტრია მომსახურებაში' },
+      { value: '2026', label: 'დაარსების წელი' },
+      { value: 'GE', label: 'თბილისი, საქართველო' },
+    ],
+    principlesTitle: 'ჩვენი პრინციპები',
+    principles: [
+      {
+        title: 'სიზუსტე',
+        body: 'ციფრი, რომელსაც მოგაწვდით, უნდა ემთხვეოდეს რეალობას — არა ვარაუდს.',
+      },
+      {
+        title: 'გამჭვირვალობა',
+        body: 'ანგარიში გასაგებია — ჩანს, სად არის შეუსაბამობა და რატომ.',
+      },
+      {
+        title: 'პრაქტიკულობა',
+        body: 'რჩევები რეალურ გამოცდილებაზეა დაფუძნებული, არა თეორიაზე.',
+      },
+    ],
   },
-  mockup: {
-    unitsOnRecord: 'ერთეული აღრიცხვაზე',
-    activeProducts: 'აქტიური პროდუქტი',
-    lowStock: 'მარაგი იწურება',
-    flagged: 'მონიშნული',
-    lowStockAlerts: 'მარაგის შეტყობინებები',
-    reorderAt: 'ზღვარი',
-    captureFrame: 'გააჩერე კადრი',
-    verifyAgainst: 'შეამოწმე',
-    holdSteady: 'დააფიქსირე და გადაუღე',
-    results: 'შედეგები',
-    expected: 'მოსალოდნელი',
-    counted: 'დათვლილი',
-    confidence: 'სანდოობა',
-    verdict: 'ვერდიქტი',
-    match: 'ემთხვევა',
-    review: 'შესამოწმებელი',
-    mismatch: 'არ ემთხვევა',
-    barcodeNote: 'დაასკანერე ბარკოდი ვარიანტის დასადასტურებლად',
+
+  services: {
+    title: 'ინვენტარიზაციის სრული სპექტრი',
+    intro:
+      'ერთჯერადი აუდიტიდან რეგულარულ პროცესის მოწესრიგებამდე — მორგებული თქვენი ბიზნესის მასშტაბზე.',
+    items: [
+      {
+        title: 'სრული ინვენტარიზაცია',
+        body: 'საწყობის ან მაღაზიის სრული ფიზიკური დათვლა — ყველა SKU-ს გადამოწმებით და დეტალური ანგარიშით.',
+        points: [
+          'ყველა კატეგორიის სრული აღრიცხვა',
+          'ჩანაწერთან შედარება',
+          'საბოლოო ანგარიში შეჯამებით',
+        ],
+      },
+      {
+        title: 'ნაწილობრივი და გეგმური აუდიტი',
+        body: 'რეგულარული, შერჩევითი შემოწმებები მაღალი რისკის ან მაღალი ბრუნვის კატეგორიებზე.',
+        points: [
+          'განმეორებადი გრაფიკით',
+          'ფოკუსირებული მაღალი რისკის SKU-ებზე',
+          'სწრაფი შედეგი, დროის დაზოგვით',
+        ],
+      },
+      {
+        title: 'შეუსაბამობის ანალიზი',
+        body: 'ჩანაწერსა და რეალურ ნაშთს შორის სხვაობის დეტალური ანგარიში და შესაძლო მიზეზების ანალიზი.',
+        points: [
+          'ზუსტი შეუსაბამობის ლოკაცია',
+          'მიზეზობრივი ანალიზი',
+          'რეკომენდაციები აღმოსაფხვრელად',
+        ],
+      },
+      {
+        title: 'პროცესის კონსალტინგი',
+        body: 'ინვენტარიზაციის სისტემისა და საწყობის მართვის პროცესის მოწესრიგება — გრძელვადიანი გაუმჯობესებისთვის.',
+        points: [
+          'არსებული პროცესის შეფასება',
+          'გაუმჯობესების გეგმა',
+          'დანერგვის მხარდაჭერა',
+        ],
+      },
+    ],
+  },
+
+  team: {
+    title: 'ვინ დგას Inverse-ს უკან',
+    intro:
+      'პრაქტიკული გამოცდილება ინვენტარიზაციასა და საწყობის მართვაში, რომელსაც ვქცევთ სისტემურ მომსახურებად.',
+    founderName: 'გიორგი',
+    founderRole: 'დამფუძნებელი',
+    founderBody:
+      '20+ წლიანი პრაქტიკული გამოცდილება ინვენტარიზაციასა და საწყობის მართვაში. ასევე ხელმძღვანელობს Novora-ს — ავეჯისა და ინტერიერის დიზაინის ფირმას, რომელიც Inverse-ისგან დამოუკიდებელი, ცალკე ბიზნესია.',
+    growingTitle: 'გუნდი იზრდება',
+    growing: [
+      'ვამატებთ ტექნიკურ და საოპერაციო რესურსს მომსახურების მასშტაბის გასაზრდელად.',
+      'ვამზადებთ პარტნიორულ და საკონსულტაციო კავშირებს ინდუსტრიის ექსპერტებთან.',
+      'ღიად ვართ ახალი წევრებისთვის — იხილეთ ვაკანსიები.',
+    ],
+  },
+
+  careers: {
+    title: 'ვზრდით გუნდს',
+    intro:
+      'Inverse იზრდება — ვეძებთ ადამიანებს, ვისაც სურს, ინვენტარიზაცია გახადოს უფრო ზუსტი და მარტივი.',
+    openTitle: 'ღია პოზიციები',
+    openNote: 'იგეგმება',
+    roles: [
+      {
+        title: 'ტექნიკური თანადამფუძნებელი / CTO',
+        body: 'ტექნიკური რესურსი პროდუქტის განვითარებისთვის — AI, Backend, Frontend მიმართულებით.',
+      },
+      {
+        title: 'გაყიდვების როლი',
+        body: 'საოპერაციო გამოცდილება რეალური საწარმოო ან სავაჭრო ბიზნესიდან — მომხმარებელთან პირდაპირი მუშაობა.',
+      },
+    ],
+    whyTitle: 'რატომ Inverse',
+    why: [
+      {
+        title: 'რეალურ პრობლემაზე მუშაობა',
+        body: 'ხედავთ თქვენი მუშაობის შედეგს რეალურ საწყობში, არა მხოლოდ თეორიაში.',
+      },
+      {
+        title: 'მცირე, მოქნილი გუნდი',
+        body: 'ადრეულ ეტაპზე შემოსვლის შესაძლებლობა — თქვენი წვლილი ჩანს.',
+      },
+      {
+        title: '20+ წლიანი გამოცდილება გვერდით',
+        body: 'სწავლა და ზრდა პრაქტიკულ ცოდნაზე დაფუძნებულ გარემოში.',
+      },
+    ],
+  },
+
+  news: {
+    title: 'რაზე ვმუშაობთ',
+    intro: 'Inverse-ის განვითარება — ახალი პროექტები და მომავალი მიმართულებები.',
+    items: [
+      {
+        badge: 'მალე',
+        year: '2026',
+        title: 'AI-ზე დაფუძნებული ვიდეო მონიტორინგი',
+        body: 'ვამუშავებთ ახალ პროექტს — კამერაზე დაფუძნებულ ავტომატურ ვერიფიკაციის სისტემას, რომელიც თაროს ფოტოდან ან ვიდეოდან თავად ცნობს პროდუქტს, ითვლის რაოდენობას და ადარებს არსებულ ჩანაწერს.',
+        points: [
+          'ავტომატური პროდუქტის ამოცნობა და დათვლა',
+          'რეალურ დროში შედარება ჩანაწერთან',
+          'ვიზუალურად მსგავს ერთეულებზე — ბარკოდის დადასტურება',
+        ],
+      },
+      {
+        badge: 'მიმდინარე',
+        year: '2026',
+        title: 'პილოტის მომზადება',
+        body: 'ამჟამად ვამზადებთ პირველ პილოტს — AI ვერიფიკაციის მეთოდის გამოსაცდელად რეალურ საწყობში, სანამ ის ჩვენს სტანდარტულ მომსახურებაში დაინერგება.',
+        points: [],
+      },
+    ],
+  },
+
+  contact: {
+    title: 'დაგვიკავშირდით',
+    intro:
+      'მოითხოვეთ მომსახურება, ან უბრალოდ დასვით კითხვა — 24 საათში დაგიკავშირდებით.',
+    emailLabel: 'ელფოსტა',
+    email: 'info@inverse.ge',
+    locationLabel: 'მდებარეობა',
+    location: 'თბილისი, საქართველო',
+    responseLabel: 'საპასუხო დრო',
+    response: '24 საათის განმავლობაში',
+    formTitle: 'მოგვწერეთ',
+    name: 'სახელი',
+    company: 'კომპანია',
+    emailField: 'ელფოსტა',
+    phone: 'ტელეფონი',
+    topic: 'რას ეხება მიმართვა?',
+    topics: {
+      service: 'მომსახურების მოთხოვნა',
+      question: 'ზოგადი კითხვა',
+      career: 'კარიერა / CV',
+      other: 'სხვა',
+    },
+    message: 'შეტყობინება',
+    submit: 'გაგზავნა',
+    sending: 'იგზავნება…',
+    success: 'გმადლობთ. 24 საათში დაგიკავშირდებით.',
+    invalidEmail: 'შეიყვანეთ სწორი ელფოსტა.',
+    missingMessage: 'მოკლედ მიწერეთ, რა გჭირდებათ.',
+    fallback:
+      'ამ ვერსიას ჯერ ბაზა არ აქვს მიერთებული, ამიტომ ფორმა ვერ შეინახავს მონაცემებს. მოგვწერეთ პირდაპირ: info@inverse.ge.',
+  },
+
+  footer: {
+    tagline: 'Inverse — ინვენტარიზაციისა და აღრიცხვის მომსახურება. თბილისი, საქართველო.',
+    rights: 'ყველა უფლება დაცულია.',
   },
 };
 
