@@ -24,7 +24,7 @@ export default async function AboutPage({ params }: PageProps<'/[locale]/about'>
 
   return (
     <>
-      <PageHeader
+      <PageHeader tone="sunk"
         eyebrow={dict.nav.about}
         title={dict.about.title}
         intro={dict.about.intro}
@@ -53,7 +53,7 @@ export default async function AboutPage({ params }: PageProps<'/[locale]/about'>
         </dl>
       </Band>
 
-      <Band label={dict.about.principlesTitle}>
+      <Band label={dict.about.principlesTitle} tone="ink">
         <div className="grid gap-x-10 gap-y-10 md:grid-cols-3">
           {dict.about.principles.map((item, index) => (
             <Reveal key={item.title} delay={index * 80}>

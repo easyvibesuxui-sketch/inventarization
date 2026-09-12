@@ -25,13 +25,13 @@ export default async function ServicesPage({ params }: PageProps<'/[locale]/serv
 
   return (
     <>
-      <PageHeader
+      <PageHeader tone="paper" video="racks"
         eyebrow={dict.nav.services}
         title={dict.services.title}
         intro={dict.services.intro}
       />
 
-      <Band>
+      <Band tone="ink">
         <div className="border-t border-ink">
           {dict.services.items.map((item, index) => (
             <RuledItem
@@ -48,7 +48,7 @@ export default async function ServicesPage({ params }: PageProps<'/[locale]/serv
         <Reveal delay={120} className="mt-12">
           <Link
             href={`/${locale}/contact`}
-            className="inline-block rounded-control bg-ink px-6 py-2.5 text-sm text-paper transition hover:bg-ink-soft"
+            className="btn btn-solid"
           >
             {dict.home.ctaPrimary}
           </Link>

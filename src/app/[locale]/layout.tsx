@@ -4,7 +4,6 @@ import { getDictionary } from '@/lib/i18n/dictionaries';
 import SiteHeader from '@/components/marketing/site-header';
 import SiteFooter from '@/components/marketing/site-footer';
 import Grain from '@/components/marketing/grain';
-import SiteBackground from '@/components/marketing/site-background';
 
 export function generateStaticParams() {
   return LOCALES.map((locale) => ({ locale }));
@@ -31,7 +30,6 @@ export default async function LocaleLayout({ children, params }: LayoutProps<'/[
           }
         </style>
       </noscript>
-      <SiteBackground />
       <Grain />
       <SiteHeader locale={locale} dict={dict} />
       <main className="flex-1">{children}</main>

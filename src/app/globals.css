@@ -1,38 +1,45 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
 /*
-  Paper. The page is printed ink on a warm off-white, not a dark UI: one neutral
-  ramp, no brand accent, and colour used only where it carries meaning — the
-  three verification verdicts.
+  The page is built in three grounds — white, grey, near-black — stepping from
+  one section to the next, with a single vermilion accent. The rhythm is what
+  carries the site: one ground for five thousand pixels goes dead, three do not.
 */
 @theme {
-  --color-paper: #faf9f6;
-  --color-paper-sunk: #f2f1ec;
-  --color-rule: #dedcd4;
-  --color-rule-strong: #c3c0b5;
+  --color-paper: #fdfdfd;
+  --color-paper-sunk: #e5e5e5;
+  --color-rule: #d8d8d8;
+  --color-rule-strong: #b4b4b4;
 
-  --color-ink: #14140f;
-  --color-ink-soft: #55534a;
-  --color-ink-faint: #85837a;
+  --color-ink: #121212;
+  --color-ink-soft: #52524f;
+  --color-ink-faint: #7d7d79;
+
+  /* One accent, used for what the reader is meant to act on and for the index
+     numbers that count the page. Text on it is ink, not white: white on this
+     vermilion is a 2.9:1 contrast and fails at any size. */
+  --color-accent: #fb694b;
+  --color-accent-deep: #e04c2c;
+
+  /* On the dark ground the ramp inverts; these are the values it inverts to. */
+  --color-paper-dim: #d5d5d3;
+  --color-rule-dark: #2b2b2b;
 
   /* Verdict colours, mixed toward print rather than screen. */
   --color-match: #2f6b41;
   --color-review: #8a6415;
   --color-mismatch: #a33227;
 
-  --font-sans:
-    var(--font-body-loaded), "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-sans: var(--font-body-loaded), 'Helvetica Neue', Helvetica, Arial, sans-serif;
   --font-display: var(--font-display-loaded), var(--font-sans);
-  --font-mono:
-    ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+  --font-mono: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, monospace;
 
   --ease-out-quint: cubic-bezier(0.16, 1, 0.3, 1);
 
-  /* Two radii, so rounding is a decision made once rather than per component:
-     `control` for things you click or type into, `media` for pictures and
-     video. Structural hairline rules stay square. */
-  --radius-control: 0.625rem;
-  --radius-media: 1rem;
+  /* Corners are square. The reference's authority comes from sharp edges and
+     hairlines; only media keeps a radius, so a photograph is not a hard block. */
+  --radius-control: 0;
+  --radius-media: 0;
 }
 
 html {
@@ -41,9 +48,7 @@ html {
 }
 
 body {
-  /* The ground is on <html>, so the fixed backdrop behind the body shows
-     through every page rather than being painted over section by section. */
-  background-color: transparent;
+  background-color: var(--color-paper);
   color: var(--color-ink);
   font-family: var(--font-sans);
   font-weight: 400;
@@ -132,141 +137,164 @@ body {
 
 /* The radius of the hole the pointer opens in the frost. Declared with
    @property so it can be transitioned; browsers without it simply snap. */
-@property --spot-r {
-  syntax: "<length>";
-  inherits: false;
-  initial-value: 0px;
+
+/* ---------------------------------------------------------------------------
+   Grounds
+   ---------------------------------------------------------------------------
+   Every section declares which of the three it stands on. The dark one inverts
+   the whole ramp rather than only the background, so type, rules and muted text
+   all follow without each component knowing which ground it landed on. */
+
+.tone-paper {
+  background-color: var(--color-paper);
+  color: var(--color-ink);
+}
+
+.tone-sunk {
+  background-color: var(--color-paper-sunk);
+  color: var(--color-ink);
+}
+
+.tone-ink {
+  /* Literals, not var(--color-ink)/var(--color-paper): the ramp is inverted in
+     this same rule, and a custom property is resolved before it is used on the
+     element that redefines it — so those two would read the inverted values and
+     paint a white section with white type on it. */
+  background-color: #121212;
+  color: #fdfdfd;
+  --color-ink: #fdfdfd;
+  --color-ink-soft: var(--color-paper-dim);
+  --color-ink-faint: #8d8d8a;
+  --color-rule: var(--color-rule-dark);
+  --color-rule-strong: #3d3d3d;
+}
+
+/* The column grid, drawn. Six hairlines running the full height of a section,
+   so the page reads as ruled paper rather than as text floating in space. */
+.grid-rules {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  max-width: 80rem;
+  margin-inline: auto;
+}
+
+@media (min-width: 48rem) {
+  .grid-rules {
+    grid-template-columns: repeat(6, 1fr);
+  }
+}
+
+.grid-rules > span {
+  border-left: 1px solid var(--color-rule);
+  opacity: 0.55;
+}
+
+.grid-rules > span:first-child {
+  border-left: 0;
 }
 
 /* ---------------------------------------------------------------------------
-   The site backdrop
+   Controls
    --------------------------------------------------------------------------- */
 
-/* One clip fixed behind every page. Content scrolls over it; it stays put. */
-.site-bg {
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-  pointer-events: none;
-  overflow: hidden;
-  /* The clips are not rendered until the screen's orientation is known, and a
-     phone may refuse to play them at all (Low Power Mode blocks inline
-     playback outright). Either way the page needs its ground. */
-  background-color: var(--color-paper);
+/* The accent carries what the reader is meant to act on. Its label is ink, not
+   white — white on this vermilion is 2.9:1 and fails at every size. */
+.btn {
+  display: inline-block;
+  font-family: var(--font-display);
+  font-size: 0.8125rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 0.9rem 1.6rem;
+  transition:
+    background-color 0.25s var(--ease-out-quint),
+    color 0.25s var(--ease-out-quint),
+    border-color 0.25s var(--ease-out-quint);
 }
 
-/* The stage carries the footage's overall strength, so the crossfade between
-   the clips inside it stays a true handover rather than a dip to paper. */
-.site-bg-stage {
-  position: absolute;
-  inset: 0;
+.btn-solid {
+  background-color: var(--color-accent);
+  color: #121212;
 }
 
-/* The three clips are stacked; the backdrop sets each one's opacity and drift
-   from the scroll position. The first is opaque so the page is never bare
-   before the script runs. */
-.site-bg-video {
+.btn-solid:hover {
+  background-color: var(--color-accent-deep);
+}
+
+.btn-outline {
+  border: 1px solid var(--color-accent);
+  color: var(--color-accent);
+}
+
+.btn-outline:hover {
+  background-color: var(--color-accent);
+  color: #121212;
+}
+
+/* The bracketed standfirst from the reference: a letterspaced caps line held
+   between two accent brackets. */
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.9rem;
+  font-family: var(--font-display);
+  font-size: 0.75rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-ink);
+}
+
+.eyebrow::before,
+.eyebrow::after {
+  content: '';
+  width: 0.55rem;
+  align-self: stretch;
+  border: 1px solid var(--color-accent);
+}
+
+.eyebrow::before {
+  border-right: 0;
+}
+
+.eyebrow::after {
+  border-left: 0;
+}
+
+/* The index that counts a list of rows, in the accent. */
+.index {
+  font-family: var(--font-display);
+  font-size: 0.8125rem;
+  letter-spacing: 0.1em;
+  color: var(--color-accent);
+}
+
+/* ---------------------------------------------------------------------------
+   Section backdrops
+   ---------------------------------------------------------------------------
+   A clip behind one section rather than behind the whole site: the grounds now
+   carry the variation, and a fixed backdrop would be painted over by them. */
+
+.band-video {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
-  opacity: 0;
-  transform-origin: center;
-  will-change: opacity, transform;
 }
 
-.site-bg-video:first-of-type {
-  opacity: 1;
-}
-
-/* The frosted pane that holds the footage far enough back to read over. Its
-   mask is opaque everywhere except a soft circle at the pointer, so hovering
-   lifts the blur and the wash exactly where you are looking. */
-/* Two panes sit over the footage, and they do different jobs.
-
-   This one covers the whole screen and is deliberately thin: enough to keep the
-   page a page, not enough to hide what is behind it. Its mask is opaque
-   everywhere except a soft circle at the pointer, so hovering lifts even this
-   much where you are looking. */
-.site-frost {
+.band-scrim {
   position: absolute;
   inset: 0;
-  --px: 50%;
-  --py: 50%;
-  --spot-r: 0px;
-  /* How thick the pane is at rest, and how much it thickens at the seam where
-     one clip hands over to the next. The backdrop sets --breath; these two say
-     what that breath is worth on this screen. */
-  --frost-blur: 3px;
-  --frost-paper: 18%;
-  --breath: 0;
-  -webkit-backdrop-filter: blur(calc(var(--frost-blur) + var(--breath) * 4px));
-  backdrop-filter: blur(calc(var(--frost-blur) + var(--breath) * 4px));
-  background-color: color-mix(
-    in srgb,
-    var(--color-paper) calc(var(--frost-paper) + var(--breath) * 8%),
-    transparent
-  );
-  -webkit-mask-image: radial-gradient(
-    circle var(--spot-r) at var(--px) var(--py),
-    rgb(0 0 0 / 0.42) 0%,
-    rgb(0 0 0 / 0.42) 25%,
-    black 100%
-  );
-  mask-image: radial-gradient(
-    circle var(--spot-r) at var(--px) var(--py),
-    rgb(0 0 0 / 0.42) 0%,
-    rgb(0 0 0 / 0.42) 25%,
-    black 100%
-  );
-  transition: --spot-r 0.5s var(--ease-out-quint);
+  background-color: color-mix(in srgb, var(--color-paper) 72%, transparent);
+  -webkit-backdrop-filter: blur(3px);
+  backdrop-filter: blur(3px);
 }
 
-/* The second pane is only as wide as the text, and it is the one that makes
-   reading easy. Either side of it the footage is barely veiled, so the margins
-   of the page carry the colour and the movement while the column stays calm. */
-.site-column {
-  position: absolute;
-  inset: 0;
-  -webkit-backdrop-filter: blur(7px);
-  backdrop-filter: blur(7px);
-  background-color: color-mix(in srgb, var(--color-paper) 50%, transparent);
-  -webkit-mask-image: linear-gradient(
-    to right,
-    transparent,
-    black calc(50% - 34rem),
-    black calc(50% + 34rem),
-    transparent
-  );
-  mask-image: linear-gradient(
-    to right,
-    transparent,
-    black calc(50% - 34rem),
-    black calc(50% + 34rem),
-    transparent
-  );
-}
-
-/* A phone gets the portrait cut of each clip, so the footage arrives composed
-   rather than magnified out of a landscape frame, and the pane over it can be
-   lighter than the one a cropped clip needed. */
-@media (max-aspect-ratio: 1 / 1) {
-  .site-column {
-    -webkit-backdrop-filter: blur(4px);
-    backdrop-filter: blur(4px);
-    background-color: color-mix(in srgb, var(--color-paper) 40%, transparent);
-  }
-}
-
-.site-vignette {
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(
-    120% 100% at 50% 45%,
-    transparent 45%,
-    color-mix(in srgb, var(--color-ink) 10%, transparent) 100%
-  );
+.tone-ink .band-scrim {
+  background-color: color-mix(in srgb, #121212 72%, transparent);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -280,7 +308,7 @@ body {
     transition: none;
   }
 
-  .site-frost {
+  .btn {
     transition: none;
   }
 }

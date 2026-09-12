@@ -27,13 +27,13 @@ export default async function PlatformPage({ params }: PageProps<'/[locale]/plat
 
   return (
     <>
-      <PageHeader
+      <PageHeader tone="paper" video="scan"
         eyebrow={dict.nav.platform}
         title={dict.platform.title}
         intro={dict.platform.intro}
       />
 
-      <Band>
+      <Band tone="ink">
         <div className="border-t border-ink">
           {dict.platform.sections.map((section, index) => (
             <RuledItem
@@ -59,7 +59,7 @@ export default async function PlatformPage({ params }: PageProps<'/[locale]/plat
         </Reveal>
       </Band>
 
-      <Band label={dict.platform.dashboardTitle}>
+      <Band label={dict.platform.dashboardTitle} tone="sunk">
         <ul className="border-t border-ink">
           {dict.platform.dashboard.map((line, index) => (
             <Reveal

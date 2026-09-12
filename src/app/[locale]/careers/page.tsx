@@ -25,13 +25,13 @@ export default async function CareersPage({ params }: PageProps<'/[locale]/caree
 
   return (
     <>
-      <PageHeader
+      <PageHeader tone="paper"
         eyebrow={dict.nav.careers}
         title={dict.careers.title}
         intro={dict.careers.intro}
       />
 
-      <Band label={dict.careers.openTitle}>
+      <Band label={dict.careers.openTitle} tone="ink">
         <div className="border-t border-ink">
           {dict.careers.roles.map((role, index) => (
             <RuledItem
@@ -47,14 +47,14 @@ export default async function CareersPage({ params }: PageProps<'/[locale]/caree
         <Reveal delay={140} className="mt-10">
           <Link
             href={`/${locale}/contact`}
-            className="inline-block rounded-control bg-ink px-6 py-2.5 text-sm text-paper transition hover:bg-ink-soft"
+            className="btn btn-solid"
           >
             {dict.nav.contact}
           </Link>
         </Reveal>
       </Band>
 
-      <Band label={dict.careers.whyTitle}>
+      <Band label={dict.careers.whyTitle} tone="sunk">
         <div className="grid gap-x-10 gap-y-10 md:grid-cols-3">
           {dict.careers.why.map((item, index) => (
             <Reveal key={item.title} delay={index * 80}>

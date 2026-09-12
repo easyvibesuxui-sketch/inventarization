@@ -25,7 +25,7 @@ export default async function TeamPage({ params }: PageProps<'/[locale]/team'>) 
 
   return (
     <>
-      <PageHeader eyebrow={dict.nav.team} title={dict.team.title} intro={dict.team.intro} />
+      <PageHeader tone="sunk" eyebrow={dict.nav.team} title={dict.team.title} intro={dict.team.intro} />
 
       <Band>
         <Reveal className="grid gap-x-10 gap-y-4 border-t border-ink py-8 md:grid-cols-[18rem_1fr]">
@@ -37,7 +37,7 @@ export default async function TeamPage({ params }: PageProps<'/[locale]/team'>) 
         </Reveal>
       </Band>
 
-      <Band label={dict.team.growingTitle}>
+      <Band label={dict.team.growingTitle} tone="ink">
         <ul className="border-t border-ink">
           {dict.team.growing.map((line, index) => (
             <Reveal as="li" key={line} delay={index * 70} className="border-b border-rule py-4">

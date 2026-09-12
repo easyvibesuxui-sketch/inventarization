@@ -26,7 +26,7 @@ export default async function NewsPage({ params }: PageProps<'/[locale]/news'>) 
 
   return (
     <>
-      <PageHeader eyebrow={dict.nav.news} title={dict.news.title} intro={dict.news.intro} />
+      <PageHeader tone="ink" eyebrow={dict.nav.news} title={dict.news.title} intro={dict.news.intro} />
 
       <Band>
         <div className="border-t border-ink">

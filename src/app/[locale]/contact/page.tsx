@@ -25,7 +25,7 @@ export default async function ContactPage({ params }: PageProps<'/[locale]/conta
 
   return (
     <>
-      <PageHeader
+      <PageHeader tone="sunk"
         eyebrow={dict.nav.contact}
         title={dict.contact.title}
         intro={dict.contact.intro}
@@ -55,7 +55,7 @@ export default async function ContactPage({ params }: PageProps<'/[locale]/conta
         </dl>
       </Band>
 
-      <Band label={dict.contact.formTitle}>
+      <Band label={dict.contact.formTitle} tone="ink">
         <Reveal>
           <ContactForm locale={locale} dict={dict} />
         </Reveal>

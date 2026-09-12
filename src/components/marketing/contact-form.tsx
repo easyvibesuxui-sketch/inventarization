@@ -69,7 +69,7 @@ export default function ContactForm({
       <button
         type="submit"
         disabled={pending}
-        className="mt-8 rounded-control bg-ink px-6 py-2.5 text-sm text-paper transition hover:bg-ink-soft disabled:opacity-50"
+        className="btn btn-solid mt-10 disabled:opacity-50"
       >
         {pending ? dict.contact.sending : dict.contact.submit}
       </button>

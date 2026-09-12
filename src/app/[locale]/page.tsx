@@ -7,6 +7,7 @@ import { pageMetadata } from '@/lib/i18n/page-meta';
 import { formatMoney, PLANS } from '@/lib/pricing';
 import Reveal from '@/components/marketing/reveal';
 import Rise from '@/components/marketing/rise';
+import BandVideo from '@/components/marketing/band-video';
 import { Band } from '@/components/marketing/page-shell';
 
 export async function generateMetadata({ params }: PageProps<'/[locale]'>): Promise<Metadata> {
@@ -45,37 +46,46 @@ export default async function HomePage({ params }: PageProps<'/[locale]'>) {
 
   return (
     <>
-      {/* Hero */}
-      <section>
-        <div className="mx-auto max-w-5xl px-6 pb-40 pt-32 sm:pt-44 md:pb-48">
+      {/* Hero. The accent graphic is the one clip on the site that starts on
+          its own; everything below it waits to be scrolled to. */}
+      <section className="tone-paper relative isolate overflow-hidden">
+        <BandVideo
+          name="ledger"
+          autoplay
+          className="opacity-90 [mask-image:linear-gradient(to_right,transparent,transparent_52%,black_78%)]"
+        />
+        <div aria-hidden className="grid-rules">
+          <span />
+          <span />
+          <span />
+          <span className="hidden md:block" />
+          <span className="hidden md:block" />
+          <span className="hidden md:block" />
+        </div>
+
+        <div className="relative mx-auto max-w-5xl px-6 pb-36 pt-28 md:pb-44 md:pt-36">
           <Rise>
-            <p className="label">{dict.home.tag}</p>
+            <p className="eyebrow">{dict.home.tag}</p>
           </Rise>
 
           <Rise delay={60}>
-            <h1 className="font-display mt-8 max-w-2xl text-3xl sm:text-4xl md:text-5xl">
+            <h1 className="font-display mt-10 max-w-3xl text-[2.75rem] leading-[0.95] tracking-tight sm:text-6xl md:text-7xl">
               {dict.home.title}
             </h1>
           </Rise>
 
           <Rise delay={120}>
-            <p className="mt-8 max-w-xl text-lg font-light leading-relaxed text-ink-soft">
+            <p className="mt-10 max-w-xl text-lg font-light leading-relaxed text-ink-soft">
               {dict.home.subtitle}
             </p>
           </Rise>
 
           <Rise delay={180}>
-            <div className="mt-10 flex flex-wrap items-center gap-6">
-              <Link
-                href={`/${l}/contact`}
-                className="rounded-control bg-ink px-6 py-2.5 text-sm text-paper transition hover:bg-ink-soft"
-              >
+            <div className="mt-12 flex flex-wrap items-center gap-5">
+              <Link href={`/${l}/contact`} className="btn btn-solid">
                 {dict.home.ctaPrimary}
               </Link>
-              <Link
-                href={`/${l}/services`}
-                className="text-sm underline underline-offset-4 decoration-rule-strong transition hover:decoration-ink"
-              >
+              <Link href={`/${l}/services`} className="btn btn-outline">
                 {dict.home.ctaSecondary}
               </Link>
             </div>
@@ -84,7 +94,7 @@ export default async function HomePage({ params }: PageProps<'/[locale]'>) {
       </section>
 
       {/* Services */}
-      <Band label={dict.nav.services}>
+      <Band label={dict.nav.services} tone="ink">
         <Reveal>
           <h2 className="font-display max-w-2xl text-2xl sm:text-3xl">{dict.services.title}</h2>
           <p className="mt-4 max-w-xl text-ink-soft">{dict.home.servicesLead}</p>
@@ -97,9 +107,7 @@ export default async function HomePage({ params }: PageProps<'/[locale]'>) {
               delay={index * 60}
               className="grid gap-x-10 gap-y-1 border-b border-rule py-4 md:grid-cols-[3rem_18rem_1fr]"
             >
-              <span className="text-sm tabular-nums text-ink-faint">
-                {String(index + 1).padStart(2, '0')}
-              </span>
+              <span className="index">{String(index + 1).padStart(2, '0')}</span>
               <h3 className="text-base">{item.title}</h3>
               <p className="max-w-xl text-sm text-ink-soft">{item.body}</p>
             </Reveal>
@@ -112,7 +120,7 @@ export default async function HomePage({ params }: PageProps<'/[locale]'>) {
       </Band>
 
       {/* About */}
-      <Band label={dict.nav.about}>
+      <Band label={dict.nav.about} tone="sunk">
         <Reveal>
           <h2 className="font-display max-w-2xl text-2xl sm:text-3xl">{dict.about.title}</h2>
           <p className="mt-4 max-w-xl text-ink-soft">{dict.home.aboutLead}</p>
@@ -137,7 +145,7 @@ export default async function HomePage({ params }: PageProps<'/[locale]'>) {
       </Band>
 
       {/* Platform */}
-      <Band label={dict.nav.platform}>
+      <Band label={dict.nav.platform} video="scan">
         <Reveal>
           <h2 className="font-display max-w-2xl text-2xl sm:text-3xl">{dict.platform.title}</h2>
           <p className="mt-4 max-w-xl text-ink-soft">{dict.home.platformLead}</p>
@@ -158,7 +166,7 @@ export default async function HomePage({ params }: PageProps<'/[locale]'>) {
       </Band>
 
       {/* Pricing */}
-      <Band label={dict.nav.pricing}>
+      <Band label={dict.nav.pricing} tone="sunk">
         <Reveal>
           <h2 className="font-display max-w-2xl text-2xl sm:text-3xl">
             {dict.pricingTeaser.title}
@@ -207,7 +215,7 @@ export default async function HomePage({ params }: PageProps<'/[locale]'>) {
       </Band>
 
       {/* News */}
-      <Band label={dict.nav.news}>
+      <Band label={dict.nav.news} tone="ink">
         <Reveal>
           <p className="label">
             {latest.badge} · {latest.year}
@@ -219,7 +227,7 @@ export default async function HomePage({ params }: PageProps<'/[locale]'>) {
       </Band>
 
       {/* Careers */}
-      <Band label={dict.nav.careers}>
+      <Band label={dict.nav.careers} video="racks">
         <Reveal>
           <h2 className="font-display max-w-2xl text-2xl sm:text-3xl">{dict.careers.title}</h2>
           <p className="mt-4 max-w-xl text-ink-soft">{dict.careers.intro}</p>
@@ -235,16 +243,13 @@ export default async function HomePage({ params }: PageProps<'/[locale]'>) {
       </Band>
 
       {/* Closing call */}
-      <Band>
+      <Band tone="sunk">
         <Reveal>
           <h2 className="font-display max-w-2xl text-2xl sm:text-3xl md:text-4xl">
             {dict.home.finalTitle}
           </h2>
           <p className="mt-5 max-w-lg text-ink-soft">{dict.home.finalBody}</p>
-          <Link
-            href={`/${l}/contact`}
-            className="mt-8 inline-block rounded-control bg-ink px-6 py-2.5 text-sm text-paper transition hover:bg-ink-soft"
-          >
+          <Link href={`/${l}/contact`} className="btn btn-solid mt-10">
             {dict.home.finalCta}
           </Link>
         </Reveal>

@@ -79,7 +79,7 @@ export default function LoginForm() {
         <button
           type="submit"
           disabled={pending}
-          className="w-full rounded-control bg-ink px-6 py-2.5 text-sm text-paper transition hover:bg-ink-soft disabled:opacity-50"
+          className="btn btn-solid w-full disabled:opacity-50"
         >
           {pending ? 'Working…' : mode === 'signin' ? 'Sign in' : 'Create account'}
         </button>
