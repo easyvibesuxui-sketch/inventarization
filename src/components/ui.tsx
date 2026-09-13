@@ -15,7 +15,7 @@ export function Card({
 }) {
   return (
     <section
-      className={`rounded-xl border border-rule/70 bg-paper-sunk/60 shadow-sm ${className}`}
+      className={`rounded-control border border-rule/70 bg-paper-sunk/60 shadow-sm ${className}`}
     >
       {(title || action) && (
         <header className="flex items-center justify-between gap-4 border-b border-rule/70 px-5 py-3.5">
@@ -47,7 +47,7 @@ export function Stat({
   }[tone];
 
   return (
-    <div className="rounded-xl border border-rule/70 bg-paper-sunk/60 px-5 py-4">
+    <div className="rounded-control border border-rule/70 bg-paper-sunk/60 px-5 py-4">
       <p className="text-xs uppercase tracking-wider text-ink-faint">{label}</p>
       <p className={`mt-1.5 text-2xl font-semibold tabular-nums ${toneClass}`}>{value}</p>
       {hint && <p className="mt-1 text-xs text-ink-faint">{hint}</p>}
@@ -98,7 +98,7 @@ export function CheckBadge({ status }: { status: CheckStatus }) {
 }
 
 const BUTTON_BASE =
-  'inline-flex items-center justify-center gap-2 rounded-lg px-4 py-2 text-sm font-medium transition disabled:cursor-not-allowed disabled:opacity-50';
+  'inline-flex items-center justify-center gap-2 rounded-control px-4 py-2 text-sm font-medium transition disabled:cursor-not-allowed disabled:opacity-50';
 
 const BUTTON_VARIANTS = {
   primary: 'bg-ink text-paper hover:bg-ink',
@@ -133,7 +133,7 @@ export function ButtonLink({
 }
 
 export const inputClass =
-  'w-full rounded-lg border border-rule-strong bg-paper-sunk px-3 py-2 text-sm text-ink placeholder:text-ink-faint focus:border-ink focus:outline-none focus:ring-1 focus:ring-ink';
+  'w-full rounded-control border border-rule-strong bg-paper-sunk px-3 py-2 text-sm text-ink placeholder:text-ink-faint focus:border-ink focus:outline-none focus:ring-1 focus:ring-ink';
 
 export function Field({
   label,
@@ -163,7 +163,7 @@ export function EmptyState({
   action?: ReactNode;
 }) {
   return (
-    <div className="rounded-xl border border-dashed border-rule-strong px-6 py-12 text-center">
+    <div className="rounded-control border border-dashed border-rule-strong px-6 py-12 text-center">
       <p className="text-sm font-medium text-ink">{title}</p>
       <p className="mx-auto mt-1.5 max-w-md text-sm text-ink-faint">{description}</p>
       {action && <div className="mt-5 flex justify-center">{action}</div>}
@@ -177,7 +177,7 @@ export function Alert({ tone = 'error', children }: { tone?: 'error' | 'info'; c
       ? 'border-mismatch/40 bg-mismatch/10 text-mismatch'
       : 'border-ink/40 bg-ink/10 text-ink';
   return (
-    <div className={`rounded-lg border px-4 py-3 text-sm ${className}`} role="alert">
+    <div className={`rounded-control border px-4 py-3 text-sm ${className}`} role="alert">
       {children}
     </div>
   );

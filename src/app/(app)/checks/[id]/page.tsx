@@ -167,7 +167,7 @@ export default async function CheckDetailPage({ params }: PageProps<'/checks/[id
             <img
               src={signed.signedUrl}
               alt={`Shelf ${check.locations?.code ?? ''}`}
-              className="w-full rounded-lg border border-rule"
+              className="w-full rounded-control border border-rule"
             />
           ) : (
             <p className="text-sm text-ink-faint">

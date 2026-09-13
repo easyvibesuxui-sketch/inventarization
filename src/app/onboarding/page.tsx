@@ -28,7 +28,7 @@ export default async function OnboardingPage() {
           Everything in Inverse — products, locations and verification history — belongs to
           one company. You can invite colleagues to it once it exists.
         </p>
-        <div className="mt-6 rounded-xl border border-rule/70 bg-paper-sunk/70 p-6">
+        <div className="mt-6 rounded-control border border-rule/70 bg-paper-sunk/70 p-6">
           <OnboardingForm />
         </div>
       </div>

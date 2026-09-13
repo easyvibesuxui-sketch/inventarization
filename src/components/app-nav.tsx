@@ -24,7 +24,7 @@ export default function AppNav() {
             key={href}
             href={href}
             aria-current={active ? 'page' : undefined}
-            className={`whitespace-nowrap rounded-lg px-3 py-1.5 text-sm font-medium transition ${
+            className={`whitespace-nowrap rounded-control px-3 py-1.5 text-sm font-medium transition ${
               active
                 ? 'bg-paper-sunk text-ink'
                 : 'text-ink-faint hover:bg-paper-sunk/60 hover:text-ink'

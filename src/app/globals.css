@@ -36,10 +36,11 @@
 
   --ease-out-quint: cubic-bezier(0.16, 1, 0.3, 1);
 
-  /* Corners are square. The reference's authority comes from sharp edges and
-     hairlines; only media keeps a radius, so a photograph is not a hard block. */
-  --radius-control: 0;
-  --radius-media: 0;
+  /* One radius for everything you click, type into or look at, so rounding is
+     a decision made once rather than per component. Structural hairline rules
+     and the drawn column grid stay square. */
+  --radius-control: 0.75rem;
+  --radius-media: 0.75rem;
 }
 
 html {
@@ -209,6 +210,7 @@ body {
   letter-spacing: 0.14em;
   text-transform: uppercase;
   padding: 0.9rem 1.6rem;
+  border-radius: var(--radius-control);
   transition:
     background-color 0.25s var(--ease-out-quint),
     color 0.25s var(--ease-out-quint),

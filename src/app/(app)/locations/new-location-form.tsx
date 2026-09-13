@@ -12,7 +12,7 @@ export default function NewLocationForm({ locations }: { locations: Location[] }
   const formRef = useRef<HTMLFormElement>(null);
 
   return (
-    <details className="rounded-xl border border-rule/70 bg-paper-sunk/60">
+    <details className="rounded-control border border-rule/70 bg-paper-sunk/60">
       <summary className="cursor-pointer list-none px-5 py-3.5 text-sm font-semibold marker:content-none">
         <span className="text-ink">+</span> Add a location
       </summary>

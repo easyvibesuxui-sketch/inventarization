@@ -126,7 +126,7 @@ export default function CapturePanel({ locations }: { locations: Location[] }) {
   return (
     <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_20rem]">
       <Card title="Camera">
-        <div className="relative aspect-video overflow-hidden rounded-lg border border-rule bg-paper">
+        <div className="relative aspect-video overflow-hidden rounded-control border border-rule bg-paper">
           {preview ? (
             // The captured frame, not a live feed — analysis runs on exactly this image.
             // eslint-disable-next-line @next/next/no-img-element
@@ -187,7 +187,7 @@ export default function CapturePanel({ locations }: { locations: Location[] }) {
           )}
 
           {(mode === 'idle' || mode === 'streaming') && (
-            <label className="inline-flex cursor-pointer items-center rounded-lg border border-rule-strong bg-paper-sunk px-4 py-2 text-sm font-medium transition hover:border-ink-faint">
+            <label className="inline-flex cursor-pointer items-center rounded-control border border-rule-strong bg-paper-sunk px-4 py-2 text-sm font-medium transition hover:border-ink-faint">
               Upload a photo
               <input
                 type="file"

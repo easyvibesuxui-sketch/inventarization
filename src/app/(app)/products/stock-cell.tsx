@@ -36,7 +36,7 @@ export default function StockCell({
           <form
             key={level.location_id}
             action={setStockLevel}
-            className="flex items-center gap-1 rounded-lg border border-rule bg-paper-sunk px-2 py-1"
+            className="flex items-center gap-1 rounded-control border border-rule bg-paper-sunk px-2 py-1"
           >
             <input type="hidden" name="product_id" value={productId} />
             <input type="hidden" name="location_id" value={level.location_id} />
@@ -68,7 +68,7 @@ export default function StockCell({
         <button
           type="button"
           onClick={() => setAdding(true)}
-          className="rounded-lg border border-dashed border-rule-strong px-2 py-1 text-xs text-ink-faint transition hover:border-ink-faint hover:text-ink"
+          className="rounded-control border border-dashed border-rule-strong px-2 py-1 text-xs text-ink-faint transition hover:border-ink-faint hover:text-ink"
         >
           + location
         </button>
@@ -78,7 +78,7 @@ export default function StockCell({
         <form
           action={setStockLevel}
           onSubmit={() => setAdding(false)}
-          className="flex items-center gap-1 rounded-lg border border-rule-strong bg-paper-sunk px-2 py-1"
+          className="flex items-center gap-1 rounded-control border border-rule-strong bg-paper-sunk px-2 py-1"
         >
           <input type="hidden" name="product_id" value={productId} />
           <select

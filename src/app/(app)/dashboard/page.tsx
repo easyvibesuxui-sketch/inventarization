@@ -155,7 +155,7 @@ export default async function DashboardPage() {
                 <li key={check.id}>
                   <Link
                     href={`/checks/${check.id}`}
-                    className="-mx-2 flex items-center gap-4 rounded-lg px-2 py-2.5 transition hover:bg-paper-sunk/60"
+                    className="-mx-2 flex items-center gap-4 rounded-control px-2 py-2.5 transition hover:bg-paper-sunk/60"
                   >
                     <div className="min-w-0 flex-1">
                       <p className="truncate text-sm font-medium">

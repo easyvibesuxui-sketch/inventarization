@@ -23,7 +23,7 @@ export default async function AppLayout({ children }: LayoutProps<'/'>) {
             <form action="/auth/signout" method="post">
               <button
                 type="submit"
-                className="rounded-lg border border-rule-strong px-3 py-1.5 text-sm text-ink-soft transition hover:border-ink-faint hover:text-ink"
+                className="rounded-control border border-rule-strong px-3 py-1.5 text-sm text-ink-soft transition hover:border-ink-faint hover:text-ink"
               >
                 Sign out
               </button>
