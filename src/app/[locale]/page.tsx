@@ -49,11 +49,6 @@ export default async function HomePage({ params }: PageProps<'/[locale]'>) {
       {/* Hero. The accent graphic is the one clip on the site that starts on
           its own; everything below it waits to be scrolled to. */}
       <section className="tone-paper relative isolate overflow-hidden">
-        <BandVideo
-          name="ledger"
-          autoplay
-          className="opacity-90 [mask-image:linear-gradient(to_right,transparent,transparent_52%,black_78%)]"
-        />
         <div aria-hidden className="grid-rules">
           <span />
           <span />
@@ -63,33 +58,44 @@ export default async function HomePage({ params }: PageProps<'/[locale]'>) {
           <span className="hidden md:block" />
         </div>
 
-        <div className="relative mx-auto max-w-5xl px-6 pb-36 pt-28 md:pb-44 md:pt-36">
-          <Rise>
-            <p className="eyebrow">{dict.home.tag}</p>
-          </Rise>
+        {/* Not `relative`: the graphic inside it anchors to the section, so on a
+            wide screen it can run full-bleed past this column's padding. */}
+        <div className="mx-auto max-w-5xl px-6 pb-28 pt-28 md:pb-44 md:pt-36">
+          <div className="relative z-10">
+            <Rise>
+              <p className="eyebrow">{dict.home.tag}</p>
+            </Rise>
 
-          <Rise delay={60}>
-            <h1 className="font-display mt-10 max-w-3xl text-[2.75rem] leading-[0.95] tracking-tight sm:text-6xl md:text-7xl">
-              {dict.home.title}
-            </h1>
-          </Rise>
+            <Rise delay={60}>
+              <h1 className="font-display mt-10 max-w-3xl text-[2.75rem] leading-[0.95] tracking-tight sm:text-6xl md:text-7xl">
+                {dict.home.title}
+              </h1>
+            </Rise>
 
-          <Rise delay={120}>
-            <p className="mt-10 max-w-xl text-lg font-light leading-relaxed text-ink-soft">
-              {dict.home.subtitle}
-            </p>
-          </Rise>
+            <Rise delay={120}>
+              <p className="mt-10 max-w-xl text-lg font-light leading-relaxed text-ink-soft">
+                {dict.home.subtitle}
+              </p>
+            </Rise>
 
-          <Rise delay={180}>
-            <div className="mt-12 flex flex-wrap items-center gap-5">
-              <Link href={`/${l}/contact`} className="btn btn-solid">
-                {dict.home.ctaPrimary}
-              </Link>
-              <Link href={`/${l}/services`} className="btn btn-outline">
-                {dict.home.ctaSecondary}
-              </Link>
-            </div>
-          </Rise>
+            <Rise delay={180}>
+              <div className="mt-12 flex flex-wrap items-center gap-5">
+                <Link href={`/${l}/contact`} className="btn btn-solid">
+                  {dict.home.ctaPrimary}
+                </Link>
+                <Link href={`/${l}/services`} className="btn btn-outline">
+                  {dict.home.ctaSecondary}
+                </Link>
+              </div>
+            </Rise>
+          </div>
+
+          {/* Backdrop on a wide screen, a figure under the copy on a narrow
+              one — see .hero-art. Pinned to the landscape cut either way: the
+              box it sits in is wide even when the screen is not. */}
+          <div className="hero-art">
+            <BandVideo name="ledger" autoplay orientation="landscape" />
+          </div>
         </div>
       </section>
 

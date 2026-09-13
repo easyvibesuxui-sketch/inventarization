@@ -18,12 +18,19 @@ import { useEffect, useRef, useState } from 'react';
 export default function BandVideo({
   name,
   autoplay = false,
+  orientation = 'auto',
   className = '',
 }: {
   /** Base file name in /public/video, without extension or orientation. */
   name: string;
   /** Start on load rather than waiting for a scroll. For the hero only. */
   autoplay?: boolean;
+  /**
+   * 'auto' matches the clip to the shape of the screen, which is what a
+   * full-bleed backdrop wants. 'landscape' pins it, for a clip held in a box
+   * of its own whose shape does not follow the screen's.
+   */
+  orientation?: 'auto' | 'landscape';
   className?: string;
 }) {
   const ref = useRef<HTMLVideoElement>(null);
@@ -31,15 +38,21 @@ export default function BandVideo({
   // Null until measured, and nothing is rendered before then: rendering a guess
   // first makes a phone fetch one set, throw it away on hydration and fetch the
   // other — two payloads on the connection least able to afford one.
-  const [portrait, setPortrait] = useState<boolean | null>(null);
+  const [measured, setMeasured] = useState<boolean | null>(null);
+
+  // A pinned clip needs no measuring, so it is known at render rather than set
+  // from an effect after one.
+  const portrait = orientation === 'landscape' ? false : measured;
 
   useEffect(() => {
+    if (orientation === 'landscape') return;
+
     const query = window.matchMedia('(max-aspect-ratio: 1 / 1)');
-    const sync = () => setPortrait(query.matches);
+    const sync = () => setMeasured(query.matches);
     sync();
     query.addEventListener('change', sync);
     return () => query.removeEventListener('change', sync);
-  }, []);
+  }, [orientation]);
 
   useEffect(() => {
     const video = ref.current;

@@ -287,6 +287,40 @@ body {
   object-fit: cover;
 }
 
+/* The hero's accent graphic.
+   Wide: a backdrop held clear of the text column by a mask, so the lines run
+   through the empty right of the page.
+   Narrow: there is no empty right to run through, and behind the copy the
+   lines cut straight across the type — so it stops being a backdrop and
+   becomes a figure of its own, under the words. */
+.hero-art {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+}
+
+.hero-art .band-video {
+  -webkit-mask-image: linear-gradient(to right, transparent, transparent 58%, black 82%);
+  mask-image: linear-gradient(to right, transparent, transparent 58%, black 82%);
+}
+
+@media (max-width: 48rem) {
+  .hero-art {
+    position: relative;
+    inset: auto;
+    z-index: 0;
+    margin-top: 3.5rem;
+    aspect-ratio: 16 / 10;
+    overflow: hidden;
+    border-radius: var(--radius-media);
+  }
+
+  .hero-art .band-video {
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
+}
+
 .band-scrim {
   position: absolute;
   inset: 0;
