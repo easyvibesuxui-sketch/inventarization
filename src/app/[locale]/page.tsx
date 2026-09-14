@@ -8,6 +8,7 @@ import { formatMoney, PLANS } from '@/lib/pricing';
 import Reveal from '@/components/marketing/reveal';
 import Rise from '@/components/marketing/rise';
 import BandVideo from '@/components/marketing/band-video';
+import Section from '@/components/marketing/section';
 import { Band } from '@/components/marketing/page-shell';
 
 export async function generateMetadata({ params }: PageProps<'/[locale]'>): Promise<Metadata> {
@@ -98,6 +99,36 @@ export default async function HomePage({ params }: PageProps<'/[locale]'>) {
           </div>
         </div>
       </section>
+
+      {/* Clients. No logos were supplied, so the names are set as type rather
+          than faked as marks — which is also how a credit list should read. */}
+      <Section tone="sunk">
+        <Reveal>
+          <p className="eyebrow">{dict.clients.label}</p>
+          <h2 className="font-display mt-12 max-w-2xl text-3xl leading-tight tracking-tight sm:text-4xl">
+            {dict.clients.title}
+          </h2>
+          <p className="mt-5 max-w-xl text-ink-soft">{dict.clients.lead}</p>
+        </Reveal>
+
+        <ul className="mt-14 grid border-t border-ink sm:grid-cols-2 md:grid-cols-3">
+          {dict.clients.items.map((name, index) => (
+            <Reveal
+              key={name}
+              as="li"
+              delay={index * 40}
+              className="flex min-w-0 items-center gap-4 border-b border-rule py-6 pr-6"
+            >
+              <span aria-hidden className="index shrink-0">
+                {String(index + 1).padStart(2, '0')}
+              </span>
+              <span className="font-display min-w-0 text-lg leading-tight tracking-wide">
+                {name}
+              </span>
+            </Reveal>
+          ))}
+        </ul>
+      </Section>
 
       {/* Services */}
       <Band label={dict.nav.services} tone="ink">

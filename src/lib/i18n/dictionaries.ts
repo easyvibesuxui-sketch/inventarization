@@ -82,6 +82,23 @@ const en = {
     finalCta: 'Request a service',
   },
 
+  clients: {
+    label: 'Clients',
+    title: 'Counted for',
+    lead: 'Manufacturers, warehouses, retail chains and distributors across Georgia.',
+    items: [
+      'Skutskuti',
+      'Autopia',
+      'moitane.ge',
+      'Georgian Food Company',
+      'Food House',
+      'Extra',
+      'Auto+',
+      'Orbi',
+      'National Music Centre',
+    ],
+  },
+
   about: {
     title: 'Experience that turns counting into a system',
     intro:
@@ -462,6 +479,23 @@ const ka: Dictionary = {
     finalBody:
       'გვითხარით თქვენი საწყობის ან მაღაზიის მასშტაბი და დაგიკავშირდებით 24 საათში.',
     finalCta: 'მომსახურების მოთხოვნა',
+  },
+
+  clients: {
+    label: 'კლიენტები',
+    title: 'ვისთვისაც დავთვალეთ',
+    lead: 'მწარმოებლები, საწყობები, საცალო ქსელები და დისტრიბუტორები საქართველოში.',
+    items: [
+      'სკუტსკუტი',
+      'აუტოპია',
+      'მოიტანე.გე',
+      'ქართული კვების კომპანია',
+      'კვების სახლი',
+      'ექსტრა',
+      'აუტო+',
+      'ორბი',
+      'ეროვნული მუსიკალური ცენტრი',
+    ],
   },
 
   about: {
