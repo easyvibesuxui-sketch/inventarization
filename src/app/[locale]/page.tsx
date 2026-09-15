@@ -91,11 +91,11 @@ export default async function HomePage({ params }: PageProps<'/[locale]'>) {
             </Rise>
           </div>
 
-          {/* The hero's backdrop at every size; .hero-art masks it clear of
-              the type. Orientation follows the screen, as a full-bleed
-              backdrop should. */}
+          {/* The hero's backdrop at every size; .hero-art holds it clear of
+              the type. Pinned to the landscape cut because that is the only
+              cut of this graphic that exists — see the note in .hero-art. */}
           <div className="hero-art">
-            <BandVideo name="ledger" autoplay />
+            <BandVideo name="boxes" autoplay orientation="landscape" />
           </div>
         </div>
       </section>

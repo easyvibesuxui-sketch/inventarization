@@ -287,25 +287,41 @@ body {
   object-fit: cover;
 }
 
-/* The hero's accent graphic. A backdrop at every size — it is the hero's
-   background, not a picture of one — but it is held off the type rather than
-   run through it. A wide screen has an empty right for the lines to cross; a
-   narrow screen does not, so there they are held below the copy instead. */
+/* The hero's accent graphic: geometric boxes in the accent, on a ground graded
+   to exactly the page's paper so it leaves no block of its own colour behind.
+
+   A backdrop at every size — it is the hero's background, not a picture of one.
+   A wide screen has an empty right for the boxes to occupy. A narrow screen
+   does not, so there the graphic drops to a full-width band across the bottom
+   of the hero, below the copy, with its top edge faded into the page. Only the
+   landscape cut of this graphic exists, which the band suits: it is wide and
+   short even on a phone, so nothing is cropped. */
 .hero-art {
   position: absolute;
-  inset: 0;
+  inset: 0 0 0 auto;
+  width: 54%;
   z-index: -1;
 }
 
+/* `contain`, not `cover`: the boxes sit in the middle of their frame, and
+   cropping to fill this panel would cut them in half. Letterboxing costs
+   nothing here because the clip's ground is the page's own paper. */
 .hero-art .band-video {
-  -webkit-mask-image: linear-gradient(to right, transparent, transparent 58%, black 82%);
-  mask-image: linear-gradient(to right, transparent, transparent 58%, black 82%);
+  object-fit: contain;
+  -webkit-mask-image: linear-gradient(to right, transparent, black 24%);
+  mask-image: linear-gradient(to right, transparent, black 24%);
 }
 
 @media (max-width: 48rem) {
+  .hero-art {
+    inset: auto 0 0 0;
+    width: auto;
+    aspect-ratio: 16 / 9;
+  }
+
   .hero-art .band-video {
-    -webkit-mask-image: linear-gradient(to bottom, transparent, transparent 56%, black 80%);
-    mask-image: linear-gradient(to bottom, transparent, transparent 56%, black 80%);
+    -webkit-mask-image: linear-gradient(to bottom, transparent, black 30%);
+    mask-image: linear-gradient(to bottom, transparent, black 30%);
   }
 }
 
