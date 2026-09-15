@@ -61,7 +61,7 @@ export default async function HomePage({ params }: PageProps<'/[locale]'>) {
 
         {/* Not `relative`: the graphic inside it anchors to the section, so on a
             wide screen it can run full-bleed past this column's padding. */}
-        <div className="mx-auto max-w-5xl px-6 pb-28 pt-28 md:pb-44 md:pt-36">
+        <div className="mx-auto max-w-5xl px-6 pb-44 pt-28 md:pb-44 md:pt-36">
           <div className="relative z-10">
             <Rise>
               <p className="eyebrow">{dict.home.tag}</p>
@@ -91,11 +91,11 @@ export default async function HomePage({ params }: PageProps<'/[locale]'>) {
             </Rise>
           </div>
 
-          {/* Backdrop on a wide screen, a figure under the copy on a narrow
-              one — see .hero-art. Pinned to the landscape cut either way: the
-              box it sits in is wide even when the screen is not. */}
+          {/* The hero's backdrop at every size; .hero-art masks it clear of
+              the type. Orientation follows the screen, as a full-bleed
+              backdrop should. */}
           <div className="hero-art">
-            <BandVideo name="ledger" autoplay orientation="landscape" />
+            <BandVideo name="ledger" autoplay />
           </div>
         </div>
       </section>
