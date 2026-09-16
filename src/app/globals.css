@@ -308,8 +308,8 @@ body {
    nothing here because the clip's ground is the page's own paper. */
 .hero-art .band-video {
   object-fit: contain;
-  -webkit-mask-image: linear-gradient(to right, transparent, black 24%);
-  mask-image: linear-gradient(to right, transparent, black 24%);
+  -webkit-mask-image: linear-gradient(to right, transparent, black 38%);
+  mask-image: linear-gradient(to right, transparent, black 38%);
 }
 
 @media (max-width: 48rem) {

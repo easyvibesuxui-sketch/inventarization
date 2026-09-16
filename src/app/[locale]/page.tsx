@@ -95,7 +95,7 @@ export default async function HomePage({ params }: PageProps<'/[locale]'>) {
               the type. Pinned to the landscape cut because that is the only
               cut of this graphic that exists — see the note in .hero-art. */}
           <div className="hero-art">
-            <BandVideo name="boxes" autoplay orientation="landscape" />
+            <BandVideo name="ribbon" autoplay orientation="landscape" />
           </div>
         </div>
       </section>
