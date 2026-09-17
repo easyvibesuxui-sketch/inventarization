@@ -61,7 +61,7 @@ export default async function HomePage({ params }: PageProps<'/[locale]'>) {
 
         {/* Not `relative`: the graphic inside it anchors to the section, so on a
             wide screen it can run full-bleed past this column's padding. */}
-        <div className="mx-auto max-w-5xl px-6 pb-44 pt-28 md:pb-44 md:pt-36">
+        <div className="hero-copy mx-auto max-w-5xl px-6 pb-44 pt-28 md:pb-44 md:pt-36">
           <div className="relative z-10">
             <Rise>
               <p className="eyebrow">{dict.home.tag}</p>

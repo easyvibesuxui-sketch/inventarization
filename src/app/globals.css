@@ -327,15 +327,29 @@ body {
     width: auto;
   }
 
+  /* The object is `contain`ed and flush to the bottom of the hero, so it is as
+     tall as the hero is wide, in 16:9. Reserve that much room below the copy
+     and it cannot land on the buttons at any phone size — which a percentage
+     position could not promise, because the box it measures against changes
+     height with the viewport and with how the headline wraps. */
+  .hero-copy {
+    padding-bottom: calc(56.25vw + 2.5rem);
+  }
+
   .hero-art .band-video {
     /* Still `contain`: cropping a wide clip to fill a tall phone blows the
        object up until it floods the hero and the outlined button turns orange
-       on orange. It keeps its own size and sits low in the full-height layer,
-       so it is a backdrop with a composition rather than a strip under the
-       copy or a wash over it. */
-    object-position: 50% 88%;
-    -webkit-mask-image: linear-gradient(to bottom, transparent, rgb(0 0 0 / 0.2) 30%, black 58%);
-    mask-image: linear-gradient(to bottom, transparent, rgb(0 0 0 / 0.2) 30%, black 58%);
+       on orange.
+
+       Anchored to the bottom of the layer rather than placed at a percentage
+       of it. A percentage is measured against a box whose height changes with
+       the viewport and with how the Georgian headline wraps, so the object
+       lands on the buttons on one phone and clear of them on another. Flush to
+       the bottom, its position is fixed by --hero-art-room below, which is the
+       space the hero reserves for it. */
+    object-position: 50% 100%;
+    -webkit-mask-image: linear-gradient(to bottom, transparent, rgb(0 0 0 / 0.2) 34%, black 62%);
+    mask-image: linear-gradient(to bottom, transparent, rgb(0 0 0 / 0.2) 34%, black 62%);
   }
 }
 
