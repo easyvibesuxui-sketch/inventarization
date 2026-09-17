@@ -229,6 +229,13 @@ body {
 .btn-outline {
   border: 1px solid var(--color-accent);
   color: var(--color-accent);
+  /* Its own ground, not the page's. On paper this is invisible; over the hero's
+     object it is what keeps an orange label off an orange backdrop. */
+  background-color: var(--color-paper);
+}
+
+.tone-ink .btn-outline {
+  background-color: transparent;
 }
 
 .btn-outline:hover {
@@ -313,15 +320,22 @@ body {
 }
 
 @media (max-width: 48rem) {
+  /* Behind the whole hero, not a band under it: a strip below the copy reads
+     as a picture someone dropped in, which is not what a backdrop is. */
   .hero-art {
-    inset: auto 0 0 0;
+    inset: 0;
     width: auto;
-    aspect-ratio: 16 / 9;
   }
 
   .hero-art .band-video {
-    -webkit-mask-image: linear-gradient(to bottom, transparent, black 30%);
-    mask-image: linear-gradient(to bottom, transparent, black 30%);
+    /* Still `contain`: cropping a wide clip to fill a tall phone blows the
+       object up until it floods the hero and the outlined button turns orange
+       on orange. It keeps its own size and sits low in the full-height layer,
+       so it is a backdrop with a composition rather than a strip under the
+       copy or a wash over it. */
+    object-position: 50% 88%;
+    -webkit-mask-image: linear-gradient(to bottom, transparent, rgb(0 0 0 / 0.2) 30%, black 58%);
+    mask-image: linear-gradient(to bottom, transparent, rgb(0 0 0 / 0.2) 30%, black 58%);
   }
 }
 
